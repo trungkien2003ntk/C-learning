@@ -21,7 +21,6 @@ int main()
         no_first_char = no_first_char % powten; 
         cout<<"j "<<sum<<endl;  
     }
-
     cout<<sum;
     system("pause");
     return(0);
