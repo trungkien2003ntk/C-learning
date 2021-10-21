@@ -1,0 +1,30 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+    int m1c[]={1,2,5,7,9};
+    for (int i=0;i<5;i++)
+        cout << "Phan tu thu " << i << " cua mang la: " << m1c[i] <<"." << endl;
+
+    int m2c[4][3]=
+    {
+        {1,2,7},
+        {4,-3,1},
+        {-5,3,9},
+        {8,6,2}
+    };
+    m2c[3][0] = 0;
+    m2c[3][1] = -2;
+    m2c[3][2] = 9;
+    //Dung for long de xuat bang
+    for (int i=0;i<4;i++)
+        {
+            for (int j=0;j<3;j++)
+                cout << setw(3) << m2c[i][j];
+            cout << endl;
+        }
+
+}
