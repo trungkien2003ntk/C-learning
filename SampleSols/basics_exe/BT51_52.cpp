@@ -18,4 +18,5 @@ int main()
         }
     cout << "Chu so lon nhat cua so " << n << " la: " << maxcs << endl;
     cout << "Chu so nho nhat cua so " << n << " la: " << mincs;
+    return 0;
 }

@@ -17,4 +17,5 @@ int main()
             }
     cout << "Tong cac uoc so cua " << n << " la: " << s << endl;
     cout << "Tich cac uoc so cua " << n << " la: " << p << endl;
+    return 0;
 }
