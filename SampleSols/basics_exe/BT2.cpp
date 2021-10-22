@@ -13,4 +13,5 @@ int main()
     for (int i=0; i<=n; i++)
         s += pow(i,2);
     cout << "Tong S =  " << s;
+    return 0;
 }
