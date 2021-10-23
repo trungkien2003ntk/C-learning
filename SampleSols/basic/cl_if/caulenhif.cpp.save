@@ -1,0 +1,17 @@
+#include <iostream>
+
+using namespace std;
+
+
+// Chuong trinh so sanh 3 so a b c nhap vao tu ban phim
+int main()
+{
+    int a,b,c;
+    cout << "Nhap a, b, c cach nhau mot khoang trong: ";
+    cin >> a >> b >> c;
+    cout << a << " ; " << b << " ; " << c;
+    if ((a>=b) && (a>=c))
+    else
+        if (b>=c) && (b>=a)
+    return 0;
+}
