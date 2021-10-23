@@ -2,8 +2,7 @@
 #include <string>
 using namespace std;
 
-string num1,num2;
-void XuliXau(){
+string Sum_Two_Nums(string num1, string num2){
     int len1=num1.length();
     int len2=num2.length();
     if (len1>len2){
@@ -15,12 +14,8 @@ void XuliXau(){
         for (int i=1; i<=len2-len1;i++){
             num1= "0" +num1;
         }
-    }
-}
-
-string Sum_Two_Nums(){
+    }    
     string Sum_Temp="";
-    int len1=num1.length();
     int mini_sum=0;
     int du=0;
     string st_mini_sum="";
@@ -44,9 +39,9 @@ string Sum_Two_Nums(){
 }
 
 int main(){
+    string num1,num2;
     getline(cin,num1);
     getline(cin,num2);
-    XuliXau(); //cho 2 string bang nhau chen so 0
-    cout<<Sum_Two_Nums();
+    cout<<Sum_Two_Nums(num1,num2);
     return 0;
 }
