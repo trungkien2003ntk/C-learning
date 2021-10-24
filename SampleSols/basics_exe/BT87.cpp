@@ -13,7 +13,5 @@ int main()
         s+=n;
     }
     while (s<=10000);
-    s -=n;
-    n--;
     cout << "s = " << s << "; n = " << n;
 }

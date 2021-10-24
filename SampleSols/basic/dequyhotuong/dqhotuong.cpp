@@ -7,7 +7,6 @@
 #include <iostream>
 
 using namespace std;
-
 // Khai bao chuong trinh con ho tuong
 int un(int x);
 int vn(int x);
