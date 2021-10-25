@@ -2,7 +2,7 @@
 #include <cmath>
 using namespace std;
 
-void sum(int n)
+void uoc(int n)
 {
     for(int x=1;x<=n/2;x++)
     {
@@ -17,6 +17,6 @@ void sum(int n)
 int main(){
     int n;
     cin>>n;
-    sum(n);
+    uoc(n);
     return 0;
 }
