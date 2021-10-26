@@ -38,7 +38,7 @@ void khoitao()
     for (int i=1;i<=n;i++)
         for (int j=1;j<=n;j++)
             if (arr[i][j]==0)
-                check[i][j] = true;
+                check[i][j] = false;
     
     // Kiem thu bang danh dau 
     // for (int i=1;i<=n;i++)
@@ -50,62 +50,56 @@ void khoitao()
 
 }
 
-void xuly(int x,int y)
-{
-    // Ben trai (x-1;y)
-    if (((x-1)>0) && (check[x-1][y]==0))
+// x,y: la dong va cot
+int xuly(int x, int y)
+{   
+    int pending_counter=1;
+    cout << "(x;y)= (" << x << "; " << y << ")"<< endl;
+    // Tinh toan dien tich dat    
+
+    if ((arr[x-1][y]==1) && (x-1>0) && (check[x-1][y]==false))
     {
-        //Danh dau 
-        check[x-1][y] = 1;
-        //Luu du lieu
-        luudl[cs]++;
-        if (luudl[cs]>maxkq)
-            maxkq = luudl[cs];
-        xuly(x-1,y);
-        check[x-1][y] = 0;
-        luudl[cs]--;
+        check[x-1][y] = true;
+        pending_counter += xuly(x-1,y);   
+        cout << "TH1: " << pending_counter << "<-> (x;y) = (" << x-1 << "; " << y << ")" << endl;
     }
 
-    // Ben phai (x+1;y)
-    if (((x+1)<=n) && (check[x+1][y]==0))
+    if ((arr[x+1][y]==1) && (x+1<=n) && (check[x+1][y]==false))
     {
-        //Danh dau 
-        check[x+1][y] = 1;
-        //Luu du lieu
-        luudl[cs]++;
-        if (luudl[cs]>maxkq)
-            maxkq = luudl[cs];
-        xuly(x+1,y);
-        check[x+1][y] = 0;
-        luudl[cs]--;
-    }
-    // Phia tren (x;y-1)
-    if (((y-1)>0) && (check[x][y-1]==0))
-    {
-        //Danh dau 
-        check[x][y-1] = 1;
-        //Luu du lieu
-        luudl[cs]++;
-        if (luudl[cs]>maxkq)
-            maxkq = luudl[cs];
-        xuly(x,y-1);
-        check[x][y-1] = 0;
-        luudl[cs]--;
-    }
-    // Phia duoi (x;y+1)
-    if (((y+1)<=n) && (check[x][y+1]==0))
-    {
-        //Danh dau 
-        check[x][y+1] = 1;
-        //Luu du lieu
-        luudl[cs]++;
-        if (luudl[cs]>maxkq)
-            maxkq = luudl[cs];
-        xuly(x,y+1);
-        check[x][y+1] = 0;
-        luudl[cs]--;
+        check[x+1][y] = true;
+        pending_counter += xuly(x+1,y);   
+        cout << "TH2: " << pending_counter << "<-> (x;y) = (" << x+1 << "; " << y << ")" << endl;
     }
 
+    if ((arr[x][y-1]==1) && (y-1>0) && (check[x][y-1]==false))
+    {
+        check[x][y-1] = true;
+        pending_counter += xuly(x,y-1);   
+        cout << "TH3: " << pending_counter << "<-> (x;y) = (" << x << "; " << y-1 << ")" << endl;
+    }
+
+    if ((arr[x][y+1]==1) && (y+1<=n) && (check[x][y+1]==false))
+    {
+        check[x][y+1] = true;
+        pending_counter += xuly(x,y+1);   
+        cout << "TH4: " << pending_counter << "<-> (x;y) = (" << x << "; " << y+1 << ")" << endl;
+    }
+
+    return pending_counter+1;
+
+    // Tra danh dau 
+    if ((arr[x-1][y]==1) && (x-1>0) && (check[x-1][y]==true))
+        check[x-1][y] = false;  
+
+    if ((arr[x+1][y]==1) && (x+1<=n) && (check[x+1][y]==true))
+        check[x+1][y] = false;
+    
+    if ((arr[x][y-1]==1) && (y-1>0) && (check[x][y-1]==true))
+        check[x][y-1] = false;
+ 
+    if ((arr[x][y+1]==1) && (y+1<=n) && (check[x][y+1]==true))
+        check[x][y+1] = false;
+         
 }
 
 
@@ -115,22 +109,12 @@ int main()
 {
     nhapdulieu();
     khoitao();
-    //kiemtradulieunhap();
+    // kiemtradulieunhap();
     for (int i=1;i<=n;i++)
         for (int j=1;j<=n;j++)
-            if (arr[i][j] == 1)
-            {
-                check[i][j] = 1;
-                cs++;
-                luudl[cs]++;
-                if (luudl[cs]>maxkq)
-                    maxkq = luudl[cs]; 
-                xuly(i,j);
-                check[i][j] = 0;
-                luudl[cs]--;
-                cs--;
-            }
+            if ((arr[i][j]==1) && (maxkq < xuly(i,j)))
+                maxkq = xuly(i,j);
     cout << "Max = " << maxkq;
-
+    
     return 0;
 }

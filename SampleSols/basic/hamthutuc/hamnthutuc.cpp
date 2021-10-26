@@ -1,0 +1,35 @@
+#include <iostream>
+
+using namespace std;
+
+// Khai bao bien toan cuc
+int n;
+
+// Thu tuc khaibao (Khong tra ve gia tri nao ca).
+void khaibao()
+{
+    cout << "Nhap n: ";
+    cin >> n;
+}
+
+// Ham Khai bao
+int hamkhaibao()
+{
+    cout << "Nhap n: ";
+    cin >> n;
+    return n;
+}
+
+// Thu tuc xuat
+void xuat()
+{
+    cout << "Gia tri n la: " << n;
+}
+
+int main()
+{
+    //khaibao();
+    //xuat();
+    cout << "Gia tri nhap vao la: " << hamkhaibao();
+    return 0;
+}
