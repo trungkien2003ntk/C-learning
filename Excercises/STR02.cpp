@@ -49,15 +49,15 @@ void Chuan_Hoa(string st[], int Size){
     string sti_temp; // sti_temp de luu cac st[i] vao de tien xu li hon
     for (int i=1;i<=Size;i++){
         sti_temp = st[i];
-
+        //xu li ki tu dau tien
         if ( !Hoa(sti_temp[0]) ){     
             sti_temp[0] = Upcase(sti_temp[0]);
         }
-        
-        for (int j=1; j<sti_temp.length();j++){
-            if ( sti_temp[j-1] == ' ' ){    // Neu nhu thang phia truoc sti_temp[i] la khoang trang
-                if ( !Hoa(sti_temp[j]) )
-                    sti_temp[j] = Upcase(sti_temp[j]);
+        //xu li cac ki tu con lai nen xet tu 1 tro di                                                  i-1 la khoang trang
+        for (int j=1; j<sti_temp.size();j++){                                                    //      |
+            if ( sti_temp[j-1] == ' ' ){    // Neu nhu thang phia truoc sti_temp[i] la khoang trang VD: "_a" thi viet hoa chu a len
+                if ( !Hoa(sti_temp[j]) )                                                         //       |
+                    sti_temp[j] = Upcase(sti_temp[j]);                                           //       i la ki tu a
             }
             else{
                 if ( Hoa(sti_temp[j]) ) 
