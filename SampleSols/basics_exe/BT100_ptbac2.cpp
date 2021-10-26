@@ -32,10 +32,16 @@ int main()
                 cout << "Phuong trinh vo nghiem.";
         }
     else
+        if (b!=0)
         {
             x1= -c/b;
             cout << "Phuong trinh la phuong trinh bac nhat. "<< endl;
             cout << "Phuong trinh co nghiem x= " << setw(5) << x1; 
         }
+        else
+            if (c!=0)
+                cout << "Phuong trinh vo nghiem." << endl;
+            else
+                cout << "Phuong trinh co vo so nghiem." << endl;
     return 0;
 }
