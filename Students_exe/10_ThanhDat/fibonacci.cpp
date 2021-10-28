@@ -4,8 +4,8 @@ using namespace std;
 
 void Fobonacii(int n)
 {   
-    int arr[1000];
-    int count=2;
+    long long arr[1000];
+    long long count=2;
     arr[0]=0;
     arr[1]=1;
     long long num;
