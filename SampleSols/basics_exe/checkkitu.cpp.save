@@ -1,0 +1,64 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int arr[26];
+string s;
+
+void nhap()
+{
+    cout << "Nhap chuoi: ";
+    getline(cin,s);
+}
+
+int reasc(char x)
+{
+    if (int(x)<95)
+        return (int(x)+32-96);
+    else
+        return (int(x)-96);
+}
+
+void xuly()
+{
+    int t;
+    for (int i=0;i<s.length();i++)
+        {
+            if (int(s[i]) < 95)
+                t = int(s[i]) +32-96;
+            else
+                t = int(s[i])-96;
+            arr[re]++;
+            t=0;
+        }
+}
+
+void xuatkq()
+{
+    int test,ck;
+    char kitu;
+    cout << "Nhap so lan kiem tra: ";
+    cin >> test;
+    while (test>0)
+    {
+        cout << "Input kitu: ";
+        cin >> kitu;
+        if (int(kitu)<95)
+            ck = int(kitu)+32-96;
+        else
+            ck = int(kitu)-96;
+        cout << "Ki tu can tim lap " << arr[ck] << " lan trong chuoi nhap ban dau. " << endl;
+        test--;
+    }
+}
+
+
+
+int main()
+{
+    nhap();
+    xuly();
+    xuatkq();
+    return 0;
+}
