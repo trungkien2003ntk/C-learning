@@ -1,6 +1,15 @@
 Cho file nhập có tên bai2.inp. Trong file này chứa 1 chuỗi gồm chữ cái in thường và các số tự nhiên xen kẽ nhau. 
 -----------------bai2.inp--------------
 adlfa223sdfa43ssfa1dsal34sal97aslkf12safde4sdf53sdfa71sfce
---------------------------------------
+---------------------------------------
 a) Đọc file này vào chương trình và xuất ra màn hình tất cả các số tự nhiên có trong chuỗi này. 
-b) 
+b) Tính tổng các số tự nhiên này và lưu vào biến total.
+c) Lưu các số nguyên tố trong file này vào mảng arr[]. Xuất mảng arr[] này ra màn hình. 
+d) Sắp xếp lại mảng arr[] theo thứ tự tăng dần. Gọi mảng này là arr[](sorted).
+e) Tính tổng 3 giá trị lớn nhất của mảng arr[](sorted)
+f) Xuất file bai2.oup với nội dung như sau: 
+----------------bai2.oup--------------
+total
+arr[](sorted)
+--------------------------------------
+
