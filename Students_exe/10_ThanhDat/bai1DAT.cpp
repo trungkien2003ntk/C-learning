@@ -32,9 +32,9 @@ void nhap()
         cout << endl;
     }
      int sum=0,sumam=0,sumduong=0,cacsont[1000],k=0,countnt=0;
-     for(int i=0;i<n;i++)
+     for(int i=1;i<=n;i++)
      {
-         for(int x=0;x<n;x++)
+         for(int x=1;x<=n;x++)
          {
              sum=sum+arr[i][x];
              if(arr[i][x]<0)
