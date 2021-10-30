@@ -23,7 +23,7 @@ int main()
     cout << "Ban co muon xuat day fibonacci den so hang thu n khong? (y/n): ";
     cin >> option;
     if (option == 'y')
-    {
+        {
             
             for (int i=1;i<=n;i++)
                 cout << fibo(i) << "; ";
