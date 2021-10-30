@@ -28,9 +28,6 @@ void nhap()
 }
 
 
-
-using namespace std;
-
 int main()
 {
     nhap();
