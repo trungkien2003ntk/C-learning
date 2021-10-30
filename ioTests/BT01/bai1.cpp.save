@@ -1,0 +1,37 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+// ifstream - input file stream ; ofstream - output file stream
+
+using a
+
+// Bien toan cuc
+int n,arr[1000][1000];
+
+void nhap()
+{
+    std::ifstream f;
+    f.open("bai1.inp");
+    f >> n;
+    for (int i=1;i<=n;i++)
+        for (int j=1;j<=n;j++)
+            f >> arr[i][j];
+
+    // Xuat kiem tra
+    for (int i=1;i<=n;i++)
+    {
+        for (int j=1;j<=n;j++)
+            cout << setw(4) << arr[i][j];
+        cout << endl;
+    }
+}
+
+
+
+using namespace std;
+
+int main()
+{
+    nhap();
+    return 0;
+}

@@ -1,0 +1,6 @@
+Cho file nhập có tên bai2.inp. Trong file này chứa 1 chuỗi gồm chữ cái in thường và các số tự nhiên xen kẽ nhau. 
+-----------------bai2.inp--------------
+adlfa223sdfa43ssfa1dsal34sal97aslkf12safde4sdf53sdfa71sfce
+--------------------------------------
+a) Đọc file này vào chương trình và xuất ra màn hình tất cả các số tự nhiên có trong chuỗi này. 
+b) 
