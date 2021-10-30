@@ -16,7 +16,7 @@ int main()
     //cout << "Dia chi mac dinh: " << cr_path;
 
     ifstream f;
-    f.open("bai2.inp",ios::in);
+    f.open("bai2.inp");
     int n;
     int arr[100][100];
     f >> n;
