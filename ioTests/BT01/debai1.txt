@@ -1,0 +1,18 @@
+Cho 1 file nhập vào có tên là bai1.inp dạng sau: Dòng đầu chứa số n. 
+n dòng tiếp theo mỗi dòng chứa n số đôi một cách nhau bởi khoảng trắng.
+Yêu cầu: 
+1) Nhập toàn bộ các giá trị đã cho trong file bai1.inp vào một mảng 2 chiều n*n. 
+Tính tổng toàn bộ các giá trị của mảng. 
+2) Tính tổng các giá trị dương. Xuất ra màn hình. 
+Tính tổng các giá trị âm. Xuất ra màn hình. 
+3) Kiểm tra xem trong bảng n*n này có bao nhiêu giá trị là số nguyên tố. Xuất ra màn hình tất cả các số nguyên tố đó. 
+4) Thay vì xuất câu 1,2,3 ra màn hình. Xuất câu 1,2,3 ra một file bai1.oup theo cấu trúc sau: 
+----------bai1.oup---------
+a
+b c 
+arr[x]
+---------------------------
+Trong đó: 
+	a: tổng toàn bộ các giá trị của mảng
+	b,c: Tổng dương và tổng âm của mảng cách nhau bởi một khoảng cách. 
+	arr[x]: Mảng chứa toàn bộ các số nguyên tố trong bảng n*n đã cho. 
