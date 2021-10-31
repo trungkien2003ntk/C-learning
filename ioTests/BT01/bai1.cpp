@@ -35,7 +35,7 @@ void nhap()
 // Chuong trinh tinh tong
 int tota(char x)
 {
-    // Tra ve neu x==a -> all, tra ve x==i -> duong, tra ve x==n -> am
+    // Tra ve neu x=='a' -> tong tat ca (all), tra ve x=='i' -> duong (infinite), tra ve x=='n' -> am (negative)
     int tta,tti,ttn;
     tta=tti=ttn=0;
     for (int i=1;i<=n;i++)

@@ -8,12 +8,12 @@ using namespace std;
 
 // Bien toan cuc
 int n,cs=0,savent[1000],arr[1000][1000];
-fstream f;
 
 
 void nhap()
 {
     // Mo file
+    ifstream f;
     f.open("bai1.inp");
     f >> n;
     for (int i=1;i<=n;i++)
@@ -35,7 +35,7 @@ void nhap()
 // Chuong trinh tinh tong
 int tota(char x)
 {
-    // Tra ve neu x==a -> all, tra ve x==i -> duong, tra ve x==n -> am
+    // Tra ve neu x=='a' -> tong tat ca (all), tra ve x=='i' -> duong (infinite), tra ve x=='n' -> am (negative)
     int tta,tti,ttn;
     tta=tti=ttn=0;
     for (int i=1;i<=n;i++)
@@ -69,9 +69,11 @@ bool ktnt(int x)
 
 bool checkin(int x)
 {
+    // Gia su chua trung voi so nao trong mang
     bool kq = false;
     for (int i=1;i<=cs;i++)
         if (savent[i]==x)
+            // Da trung voi mot so nao do trong mang
             kq = true;
     return kq;
 }
@@ -104,9 +106,10 @@ void xuatfile()
     f.open("bai1.oup");
     f << tota('a') << endl;
     f << tota('i') << " " << tota('n') << endl;
-    for int(i =1;i<=cs;i++)
-        f << setw(5) << savent[i] << "; ";
-    
+    for (int i =1;i<=cs;i++)
+        f << setw(5) << savent[i] << ";";
+    f.close();
+
 }
 
 int main()
