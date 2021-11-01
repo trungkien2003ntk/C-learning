@@ -1,0 +1,65 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+// Khai bao bien toan cuc
+string st;
+int arrint[1000], cs=0;
+
+
+void nhap()
+{
+    ifstream f;
+    f.open("bai2.inp");
+    getline(f,st);
+    f.close();
+    // Xuat kiem tra
+    cout << "Mang da nhap: "<< endl;
+    cout << st << endl;
+}
+
+void cutnum()
+{
+    // Cat num dang array ra khoi chuoi
+    int t;
+    string stempt,num;
+    stempt = st;
+    while (stempt.length()>0)
+    {
+        while ((!isdigit(stempt[0])) && (stempt.length()>0))
+            stempt.erase(0,1);
+        t=0;
+        while ((isdigit(stempt[t])) && (t<stempt.length()))
+            t++;
+
+        // Cat so tu chuoi va check lai
+        num = stempt.substr(0,t);
+        // cout << "num = " << num << endl;
+
+        // Reset vi tri dau bang cach xoa chuoi, reset num de kiem tra cuoi
+        stempt.erase(0,t);
+        num = "";
+        // cout << "stempt = " << stempt << endl;
+
+        // Chen chuoi vao mang integer
+        if (num != "")
+            {
+                cs++;
+                arrint[cs] = stoi(num);
+            }
+    }
+    // Xuat check num output array
+    for (int k=0;k<cs;kl++)
+        cout << arrint[i] << "; ";
+}
+
+
+
+int main()
+{
+    nhap();
+    cutnum();
+    xuat();
+}
