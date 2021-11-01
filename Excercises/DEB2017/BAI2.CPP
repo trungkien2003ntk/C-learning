@@ -6,7 +6,7 @@ using namespace std;
 //tien khai bao
 void nhap();
 int max_arr(int arr[],int Size);
-void Zero_around();
+void Zero_surrounded();
 bool dkloang(int i, int j);
 bool check(char kt, int i, int j);
 void xuly();
@@ -41,22 +41,16 @@ void nhap(){
     f.close();
 }
 bool check_stop(int i, int j){
-    if (arr_bool[i][j]==arr_bool[i+1][j]==arr_bool[i-1][j]==arr_bool[i][j+1]==arr_bool[i][j-1]==1)
-        return true;
+    if (arr_bool[i][j]==arr_bool[i+1][j]==arr_bool[i-1][j]==arr_bool[i][j+1]==arr_bool[i][j-1]==1)  
+        return true;            //neu tai vi tri do va xung quanh no deu da xet qua roi thi dung loang lai
     else    
         return false;
 }
-void Zero_around(){
+void Zero_surrounded(){
     for (int i=0;i<=n+1;i++)
         arr[i][0]=0;
     for (int j=0;j<=n+1;j++)
         arr[0][j]=0;
-    // for (int i=0;i<=n+1;i++){
-    //     for (int j=0;j<=n+1;j++){
-    //         cout<<arr[i][j];
-    //     }
-    //     cout<<endl;
-    // }
 }
 bool dkloang(int i, int j){
     if (arr[i][j]==1 && arr_bool[i][j]==false)
@@ -128,8 +122,6 @@ void xuly(){
                 counts[cs_count]=count_temp;
             }
         }
-    // cout<<counts[1]<<' '<<counts[2]<<endl;
-    // cout<<cs_count<<" cscount"<<endl;
     max_lo=max_arr(counts,cs_count);
 }
 
@@ -142,7 +134,7 @@ void xuat(){
 
 int main(){
     nhap();
-    Zero_around(); //pack the array by 0
+    Zero_surrounded(); //pack the array by 0
     xuly();
     xuat();
     return 0;
