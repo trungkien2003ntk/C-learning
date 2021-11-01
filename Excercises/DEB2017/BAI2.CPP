@@ -67,19 +67,19 @@ bool check(char kt, int i, int j){
     bool kq=false;
     switch (kt)
     {
-    case 'r':
+    case 'r':   //right
         if (dkloang(i,j+1))
             kq=true;
         break;
-    case 'l':
+    case 'l':   //left
         if (dkloang(i,j-1))
             kq=true;
         break;
-    case 'u':
+    case 'u':   //up
         if (dkloang(i-1,j))
             kq=true;
         break;
-    case 'd':
+    case 'd':   //down
         if (dkloang(i+1,j))
             kq=true;
         break;
