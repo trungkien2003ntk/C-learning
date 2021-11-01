@@ -47,10 +47,14 @@ bool check_stop(int i, int j){
         return false;
 }
 void Zero_surrounded(){
-    for (int i=0;i<=n+1;i++)
+    for (int i=0;i<=n+1;i++){
+        arr_bool[i][0]=1;
         arr[i][0]=0;
-    for (int j=0;j<=n+1;j++)
+    }
+    for (int j=0;j<=n+1;j++){
+        arr_bool[0][j]=1;
         arr[0][j]=0;
+    }
 }
 bool dkloang(int i, int j){
     if (arr[i][j]==1 && arr_bool[i][j]==false)
