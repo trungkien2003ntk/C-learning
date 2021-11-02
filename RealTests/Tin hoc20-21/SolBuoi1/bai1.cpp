@@ -21,10 +21,18 @@ void khoitao()
     cs[8] = 7;
 }
 
-void nhapdl()
+void nhapdlmh()
+{
+    cout << "Nhap gia tri dau: ";
+    cin >> first;
+    cout << "Nhap gia tri cuoi: ";
+    cin >> last; 
+}
+
+void nhapdlfile()
 {
     ifstream f;
-    f.open("bai1_6.inp");
+    f.open("bai1_4.inp");
     f >> first >> last;
     f.close();
     // cout << first << endl;
@@ -40,13 +48,13 @@ int tinhquediem(int x)
         {
             chiso = allnum.find(stx[i]);
             // cout << "Chi so cua " << stx[i] << " la: " << chiso << ". Gia tri la: "<< cs[chiso] << endl;
-            kq += cs[chiso];   
+            kq += cs[chiso];
         }
     return kq;
 }
 
 void xuly()
-{   
+{
     sum = 0;
     for (int i=first;i<=last;i++)
         sum += tinhquediem(i);
@@ -59,11 +67,20 @@ void xuat()
     f << sum;
     f.close();
 }
+
+void xuatmh()
+{
+    cout << "Sum = " << sum;
+}
+
 int main()
 {
-    nhapdl();
+    // nhapdlfile();
+    nhapdlmh();
     khoitao();
     // cout << "Ket qua tinh so: " << tinhquediem(23);
     xuly();
     xuat();
+    xuatmh();
+    return 0;
 }

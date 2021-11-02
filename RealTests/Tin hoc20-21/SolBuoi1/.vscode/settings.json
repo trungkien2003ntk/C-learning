@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.pas": "pascal",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "iosfwd": "cpp"
     }
 }
