@@ -62,6 +62,7 @@ void tangD(){
                 tangM();
             }
     D=to_string(D_num);
+    //them so 0 neu chua du 2 ki tu
     if (D.size()<2)
         D="0"+D;
 }
@@ -83,6 +84,7 @@ void tangY(){
     int Y_num=stoi(Y);
     Y_num++;
     Y=to_string(Y_num);
+    //them so 0 neu chua du 4 ki tu
     switch (Y.size()){
         case 1:
             Y="000"+Y;
@@ -126,7 +128,6 @@ void Xuli(){
     D=chuoi.substr(0,2);
     M=chuoi.substr(3,2);
     Y=chuoi.substr(6,4);
-
     while (!dx(D,M,Y)){
         tangD();
     }
