@@ -2,8 +2,7 @@
 #include <string>
 
 using namespace std;
-
-{   //functions
+//functions
 string dao_chuoi(string st);
 bool xet_dx(string st);
 void nhap();
@@ -11,13 +10,11 @@ void Cat_DMY();
 void tangD();
 void tangM();
 void tangY();
-bool Nhuan(string Y)
-bool dx(string D, string M, string Y)
-}
-{   //bien toan cuc
+bool Nhuan(string Y);
+bool dx(string D, string M, string Y);
+//bien toan cuc
 string chuoi;
 string D,M,Y;
-}
 
 void nhap(){
     getline(cin,chuoi);
@@ -83,7 +80,6 @@ void tangM(){
 }
 
 void tangY(){
-
     int Y_num=stoi(Y);
     Y_num++;
     Y=to_string(Y_num);
@@ -99,12 +95,9 @@ void tangY(){
             break;
         default:
             break;
-
     }
-
 }
-{   //xet doi xung
-
+//xet doi xung
 string dao_chuoi(string st){
     string st_dao="";
     for (int i=st.size()-1;i>=0;i--)
@@ -127,7 +120,7 @@ bool dx(string D, string M, string Y){
     else
         return false;
 }
-}
+
 void Xuli(){
     //Cat Day Month Year
     D=chuoi.substr(0,2);
