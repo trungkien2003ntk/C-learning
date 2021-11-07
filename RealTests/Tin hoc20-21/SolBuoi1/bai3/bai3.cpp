@@ -6,11 +6,6 @@ using namespace std;
 
 string st,opst;
 
-void nhap()
-{
-    cin >> st;   
-}
-
 string iodate(string s,char io)
 {
     string ngayst,thangst,namst,opstr;
@@ -129,8 +124,9 @@ bool check(string stck)
     return kq;
 }
 
-void xuat()
+void solve()
 {
+    cin >> st;  
     string s;
     s = iodate(st,'i');
     do s = nextdate(takedate(s,'d'),takedate(s,'m'),takedate(s,'y'));
@@ -140,8 +136,7 @@ void xuat()
 
 int main()
 {
-    nhap();
-    xuat();    
+    solve();  
     return 0;
 }
 
