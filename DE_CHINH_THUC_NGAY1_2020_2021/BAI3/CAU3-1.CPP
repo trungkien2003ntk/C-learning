@@ -1,52 +1,55 @@
 #include <iostream> 
 #include <string>
 using namespace std; 
-//function
+
+//functions
 void nhap();
-void tachDMY();
+void TachDMY();
 void Daonam();
-bool Nhuan(string Year);
+bool Nhuan(int Year);
 int Maxday(int Month);
-bool datangY();
-void xuat();
-void TangY();
 bool dkchuan();
-void xuli();
+void TangY();
+bool datangnam();
+void xuat_ra();
 //bien toan cuc
-string st,D,M,Y,Dnew="",Mnew="";
-int D_n; 
-int M_n;
-int Dnew_n;
-int Mnew_n;
-int countupY=0; //Đếm nếu năm tăng bao nhiêu lần thì countY bằng bấy nhiêu
+string st,D,M,Y,Dnew,Mnew;
+int Dn; 
+int Mn;
+int Yn;
+int Dnewn;
+int Mnewn;
+int solantangnam=0;
+
 
 void nhap(){
     getline(cin,st);
 }
 
-void tachDMY(){
+void TachDMY(){
     D=st.substr(0,2);
-    D_n=stoi(D);
-
+    Dn=stoi(D);
     M=st.substr(3,2);
-    M_n=stoi(M);
-
+    Mn=stoi(M);
     Y=st.substr(6,4);
+    Yn=stoi(Y);
 }
 
 void Daonam(){
     Dnew=""; Mnew="";
     Dnew+=Y[3]; Dnew+=Y[2];
     Mnew+=Y[1]; Mnew+=Y[0];
+    Dnewn=stoi(Dnew);
+    Mnewn=stoi(Mnew);
     if (dkchuan())
-        if (datangY())
-            xuat();
+        if (datangnam())
+            xuat_ra();
         else
-            if (Mnew_n>M_n)
-                xuat();
-            else 
-                if (Mnew_n == M_n && Dnew_n>D_n)
-                    xuat();
+            if (Mnewn>Mn)
+                xuat_ra();
+            else
+                if(Mnewn==Mn && Dnewn > Dn)
+                    xuat_ra();
                 else{
                     TangY();
                     Daonam();
@@ -54,78 +57,67 @@ void Daonam(){
     else{
         TangY();
         Daonam();
-    }
+    }          
 }
 
-bool Nhuan(string Year){
-    int Year_n=stoi(Year);
-    if (Year_n%4==0)
+void xuat_ra(){
+    cout<<Dnew<<"."<<Mnew<<"."<<Y;
+}
+
+bool Nhuan(int Year){
+    if (Year%4==0)
         return true;
-    else 
+    else
         return false;
 }
 
 int Maxday(int Month){
-    if (Month==1 || Month==3 || Month==5 ||Month==7 ||Month==8 ||Month==10 ||Month==12){
+    if (Month ==1 || Month==3 || Month ==5 || Month ==7 || Month ==8 || Month ==10 ||Month ==12){
         return 31;
     }
     else
-        if (Month==2){
-            if (Nhuan(Y)){
+        if (Month==2)
+            if (Nhuan(Yn))
                 return 29;
-            }
             else
                 return 28;
-        }
         else
             return 30;
 }
 
-bool datangY(){
-    if (countupY==0)
+bool dkchuan(){
+    if (Dnewn<=Maxday(Mnewn) && 1<=Dnewn && Mnewn>=1 && Mnewn<=12){
+        return true;
+    }
+    else
+        return false;
+}
+
+bool datangnam(){
+    if (solantangnam==0)
         return false;
     else
         return true;
 }
 
-void xuat(){
-    cout<<Dnew<<"."<<Mnew<<"."<<Y;
-}
-
 void TangY(){
-    int Y_n=stoi(Y);
-    Y_n++;
-    Y=to_string(Y_n);
-    if (Y.size()==3){
-        Y="0"+Y;
-    }
-    else 
-        if (Y.size()==2){
+    solantangnam++;
+    Yn++;
+    Y=to_string(Yn);
+    //xu li so 0
+    if (Y.length()==1)
+        Y="000"+Y;
+    else
+        if (Y.length()==2)
             Y="00"+Y;
-        }
-        else 
-            if (Y.size()==1)
-                Y="000"+Y;
-    countupY++;
-}
-
-bool dkchuan(){
-    Dnew_n=stoi(Dnew);
-    Mnew_n=stoi(Mnew);
-    if (1<=Dnew_n && Dnew_n<=Maxday(Mnew_n) && 1<=Mnew_n && Mnew_n<=12){
-        return true;
-    }
-    else    
-        return false;
-}
-
-void xuli(){
-    nhap();
-    tachDMY();
-    Daonam();
+        else
+            if (Y.length()==3)
+                Y="0"+Y;
 }
 
 int main(){
-    xuli();
+    nhap();
+    TachDMY();
+    Daonam();
     return 0; 
 }
