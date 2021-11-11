@@ -13,10 +13,14 @@ void nhap()
     cin >> n >> d;
     for (int i = 1;i<=n;i++)
         cin >> arr[i];
+
+    cout << n << "; " << d << endl;
+    for (int i = 1;i<=n;i++)
+        cout << arr[i] << " ";
 }
 
 int check(int t,int k)
-{   
+{
     int kq,cs;
     kq =-1;
     cs = k;
@@ -46,7 +50,6 @@ void xuly()
                 counter++;
                 steps = check(arr[steps]+d,pos);
                 pos = steps+1;
-                cout << steps << " - " << pos << endl;
             }
         if (counter>gtln)
             gtln = counter;
