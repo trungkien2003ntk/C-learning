@@ -120,7 +120,10 @@ bool check(string stck)
     bool kq = true;
     for (int i=0;i<stck.length()/2;i++)
         if (stck[i] != stck[stck.length()-i-1])
-            kq = false;
+            {
+                kq = false;
+                break;
+            }
     return kq;
 }
 
