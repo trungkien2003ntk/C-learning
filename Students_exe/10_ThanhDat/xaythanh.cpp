@@ -16,14 +16,14 @@ void xuly()
     int c=0;
     int valuex=0;
     int start=0;
-    for(int x=valuex;x<=st.length();x++)
+    while (start!=st.length())
     {
+        for(int x=0;x<=st.length();x++)
+        {
         st_ans[c]=st.substr(start,x);
         c++;
         if(x==st.length())
-        {
             start++;
-            x=valuex++;
         }
     }
     st_dif[0]=st_ans[0];
