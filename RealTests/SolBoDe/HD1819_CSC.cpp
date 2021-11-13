@@ -14,9 +14,9 @@ void nhap()
     for (int i = 1;i<=n;i++)
         cin >> arr[i];
 
-    cout << n << "; " << d << endl;
-    for (int i = 1;i<=n;i++)
-        cout << arr[i] << " ";
+    // cout << n << "; " << d << endl;
+    // for (int i = 1;i<=n;i++)
+    //     cout << arr[i] << " ";
 }
 
 int check(int t,int k)
@@ -50,18 +50,23 @@ void xuly()
                 counter++;
                 steps = check(arr[steps]+d,pos);
                 pos = steps+1;
+                // cout << counter << endl;
             }
         if (counter>gtln)
             gtln = counter;
-        cout << gtln << endl;
         counter =0;
         run++;
     }
 }
 
+void xuat()
+{
+    cout << gtln;
+}
 
 int main()
 {
     nhap();
     xuly();
+    xuat();
 }
