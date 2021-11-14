@@ -14,9 +14,6 @@ void nhap()
     for (int i = 1;i<=n;i++)
         cin >> arr[i];
 
-    // cout << n << "; " << d << endl;
-    // for (int i = 1;i<=n;i++)
-    //     cout << arr[i] << " ";
 }
 
 int check(int t,int k)

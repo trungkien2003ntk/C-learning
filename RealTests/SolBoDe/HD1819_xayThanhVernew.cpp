@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-string st,subst,arr[100000],save[100000];
+string st,subst,arr[1000000],save[1000000];
 int cs=0;
 
 void xuly();
