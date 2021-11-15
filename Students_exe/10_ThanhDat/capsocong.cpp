@@ -17,16 +17,16 @@ void input()
         cin>>arr[x];
 }
 
-bool kotrung(int n)
+bool kotrung(int n)//check xem số đó có trùng với số nào trong dãy arr check k ( dự liệu vào là arr[x] arr[i] ở dưới void xuly
 {
-    int counttrung=0;
-    for(int x=0;x<carr_check;x++)
-        if(n==arr_check[x])
-            counttrung++;
-    if(counttrung==0)
-        return 1;
+    int counttrung=0; // reset trùng
+    for(int x=0;x<carr_check;x++) //chay tu đầu đến cuối dãy arr check
+        if(n==arr_check[x]) // nếu số nào đó trong dãy bằng với số n
+            counttrung++; // cộng 1 vào trùng;
+    if(counttrung==0) // nếu trùng=0 nghĩa là ko có số nào trung dãy = n hết
+        return 1; // trả true
     else
-        return 0;
+        return 0; // tra false
 }
 
 void xuly()
@@ -42,7 +42,7 @@ void xuly()
             carr_check++; // cộng cound của arr lên để lưu cho arr tiếp theo
             for(int i=0;i<n;i++) // chay tu so dau den so cuoi
             {
-                if(arr[i]==c+d && kotrung(arr[i])) // neu co so nao = số đó + d  và kiem tra xem số đó đã có trong arr check hay chưa 
+                if(arr[i]==c+d && kotrung(arr[i])) // neu co so nao = số đó + d  và kiem tra xem số đó đã có trong arr check hay chưa nếu chưa thì:
                 {
                     arr_check[carr_check]=arr[i]; // đưa số đó vào arr check
                     carr_check++; // côngj count arr
