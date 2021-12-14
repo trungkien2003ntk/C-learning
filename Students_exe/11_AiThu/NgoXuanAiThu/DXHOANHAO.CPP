@@ -101,7 +101,7 @@ int main()
 	nhapfile();
 	// xuly();
 	xuat_file();
-	cout <<reverse(st);
+	// cout <<reverse(st);
 	return 0;
 }
 

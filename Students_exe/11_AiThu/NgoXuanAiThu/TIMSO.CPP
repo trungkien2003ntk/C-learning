@@ -3,86 +3,45 @@
 using namespace std;
 
 string str;
+string cacso[]={"","ZERO","TWO","THREE","FOUR","FIVE"};
 
 void nhap()
 {
 	getline(cin,str);
 }
 
-string tim_so(string st)
+bool khongconkitu(string st)
 {
-	string sotimduoc="";
-	bool check=0;
-	for (int i=0;i<st.size();i++){
-		if (st[i]=='Z'){
-			sotimduoc+=st[i];
-			if (st[i]=='E'){
-				sotimduoc+=st[i];
-				if (st[i]=='R'){
-					sotimduoc+=st[i];
-					if (st[i]=='O')
-						sotimduoc+=st[i];
-				}
-			}
+	if (st.size()==0)
+		return true;
+	return false;
+}
+
+void tim_so(string str_sub,string st)
+{
+	string str_temp=str_sub;
+	while (st.size()>0)
+		if (str_temp[0]==st[0])
+		{
+			st.erase(0,1);
+			str_temp.erase(0,1);
+			if (khongconkitu(str_temp))
+				break;
+//			else if (!khongconkitu(st))
+//				break;
 		}
-		if (st[i]=='O'){
-			sotimduoc+=st[i];
-			if (st[i]=='N'){
-				sotimduoc+=st[i];
-				if (st[i]=='E'){
-					sotimduoc+=st[i];
-			}
-		}
-	}
-		if (st[i]=='T'){
-			sotimduoc+=st[i];
-			if (st[i]=='W'){
-				sotimduoc+=st[i];
-				if (st[i]=='O')
-					sotimduoc+=st[i];
-			}
-			else if (st[i]=='H'){
-				sotimduoc+=st[i];
-				if (st[i]=='R'){
-					sotimduoc+=st[i];
-					if (st[i]=='E'){
-						sotimduoc+=st[i];
-						if (st[i]=='E'){
-							sotimduoc+=st[i];
-						}
-					}
-				}
-			}
-		}
-		if (st[i]=='F'){
-			sotimduoc+=st[i];
-			if (st[i]=='O'){
-				sotimduoc+=st[i];
-				if (st[i]=='U'){
-					sotimduoc+=st[i];
-					if (st[i]=='R'){
-						sotimduoc+=st[i];
-					}
-				}
-			}
-			else if (st[i]=='I'){
-				sotimduoc+=st[i];
-				if (st[i]=='V'){
-					sotimduoc+=st[i];
-					if (st[i]=='E'){
-						sotimduoc+=st[i];
-					}
-				}
-			}
-		}
-	}
-	return sotimduoc;
+		else
+			st.erase(0,1);
+	if (khongconkitu(str_temp))
+				cout <<str_sub;
 }
 
 void xuly()
 {
-	string so=tim_so(str);
-	cout <<so;
+	for (int i=1;i<=5;i++)
+	{
+		tim_so(cacso[i],str);
+	}
 }
 
 int main()
