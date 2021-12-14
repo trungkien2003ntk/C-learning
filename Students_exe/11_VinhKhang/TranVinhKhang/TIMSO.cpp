@@ -1,69 +1,35 @@
 #include <bits/stdc++.h>
-
+//xoa chuoi .erase
 using namespace std;
-string N;
+string st1;string cacso;
+string dayso[]={"", "ZERO","ONE","TWO","THREE","FOUR"};
 void nhap(){
-	getline(cin,N);
+	getline(cin,st1);
 }
-bool laso0(char kt){
-	if(kt=='z'&&kt=='e'&&kt=='r'&&kt=='o')
+bool hetchuoi(string s){
+	if(s.size()==0)
 		return 1;
 	return 0;
 }
-bool laso1(char kt){
-	if(kt=='o'&&kt=='n'&&kt=='e')
-		return 1;
-	return 0;
-}
-bool laso2(char kt	 ){
-	if(kt=='t'&&kt=='w'&&kt=='o')
-		return 1;
-	return 0;
-}
-bool laso3(char kt){
-	if(kt=='t'&&kt=='h'&&kt=='r'&&kt=='e')
-		return 1;
-	return 0;
-}
-bool laso4(char kt){
-	if(kt=='f'&&kt=='o'&&kt=='u'&&kt=='r')
-		return 1;
-	return 0;
-}
-bool lachu(char kt){
-	if('a'<=kt&&kt<='z'||'A'<=kt&&kt<='Z')
-		return 1;
-	return 0;
-}
-char viet_thuong(char kt){
-	if('A'<=kt&&kt<='Z')
-		return kt+'a'-'A';
-	return kt;
-}
-void xuli()
-{
-	string st="";
-	for(int i=0;i<N.size();i++){
-		st=viet_thuong(N[i]);
-	}
-	for(int i=0;i<st.size();i++){
-		if(lachu(N[i])){
-			if(laso0(st[i]))
-				cout << "ZERO";
-			else
-				if(laso1(st[i]))
-					cout << "ONE";
-				else
-					if(laso2(st[i]))
-						cout << "TWO";
-					else
-						if(laso3(st[i]))
-							cout << "THREE";
-						else if(laso4(st[i]))
-								cout << "FOUR";
-							else
-								cout << "khong co trong chuoi";
+
+void namtrong(string subst,string st){
+	string sttemp=subst;
+	while(0<st.size()){
+		if(st[0]==sttemp[0]){
+			st.erase(0,1);
+			sttemp.erase(0,1);
+			if(hetchuoi(sttemp))
+				break;
 		}
+		else
+			st.erase(0,1);
+	}
+	if(hetchuoi(sttemp))
+		cout<< subst<<endl;
+}
+void xuli(){
+	for(int i=1;i<=5;i++){
+		namtrong(dayso[i],st1);
 	}
 }
 int main(){

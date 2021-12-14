@@ -1,27 +1,55 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-int a,b,x,y;
+int L1,L2,R1,R2;
+int tong1=0;
+int tong2=0;
 void nhap()
 {
-	cin>>a>>b;
-	cin>>x>>y;
+	ifstream f;
+	f.open("DEMSO.INP");
+	f>>L1>>R1;
+	f>>L2>>R2;
+	f.close();
 }
-void xuli(){
-	int tong1=0,tong2=0;
+
+bool kt_scp(int cp){
+	int i=sqrt(cp);
+	if(i*i==cp)
+		return 1;
+	return 0;
+}
+int scp(int a,int b){
 	for(int i=a;i<=b;i++){
-		if(i==sqrt(i))
+		if(kt_scp(i))
 			tong1++;
 	}
-	for(int i=x;i<=y;i++){
-		if(i%i==0&&i%1==0)
+	return tong1;
+}
+bool kt_snt(int snt){
+	if(snt==1)
+		return 1;
+	for(int i=2;i<snt;i++){
+		if(snt%i==0)
+			return 0;
+	}
+	return 1;
+}
+int snt(int a,int b){
+	for(int i=a;i<=b;i++){
+		if(kt_snt(i))
 			tong2++;
 	}
-	cout << tong1 << endl;
-	cout << tong2;
+	return tong2;
+}
+void xuat(){
+	ofstream f;
+	f.open("DEMSO.OUT");
+	f<< scp(L1,R1)<<" "<<snt(L2,R2);
+	f.close();
 }
 int main(){
 	nhap();
-	xuli();
+	xuat();
 	return 0;
 }

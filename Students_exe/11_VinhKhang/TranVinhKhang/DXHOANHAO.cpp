@@ -2,37 +2,48 @@
 
 using namespace std;
 string st;
-//void nhap(){
-//	ifstream f;
-//	f.open("XAUDX.INP");
-//	cin>>f;
-//	f.close();
-//}
 void nhap(){
-	getline(cin,st);
+	ifstream f;
+	f.open("XAUDX.INP");
+	f>>st;
+	f.close();
 }
-bool lachuhoa(char kt){
-	if('A'<=kt&&kt<='Z')
-		return 1;
-	return 0;	 
-}
-char viet_thuong(char kt){
-	return kt+'a'-'A';
-}
-void xuli(){
+bool xet_doi_xung(string st){
 	string st1="";
-	for(int i=st.size()-1;i>=0;i++)
-			st1[i]=st[i];
+	for(int i=st.size()-1;i>=0;i--){
+		st1+=st[i];
 	}
-	for(int j=0;j<st1.size();j++){
-		if(viet_thuong(st[j])==viet_thuong(st1[j]))
-			cout << "YES";
+	if(st1==st)
+		return 1;
+	return 0;
+}
+bool xet_dx(string st){
+	string st2="";
+	string st3;
+	for(int i=0;i<st.size();i--){
+		if(st.size()%2==0)
+			st3=st.substr(0,st.size()/2);
 		else
-			cout << "NO";
+			st3=st.substr(0,st.size()/2+1);
 	}
+	for(int i=st3.size()-1;i>=0;i--){
+		st2+=st3[i];
+	}
+	if(st2==st3)
+		return 1;
+	return 0;
+}
+void xuat(){
+	ofstream f;
+	f.open("XAUDX.OUT");
+	if(xet_doi_xung(st)&&xet_dx(st))
+		f<<"YES";
+	else
+		f<<"NO";
+	f.close();
 }
 int main(){
 	nhap();
-	xuli();
+	xuat();
 	return 0;
 }
