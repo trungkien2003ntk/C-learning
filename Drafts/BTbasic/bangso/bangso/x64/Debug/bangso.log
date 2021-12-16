@@ -1,2 +1,8 @@
-﻿  bai13c2.cpp
-  bangso.vcxproj -> D:\HSG\C-learning\Drafts\BTbasic\bangso\x64\Debug\bangso.exe
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(510,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (bangso.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  luyencode_Space02.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(693,5): error MSB6006: "CL.exe" exited with code 2.
+D:\HSG\C-learning\Drafts\BTbasic\bangso\bangso\luyencode_Space02.cpp(16,8): error C2065: 'j': undeclared identifier
+D:\HSG\C-learning\Drafts\BTbasic\bangso\bangso\luyencode_Space02.cpp(16,15): error C2065: 'j': undeclared identifier
+D:\HSG\C-learning\Drafts\BTbasic\bangso\bangso\luyencode_Space02.cpp(16,35): error C2065: 'j': undeclared identifier
+D:\HSG\C-learning\Drafts\BTbasic\bangso\bangso\luyencode_Space02.cpp(17,13): error C2065: 'j': undeclared identifier
+D:\HSG\C-learning\Drafts\BTbasic\bangso\bangso\luyencode_Space02.cpp(17,31): error C2065: 'j': undeclared identifier
