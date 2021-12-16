@@ -24,5 +24,14 @@
     <ClCompile Include="bai13c2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="baiDat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="luyencode_Space.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="luyencode_Space02.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
