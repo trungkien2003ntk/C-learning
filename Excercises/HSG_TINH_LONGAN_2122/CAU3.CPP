@@ -1,4 +1,4 @@
-// Van con 1 truong hop la ca 1 trong 2 duong cheo tat ca deu bang 0
+
 
 #include <bits/stdc++.h>
 
