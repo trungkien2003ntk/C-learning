@@ -19,9 +19,7 @@ int main()
                     max=max+"9";
                 else
                 max=max+to_string(S-sum);
-                sum=sum+max[x]-48;
-            if(x==M-1&&sum!=S)
-                cout<<"-1";
+                sum=sum+max[x]-48;      
             if(x==M-1&&sum==S)
                 cout<<max<<endl;
         }
