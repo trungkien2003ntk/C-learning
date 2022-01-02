@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 int arr[7][7];
@@ -11,16 +12,19 @@ int arrfirst[7][7];
 
 void nhap()
 {
+	ifstream f;
+	f.open("hvdep.inp");
     for(int x=0;x<=4;x++)
         for(int i=0;i<=4;i++)
         {
             if(x==0||i==0||x==4||i==4)
                 arr[x][i]=0;
             else
-                cin>>arr[x][i];
+                f>>arr[x][i];
             arrgoc[x][i]=arr[x][i];
             arrfirst[x][i]=arr[x][i];
         }
+    f.close();
 }
 
 bool ngang(int x,int i)
