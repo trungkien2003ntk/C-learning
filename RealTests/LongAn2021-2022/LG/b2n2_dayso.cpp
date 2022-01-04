@@ -51,10 +51,7 @@ bool BorrowCounter(long long x){
 }
 
 void xuat(long long x){
-	ofstream f;
-	f.open("dayso.oup");
-	f << x;
-	f.close();
+	cout << x;
 }
 
 void xuly(){
