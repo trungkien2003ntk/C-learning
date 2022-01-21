@@ -1,0 +1,18 @@
+#include <iostream>
+using namespace std;
+int n,count=1;
+void nhap(){
+    cin>>n;
+}
+void xuli(){
+    for(int i=1;i<=n;i++){
+        for(int x=1;x<=i;x++)
+            cout<<count++;
+        cout<<endl;
+    }
+}
+int main(){
+    nhap();
+    xuli();
+    return 0;
+}
