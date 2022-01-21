@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+int x,y;
+int count=1;
+void nhap(){
+    cin>>x>>y;
+}
+void xuli(){
+    for(int i=0;i<x;i++){
+        for(int j=1;j<=y;j++){
+           cout<<" "<<count++;
+        }
+        cout<<endl;
+    }
+}
+int main(){
+    nhap();
+    xuli();
+    return 0;
+}
