@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+int n,count=4;
+void nhap(){
+    cin>>n;
+}
+void xuli(){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            cout<<count++;
+        }
+        cout<<endl;
+        count=count-n+1;
+    }
+    
+}
+int main(){
+    nhap();
+    xuli();
+    system("pause");
+    return 0;
+}
