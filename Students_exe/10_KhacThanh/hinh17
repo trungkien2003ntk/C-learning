@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+int x,y;
+void nhap(){
+    cin>>x>>y;
+}
+void xuli(){
+    for(int i=1;i<=x;i++){
+        for(int j=1;j<=y;j++){
+            if(i==1||i==x)
+                cout<<"*";
+            else if(j==1||j==y)
+                cout<<"*";
+            else
+                cout<<" ";
+        }
+        cout<<endl;
+    }
+}
+int main(){
+    nhap();
+    xuli();
+    return 0;
+}
