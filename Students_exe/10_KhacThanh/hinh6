@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+int n;
+void nhap(){
+    cin>>n;
+}
+void xuat(){
+     for(int first=1;first<=n;first++){
+        cout<<"*";
+    }
+    cout<<endl;
+    for(int i=1;i<=n-2;i++){
+        cout<<"*";
+        for(int j=2;j<n;j++){
+            cout<<" ";
+        }
+        cout<<"*";
+        cout<<endl;
+    }
+    for(int last=1;last<=n;last++){
+        cout<<"*";
+    }
+}
+int main(){
+   nhap();
+   xuat();
+   return 0;
+}
