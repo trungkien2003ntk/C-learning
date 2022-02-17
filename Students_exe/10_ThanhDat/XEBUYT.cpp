@@ -27,7 +27,8 @@ void input()
 	int temp;
 	for(int i=0;i<n;i++)
 	{
-		f>>temp;//if duplicate temp cung duoc
+		f>>temp;
+		if(duplicate(temp))
 			a[cnt++]=temp;
 	}
 	f.close();
@@ -48,16 +49,17 @@ void xuli()
 	}
 	//	for(int i=0;i<mainacnt;i++)
 	//	cout<<maina[i]<<" ";
-	for(int i=0;i<mainacnt;i++)
+	cout<<maina[0]<<" ";
+	for(int i=1;i<mainacnt;i++)
 	{
-		if(maina[i]==maina[i-1]+1&&i!=0)
+		if(maina[i]==maina[i-1]+1)
 		{
 			int bienchay=i;
 			while(maina[bienchay]==maina[bienchay-1]+1||maina[bienchay]==maina[bienchay-1])
 			{
 				bienchay++;
 			}
-			if(bienchay-i>=4)
+			if(bienchay-i>=3)
 			{
 				i=i+bienchay-i-1;
 				cout<<"-"<<" "<<maina[bienchay-1]<<" ";
