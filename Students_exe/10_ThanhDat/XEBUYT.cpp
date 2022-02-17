@@ -2,7 +2,7 @@
 #include <fstream>
 using namespace std;
 
-int n,check[100000],cnt_check=0,a[100000],cnt=0,maina[100000],mainacnt=0;;
+int n,check[100000],cnt_check=0,a[100000],cnt=0,maina[100000],mainacnt=0;
 
 bool duplicate(int temp)
 {
@@ -49,10 +49,10 @@ void xuli()
 	}
 	//	for(int i=0;i<mainacnt;i++)
 	//	cout<<maina[i]<<" ";
-	cout<<maina[0]<<" ";
-	for(int i=1;i<mainacnt;i++)
+	//cout<<maina[0]<<" ";
+	for(int i=0;i<mainacnt;i++)
 	{
-		if(maina[i]==maina[i-1]+1)
+		if(maina[i]==maina[i+1]-1)
 		{
 			int bienchay=i;
 			while(maina[bienchay]==maina[bienchay-1]+1||maina[bienchay]==maina[bienchay-1])
