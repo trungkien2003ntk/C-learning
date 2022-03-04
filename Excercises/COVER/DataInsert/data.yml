@@ -1,0 +1,15 @@
+subtasks:
+  - score: 40
+    type: sum
+    cases: ['1_1', '1_2', '1_3', '1_4', '1_5', '1_6', '1_7', '1_8']
+
+  - score: 30
+    type: sum
+    cases: ['2_1', '2_2', '2_3', '2_4', '2_5', '2_6']
+
+  - score: 30
+    type: sum
+    cases: ['3_1', '3_2', '3_3', '3_4', '3_5', '3_6']
+
+inputFile: 'sub#.in'
+outputFile: 'sub#.out'
