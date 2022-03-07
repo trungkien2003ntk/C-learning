@@ -37,8 +37,8 @@ int UT(string x)
 
 	return -1;
 }
-// Tinh moi phep toan
-float cal_per_issue(string a, string relate, string b)
+// Tinh moi phep toan (Phep chia lay nguyen)
+int cal_per_issue(string a, string relate, string b)
 {
 	int x, y;
 	x = stoi(a);
@@ -50,7 +50,7 @@ float cal_per_issue(string a, string relate, string b)
 	else if (relate == "*")
 		return (x * y);
 	else if (relate == "/")
-		return ((float)(x / y));
+		return (x / y);
 	return (pow(x, y));
 }
 // Cat mang nhap vao vao mot vector luu tru
@@ -79,8 +79,26 @@ void xuly()
 {
 	stack<string> s_tu,s_hang ;
 	vector<string>::iterator it;
+	string first_item,second_item,toantuTop;
 	for (it=input_cooked.begin();it!=input_cooked.end();it++){
-		
+		if (it->size() > 1)
+			s_hang.push(*it);
+		else if (*it == "(") s_tu.push(*it);
+		else if (UT(*it) > UT(s_tu.top())) s_tu.push(*it);
+		else if (UT(*it) <= UT(s_tu.top())){
+			first_item = s_hang.top();
+			s_hang.pop();
+			second_item = s_hang.top();
+			s_hang.pop();
+			toantuTop = s_tu.top();
+			s_tu.pop();
+			s_hang.push(to_string(cal_per_issue(first_item,toantuTop,second_item)));
+			s_tu.push(*it);
+		} else if (*it == ")"){
+			toantuTop = s_tu.top();
+			s_tu.pop();
+			if (toantuTop == "(")
+		}
 	}
 }
 
