@@ -49,8 +49,8 @@ void xuli()
 	}
 	//	for(int i=0;i<mainacnt;i++)
 	//	cout<<maina[i]<<" ";
-	cout<<maina[0]<<" ";
-	for(int i=1;i<mainacnt;i++)
+	//cout<<maina[0]<<" ";
+	for(int i=0;i<mainacnt;i++)
 	{
 		if(maina[i]==maina[i-1]+1)
 		{
@@ -69,6 +69,23 @@ void xuli()
 			
 		}
 		else
+			if(maina[i]==maina[i+1])
+				{
+					int bienchay=i+1;
+			while(maina[bienchay]==maina[bienchay-1]+1||maina[bienchay]==maina[bienchay-1])
+			{
+				bienchay++;
+				if(bienchay-i>=3)
+					break;
+			}
+			if(bienchay-i>=3)
+			{
+				cout<<"";
+			}
+			else
+			cout<<maina[i]<<" ";
+				}
+			else
 			cout<<maina[i]<<" ";
 
 	}
