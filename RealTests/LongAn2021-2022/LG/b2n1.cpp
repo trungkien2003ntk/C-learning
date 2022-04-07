@@ -4,7 +4,7 @@
 using namespace std;
 
 long long N,K;
-long long P[10000],C[10000],tracker[10000][10000];
+long long P[10000],C[10000];
 
 void nhap(){
 	ifstream f;
