@@ -112,6 +112,7 @@ string calc(string x, string y, string t)
     return kq;
 }
 
+// Reverse stack de tien hanh tinh toan ket qua dua tren postfix
 void reverseDataSaved()
 {
     while (!datSav.empty())
@@ -120,6 +121,7 @@ void reverseDataSaved()
         datSav.pop();
     }
 }
+
 
 void xulyCuoi()
 {

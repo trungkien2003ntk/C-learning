@@ -1,0 +1,698 @@
+!function(){"use strict";var e,t,a,i,n,s={64306:function(e,t,a){a.d(t,{m:function(){return n}});function i(e){const t=e;return void 0!==t.clientValue?t.clientValue:Object.keys(e).reduce(((t,a)=>Object.assign(Object.assign({},t),{[a]:i(e[a])})),{})}class n{constructor(e,t){this.spec=e,this.qspPrefix=t||"rd"}get verParam(){return`${this.qspPrefix}.ver`}get data(){return void 0===this.memo&&(this.memo=i(this.spec.spec)),this.memo}loadQueryParams(e){if(void 0!==this.memo)throw"overwriting existing query string parameters.";const t=e.get([this.qspPrefix,"ver"].join("."));if(t!==this.spec.ver)throw`unmatched spec version: expected "${this.spec.ver}" but got ${t}.`;this.memo={},e.forEach(((e,t)=>{if(!t.startsWith(this.qspPrefix))return;if(t===this.verParam)return;const a=t.split(".").slice(1);let i=this.memo;a.forEach(((t,n)=>{let s={};if(n===a.length-1)try{s=()=>JSON.parse(e)}catch(e){throw this.memo=void 0,e}Object.prototype.hasOwnProperty.call(i,t)||(i[t]=s),"object"!=typeof s||(i=i[t])}))}))}getURLSearchParams(){const e=new URLSearchParams,t=(a,i)=>{Object.keys(a).forEach((n=>{const s=a[n],o=[...i,n];"object"!=typeof s?e.append(o.join("."),JSON.stringify(s())):t(s,o)}))};return t(this.data,[this.qspPrefix]),e.sort(),e.append(this.verParam,this.spec.ver),e}getSerializedData(){return this.getURLSearchParams().toString()}}},60184:function(e,t,a){a.r(t),a.d(t,{MsnActionsMenu:function(){return F}});var i=a(33940),n=a(69979),s=a(58520),o=a(29163),c=a(33832),d=a(37802),r=a(66213);class l extends n.H{constructor(){super(...arguments),this.useFastAnchoredRegion=!0,this.fixedPosition=!1,this.defaultVerticalPosition="bottom",this.defaultHorizontalPosition="end",this.autoFocus=!0,this.isUpdatingPosition=!1,this.isBingHp="bingHomepage"===r.jG.AppType,this.keyDownHandler=e=>(e.keyCode===c.Lp?(this.referrerButton&&this.referrerButton.focus(),this.$emit("dismiss-menu")):e.keyCode===c.RN&&(this.customTabEventHandler?this.customTabEventHandler(this,e):this.tabEventHandler(e)),!0),this.updatePositionManually=()=>{this.updatePosition()},this.tabEventHandler=e=>{const t=this.fluentMenu.children.length,a=e.target;Array.from(this.fluentMenu.children).map(((i,n)=>{if(i===a){const a=(n+(e.shiftKey?-1:1)+t)%t;this.fluentMenu.children[a].focus()}}))},this.initMenuPositioning=()=>{this.setMenuPosition(),document.addEventListener("scroll",this.updatePosition),window.addEventListener("resize",this.updatePosition)},this.setMenuPosition=()=>{var e;const t=this.referrerButton.getBoundingClientRect(),a=(null===(e=this.menu.offsetParent)||void 0===e?void 0:e.offsetTop)||0;let i,n=0;this.isBingHp&&(n=this.menu.offsetParent.getBoundingClientRect().top+window.scrollY),i="top"===this.defaultVerticalPosition?`top:${t.top+window.scrollY-2-this.fluentMenu.clientHeight-a}px;`:t.bottom+this.fluentMenu.clientHeight>window.innerHeight?`top:${t.top+window.scrollY-2-this.fluentMenu.clientHeight-a-n}px;`:`top:${t.bottom+window.scrollY+1-a-n}px;`,this.menu.setAttribute("style",`position:absolute;${i}${this.getHorizontalPosition(t)}`),this.isUpdatingPosition=!1},this.updatePosition=(0,d.Z)((()=>{this.isUpdatingPosition||(window.requestAnimationFrame((()=>{this.setMenuPosition()})),this.isUpdatingPosition=!0)}),300)}connectedCallback(){super.connectedCallback(),this.fluentMenu&&(this.useFastAnchoredRegion||this.initMenuPositioning(),this.autoFocus&&this.fluentMenu&&this.fluentMenu.children.length&&(setTimeout((()=>{this.fluentMenu.children[0].focus()}),100),this.$emit("shown-menu")))}disconnectedCallback(){super.disconnectedCallback(),this.useFastAnchoredRegion||(document.removeEventListener("scroll",this.updatePosition),window.removeEventListener("resize",this.updatePosition))}useFastAnchoredRegionChanged(e,t){!1===t&&this.isConnected&&this.initMenuPositioning()}getHorizontalPosition(e){const t=document.documentElement.clientWidth;return"rtl"===document.dir||"start"===this.defaultHorizontalPosition?t-e.right+this.fluentMenu.clientWidth<=window.innerWidth?`right:${t-e.right}px`:`left:${e.left}px;`:e.left+this.fluentMenu.clientWidth<=window.innerWidth?`left:${e.left}px;`:`right:${t-e.right}px;`}}(0,i.gn)([s.LO],l.prototype,"menuItems",void 0),(0,i.gn)([s.LO],l.prototype,"referrerButton",void 0),(0,i.gn)([s.LO],l.prototype,"useFastAnchoredRegion",void 0),(0,i.gn)([(0,o.Lj)({mode:"boolean"})],l.prototype,"fixedPosition",void 0),(0,i.gn)([o.Lj],l.prototype,"defaultVerticalPosition",void 0),(0,i.gn)([o.Lj],l.prototype,"defaultHorizontalPosition",void 0),(0,i.gn)([(0,o.Lj)({mode:"boolean"})],l.prototype,"autoFocus",void 0),(0,i.gn)([(0,o.Lj)({mode:"boolean"})],l.prototype,"isWindowsDashboard",void 0);var b=a(67845),f=a(68421),p=a(8994),h=a(15933),u=a(76298);const g=u.i`
+    :host {
+        z-index: var(--menu-z-index, 700);
+    }
+
+    :host(:focus) {
+        outline: none;
+    }
+
+    :host([isWindowsDashboard]) {
+        --control-corner-radius: 8;
+    }
+
+    fluent-menu {
+        box-shadow: 0 2.4px 7.2px rgba(0, 0, 0, 0.18), 0 12.8px 28.8px rgba(0, 0, 0, 0.22);
+        max-width: var(--menu-max-width, 275px);
+        min-width: var(--menu-min-width, 240px);
+    }
+
+    fluent-anchored-region {
+        z-index: 700;
+    }
+
+    svg {
+        fill: currentColor;
+    }
+
+    .icon {
+        align-items: center;
+        display: flex;
+    }
+
+    :host(:${b.b}) {
+        outline: none;
+    }
+
+    fluent-menu-item::part(content) {
+        width: 100%;
+        overflow: none;
+    }
+
+    .menu-item {
+        grid-template-columns: minmax(32px, auto) 1fr minmax(32px, auto);
+    }
+
+    .menu-item-divider {
+        margin-bottom: 6px;
+        border-top-color: ${p.c1L}
+    }
+    .menu-item-text {
+        padding-inline-start: 12px;
+        color: ${p.Q5n};
+        font-size: 12px;
+    }
+    `.withBehaviors((0,f.vF)(u.i`
+                .menu-item[isNavigation] {
+                    color: ${h.H.LinkText};
+                }
+
+                .menu-item[isNavigation]:hover {
+                    color: ${h.H.HighlightText};
+                }
+            `));var m=a(90563),w=a(63243),v=a(91106),_=a(78464),x=a(70188);const y=m.d`
+${(0,w.g)((e=>e.isDivider),m.d`
+    <fluent-divider class="menu-item-divider"></fluent-divider>`)}
+${(0,w.g)((e=>e.isText),m.d`
+    <div class="menu-item-text" role="presentation">${e=>e.title}</div>`)}
+${(0,w.g)((e=>!e.isDivider&&!e.isText),m.d`
+    <fluent-menu-item
+        aria-label="${e=>e.ariaLabel?e.ariaLabel:e.title}"
+        class="menu-item"
+        part="menu-item"
+        @change=${(e,t)=>e.onClick(t.event)}
+        tabindex="0"
+        role="menuitem"
+        exportparts="start: actions-menu-start"
+        id="${e=>e.id}"
+        ?disabled="${e=>e.disabled}"
+        isNavigation="${e=>e.isNavigation}"
+        ${(0,x.X)((e=>e.telemetryTag))}
+        data-customhandled=${e=>e.dataCustomHandled||void 0}
+    >
+        ${(0,w.g)((e=>e.glyph),m.d`<span slot="start" class="icon" aria-hidden="true">${e=>m.d`${e.glyph}`}</span>`)}
+        ${e=>e.title}
+    </fluent-menu-item>`)}
+`,C=m.d`
+<fluent-menu ${(0,v.i)("fluentMenu")}
+    @keydown=${(e,t)=>e.keyDownHandler(t.event)}
+    class="menu"
+    part="menu">
+    ${(0,_.rx)((e=>e.menuItems),y)}
+</fluent-menu>`,S=m.d`
+<template id="actions-menu" ${(0,v.i)("menu")}>
+    ${(0,w.g)((e=>e.useFastAnchoredRegion),m.d`
+    <fluent-anchored-region
+        :anchorElement=${e=>e.referrerButton||document.body}
+        fixed-placement="${e=>e.fixedPosition}"
+        vertical-positioning-mode="dynamic"
+        vertical-default-position="${e=>e.defaultVerticalPosition}"
+        horizontal-positioning-mode="dynamic"
+        horizontal-default-position="${e=>e.defaultHorizontalPosition}"
+        horizontal-inset="true"
+    >
+       ${C}
+    </fluent-anchored-region>`)}
+    ${(0,w.g)((e=>!e.useFastAnchoredRegion),m.d`${C}`)}
+</template>`;var P=a(41751),k=a(50162),A=a(8900),T=a(73689),D=a(25992),j=a(38345);let F=class extends l{};F=(0,i.gn)([(0,n.M)({name:"msn-actions-menu",template:S,styles:g,shadowOptions:{delegatesFocus:!0}})],F),(0,P.z)().withShadowRootMode("closed").withElementDisambiguation((()=>j.h.ignoreDuplicate)).register((0,k.ue)(),(0,A.q$)(),(0,T.H5)(),(0,D.tT)())},84829:function(e,t,a){a.d(t,{q:function(){return g}});var i=a(33940),n=a(69979),s=a(29163);class o extends n.H{checkSVGImage(){return this.image.indexOf("image/svg+xml")>-1||this.image.indexOf(".svg")>-1}connectedCallback(){super.connectedCallback(),this.imageElement=this.shadowRoot.getElementById("company-logo");const e=new Image;e.onload=()=>{this.imageElement.setAttribute("width",e.width.toString()),this.imageElement.setAttribute("height",e.height.toString())},e.src=this.image}}(0,i.gn)([(0,s.Lj)({attribute:"companylogo-image"})],o.prototype,"image",void 0),(0,i.gn)([(0,s.Lj)({mode:"boolean",attribute:"backplate-image"})],o.prototype,"backplateImage",void 0),(0,i.gn)([(0,s.Lj)({mode:"boolean",attribute:"horizontal-flip"})],o.prototype,"horizontalFlip",void 0);var c=a(8994),d=a(70783),r=a(76298);const l=r.i`
+.company-logo-backplate {
+    left: 88px;
+}
+.company-logo-flip {
+    left: initial !important;
+    right: 88px;
+}
+`,b=r.i`
+.company-logo-backplate {
+    right: 88px;
+}
+.company-logo-flip {
+    left: 88px;
+    right: initial !important;
+}
+`,f=r.i`
+    .company-logo-backplate {
+        min-width: 100px;
+        background: ${c.c1L};
+        border-radius: 100px;
+        justify-content: center;
+        display: flex;
+        padding: 12px 17px;
+    }
+
+    .company-logo-image {
+        max-height: 48px;
+        max-width: 180px;
+        height: auto;
+        width: auto;
+        z-index: 302;
+    }
+
+    .company-logo-svg-image {
+        max-height: 24px;
+        max-width: 114px;
+        z-index: 302;
+    }
+    `.withBehaviors(new d.O(l,b));var p=a(90563),h=a(63243);const u=p.d`
+    ${(0,h.g)((e=>e.backplateImage),p.d`
+        <div class="company-logo-backplate ${e=>e.horizontalFlip?" company-logo-flip":""}">
+            <img id="company-logo" class=${e=>e.checkSVGImage()?"company-logo-svg-image":"company-logo-image"} src='${e=>e.image}' alt='No Image'> </img>
+        </div>
+    `)}
+    ${(0,h.g)((e=>!e.backplateImage),p.d`
+        <img id="company-logo" class=${e=>e.checkSVGImage()?"company-logo-svg-image":"company-logo-image"} src='${e=>e.image}' alt='No Image'> </img>
+    `)}
+`;let g=class extends o{};g=(0,i.gn)([(0,n.M)({name:"enterprise-company-logo",template:u,styles:f})],g)},65302:function(e,t,a){a.d(t,{Z:function(){return v}});var i=a(33940),n=a(41751),s=a(5724),o=a(69979),c=a(38345),d=a(58520),r=a(29163);class l extends o.H{constructor(){super(...arguments),this.hasAction=!1,this.hideOverflowText=!1,this.focusBack=!0}connectedCallback(){var e;super.connectedCallback();let t=document.activeElement;for(;null===(e=null==t?void 0:t.shadowRoot)||void 0===e?void 0:e.activeElement;)t=t.shadowRoot.activeElement;this.lastActiveElement=t}disconnectedCallback(){super.disconnectedCallback(),this.focusBack&&this.lastActiveElement.focus()}handleActionAdded(){this.actions.assignedNodes().length>0?this.hasAction=!0:this.hasAction=!1}}(0,i.gn)([d.LO],l.prototype,"hasAction",void 0),(0,i.gn)([(0,r.Lj)({mode:"boolean"})],l.prototype,"hideOverflowText",void 0),(0,i.gn)([d.LO],l.prototype,"focusBack",void 0);var b=a(76298),f=a(8994),p=a(7642),h=a(93718);const u=b.i`
+    ${(0,h.j)("flex")} :host {
+        font-weight: 400;
+        font-size: ${f.cSu};
+        line-height: ${f.RUt};
+        --elevation: 4;
+    }
+
+    .toast-root {
+        width: fit-content;
+        max-width: var(--toast-max-width, 420px);
+        min-height: 48px;
+        height: fit-content;
+        border-radius: calc(${f.rSr} * 1px);
+        background: ${f.RJY};
+        box-sizing: border-box;
+        display: flex;
+        ${p.XC};
+    }
+
+    .text-overflow {
+        display: inline-block;
+        max-width: var(--toast-message-max-width, 200px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .content-container {
+        margin-inline-start: 16px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        min-width: 0;
+    }
+
+    .content-container span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .close-button {
+        margin: 8px;
+    }
+
+    .with-action {
+        margin-inline-end: 13px;
+    }
+`;var g=a(90563),m=a(91106);const w=g.d`
+    <div class="toast-root" part="toast-root" tabindex="0">
+        <div class="content-container">
+            <span class="${e=>e.hasAction?"with-action":""} ${e=>e.hideOverflowText?"text-overflow":""}"><slot></slot></span>
+            <span><slot name="actions" ${(0,m.i)("actions")} @slotchange=${e=>e.handleActionAdded()}></slot></span>
+        </div>
+        <div class="close-button">
+            <slot name="close-button"></slot>
+        </div>
+    </div>
+`;let v=class extends l{};v=(0,i.gn)([(0,o.M)({name:"msn-toast",template:w,styles:u,shadowOptions:{delegatesFocus:!0}})],v),(0,n.z)().withShadowRootMode("closed").withElementDisambiguation((()=>c.h.ignoreDuplicate)).register((0,s.hb)())},1714:function(e,t,a){a.d(t,{X:function(){return S}});var i=a(33940),n=a(69979),s=a(29163),o=a(58520);class c extends n.H{saveTopSite(){this.$emit("save",this.newOrUpdatedTopSite),this.resetInputs()}cancelTopSite(){this.$emit("cancel"),this.resetInputs()}closeTopSiteDialog(){this.$emit("close"),this.resetInputs()}handleNameChange(){this.nameInputControl&&this.nameInputControl.value&&(this.newOrUpdatedTopSite.name=this.nameInputControl.value)}handleUrlChange(){this.urlInputControl&&this.urlInputControl.value&&(this.newOrUpdatedTopSite.url=this.urlInputControl.value)}handleInputKeyUp(e){13===e.keyCode&&this.saveTopSite()}resetInputs(){this.urlInputControl&&(this.urlInputControl.value=""),this.nameInputControl&&(this.nameInputControl.value="")}}(0,i.gn)([s.Lj],c.prototype,"headerTitle",void 0),(0,i.gn)([s.Lj],c.prototype,"saveText",void 0),(0,i.gn)([s.Lj],c.prototype,"cancelText",void 0),(0,i.gn)([s.Lj],c.prototype,"closeText",void 0),(0,i.gn)([s.Lj],c.prototype,"addDialogSubHeading",void 0),(0,i.gn)([o.LO],c.prototype,"saveButtonTelemetryTag",void 0),(0,i.gn)([o.LO],c.prototype,"cancelButtonTelemetryTag",void 0),(0,i.gn)([o.LO],c.prototype,"closeButtonTelemetryTag",void 0),(0,i.gn)([o.LO],c.prototype,"nameInputData",void 0),(0,i.gn)([o.LO],c.prototype,"urlInputData",void 0),(0,i.gn)([o.LO],c.prototype,"newOrUpdatedTopSite",void 0);var d=a(8994),r=a(70783),l=a(76298);const b=l.i`
+    .close-button {
+        left: auto;
+        right: 16px;
+    }
+`,f=l.i`
+    .close-button {
+        left: 16px;
+        right: auto;
+    }
+`,p=l.i`
+    :host {
+        --control-corner-radius: 2;
+        --dialog-z-index: 0;
+        --layer-corner-radius: 4;
+        position: relative;
+    }
+
+    h1 {
+        cursor: default;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        margin-top: 0;
+        margin-bottom: 0;
+        color: ${d.CHi};
+    }
+
+    .dialog {
+        --dialog-height: var(--top-site-dialog-height, auto);
+        --dialog-width: var(--top-site-dialog-width, auto);
+        position: absolute;
+        z-index: var(--top-site-dialog-z-index);
+        top: var(--dialog-top, auto);
+        bottom: var(--dialog-bottom, auto);
+        left: var(--dialog-left, auto);
+        right: var(--dialog-right, auto);
+    }
+
+    .main-container {
+        padding: 12px 16px;
+        display: grid;
+        background-color: ${d.s55};
+    }
+
+    .header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        position: relative;
+        width: 100%;
+    }
+
+    .close-button {
+        position: absolute;
+        min-width: 24px;
+        height: 24px;
+    }
+
+    .close-button::part(control) {
+        padding: 0;
+        margin: 0;
+    }
+
+    .close-button svg {
+        width: 10px;
+        height: 10px;
+    }
+
+    .body {
+        margin-top: 4px;
+        flex: 1 1 0;
+        font-size: 12px;
+        display: inline-flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 12px;
+        color: ${d.CHi};
+        justify-content: space-between;
+    }
+
+    .input-container {
+        display: grid;
+        line-height: 16px;
+    }
+
+    fluent-text-field::part(label) {
+        line-height: 32px;
+        margin-top: auto;
+        margin-bottom: auto;
+        width: 40px;
+        text-align: start;
+    }
+
+    fluent-text-field::part(control) {
+        margin: 0;
+        transition: all 0.2s ease-in-out;
+        line-height: 20px;
+        font-weight: 400;
+        padding: 0 11px;
+        border-radius: 2px;
+        height: 32px;
+    }
+
+    .footer-actions {
+        justify-content: center;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: var(--top-site-dialog-button-width, 140px) var(--top-site-dialog-button-width, 140px);
+        grid-gap: 8px;
+        width: 100%;
+        margin-top: 24px;
+    }
+
+    fluent-dialog::part(positioning-region) {
+        position: var(--dialog-position, relative);
+    }
+`.withBehaviors(new r.O(b,f));var h=a(90563),u=a(63243),g=a(91106),m=a(70188);const w=h.d`
+    <fluent-dialog @dismiss=${e=>e.closeTopSiteDialog()} class="dialog" part="dialog">
+        <div class="main-container">
+            <div class="header">
+                <h1 class="header-title">${e=>e.headerTitle}</h1>
+            </div>
+            <div class="body" part="main-container-body">
+            ${(0,u.g)((e=>e.nameInputData),h.d`
+                <div class="input-container">
+                    <fluent-text-field
+                        autofocus
+                        appearance="fill"
+                        tabindex="0"
+                        type="${e=>e.nameInputData.type||"text"}"
+                        id="${e=>e.nameInputData.id}"
+                        aria-label="${e=>e.nameInputData.ariaLabel}"
+                        value="${e=>e.nameInputData.value}"
+                        @input=${e=>e.handleNameChange()}
+                        @keyup=${(e,t)=>!e.urlInputData&&e.handleInputKeyUp(t.event)}
+                        ${(0,g.i)("nameInputControl")}
+                    >   
+                        ${e=>e.nameInputData.name}
+                    </fluent-text-field>
+                </div>`)}
+            ${(0,u.g)((e=>e.urlInputData),h.d`
+                <div class="input-container">
+                    <fluent-text-field
+                        tabindex="0"
+                        type="${e=>e.nameInputData.type||"url"}"
+                        id="${e=>e.urlInputData.id}"
+                        aria-label="${e=>e.urlInputData.ariaLabel}"
+                        value="${e=>e.urlInputData.value}"
+                        @input=${e=>e.handleUrlChange()}
+                        @keyup=${(e,t)=>e.handleInputKeyUp(t.event)}
+                        ${(0,g.i)("urlInputControl")}
+                    >
+                        ${e=>e.urlInputData.name}
+                    </fluent-text-field>
+                </div>`)}
+            </div>
+            <div class="footer-actions" part="main-container-footer-actions">
+                <fluent-button 
+                    appearance="neutral"
+                    tabindex="0"
+                    title=${e=>e.saveText}
+                    aria-label=${e=>e.saveText}
+                    @click=${e=>e.saveTopSite&&e.saveTopSite()}
+                    @keypress=${e=>e.saveTopSite&&e.saveTopSite()}
+                    ${(0,m.X)((e=>e.saveButtonTelemetryTag))}
+                >
+                    ${e=>e.saveText}
+                </fluent-button>
+                <fluent-button 
+                    appearance="neutral"
+                    tabindex="0"            
+                    title=${e=>e.cancelText}
+                    aria-label=${e=>e.cancelText}
+                    @click=${e=>e.cancelTopSite&&e.cancelTopSite()}
+                    @keypress=${e=>e.cancelTopSite&&e.cancelTopSite()}
+                    ${(0,m.X)((e=>e.cancelButtonTelemetryTag))}
+                >
+                    ${e=>e.cancelText}
+                </fluent-button>
+            </div>
+            <slot
+                name="subSection"
+                ${(0,g.i)("subSection")}
+            >
+            </slot>
+            <fluent-button
+                appearance="stealth"
+                class="close-button"
+                title=${e=>e.closeText}
+                aria-label=${e=>e.closeText}
+                @click=${e=>e.closeTopSiteDialog&&e.closeTopSiteDialog()}
+                @keypress=${e=>e.closeTopSiteDialog&&e.closeTopSiteDialog()}
+                ${(0,m.X)((e=>e.closeButtonTelemetryTag))}
+            >
+                <svg viewBox="0 0 16 16" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg"><path d="M14.1016 1.60156L8.20312 7.5L14.1016 13.3984L13.3984 14.1016L7.5 8.20312L1.60156 14.1016L0.898438 13.3984L6.79688 7.5L0.898438 1.60156L1.60156 0.898438L7.5 6.79688L13.3984 0.898438L14.1016 1.60156Z"></path></svg>
+            </fluent-button>
+        </div>
+    </fluent-dialog>
+`;var v=a(41751),_=a(5724),x=a(99277),y=a(82723),C=a(38345);let S=class extends c{};S=(0,i.gn)([(0,n.M)({name:"msn-top-site-dialog",template:w,styles:p,shadowOptions:{delegatesFocus:!0}})],S),(0,v.z)().withShadowRootMode("closed").withElementDisambiguation((()=>C.h.ignoreDuplicate)).register((0,_.hb)(),(0,x.i0)()),(0,v.z)().withShadowRootMode("open").withElementDisambiguation((()=>C.h.ignoreDuplicate)).register((0,y.Ad)())},66341:function(e,t,a){a.d(t,{v:function(){return x}});var i=a(33940),n=a(41751),s=a(5724),o=a(69979),c=a(38345),d=a(29163),r=a(9533),l=a(81555);class b extends o.H{handleIconActionContentChange(){this.iconActionContainer.classList.toggle("icon-action",this.iconAction.assignedNodes().length>0)}connectedCallback(){super.connectedCallback();const e=this.shadowRoot.getElementById("topSitePlaceHolder");(0,r.FY)(l._.topSitePlaceHolder,e)}}(0,i.gn)([(0,d.Lj)({mode:"boolean"})],b.prototype,"addTileSupported",void 0),(0,i.gn)([(0,d.Lj)({mode:"boolean"})],b.prototype,"backPlateEnabled",void 0);var f=a(8994),p=a(76298),h=a(93718);const u=p.i`
+    ${(0,h.j)("inline-block")} :host {
+        box-sizing: border-box;
+        border-radius: 4px;
+        position: relative;
+        justify-content: center;
+        height: 80px;
+        width: 104px;
+        height: var(--top-site-height, 80px);
+        width: var(--top-site-width, 104px);
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .back-plate-container {
+        background: var(--top-site-placeholder-backplate-fill, ${f.s55});
+        border-radius: 4px;
+        width: var(--top-site-black-plate-width, 44px);
+        height: var(--top-site-black-plate-height, 44px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px auto;
+    }
+
+    :host(:hover) {
+        background: var(--top-site-fill-hover, ${f.XiB});
+    }
+
+    .icon-action {
+        align-items: center;
+        display: flex;
+        height: 100%;
+        width: 100%;
+    }
+
+    ::slotted([slot="icon-action"]) {
+        width: 100%;
+        height: 100%;
+    }
+`;var g=a(90563),m=a(91106),w=a(63243);const v=g.d`
+    <div class="${e=>e.backPlateEnabled?"back-plate-container":"container"}" id="topSitePlaceHolder">
+        <span part="icon-action" ${(0,m.i)("iconActionContainer")}>
+            <slot
+                name="icon-action"
+                ${(0,m.i)("iconAction")}
+                @slotchange=${e=>e.handleIconActionContentChange()}
+            >
+            </slot>
+        </span>
+    </div>
+`,_=g.d`
+    <template>
+        ${(0,w.g)((e=>e.addTileSupported),v)}
+    </template>
+`;let x=class extends b{};x=(0,i.gn)([(0,o.M)({name:"msft-top-site-placeholder",template:_,styles:u})],x),(0,n.z)().withShadowRootMode("closed").withElementDisambiguation((()=>c.h.ignoreDuplicate)).register((0,s.hb)())},6726:function(e,t,a){a.d(t,{O:function(){return _}});var i=a(33940),n=a(69979),s=a(29163),o=a(58520),c=a(9740),d=a(8582);class r extends n.H{constructor(){super(...arguments),this.imagepartname="image"}handleImageContentChange(){this.imageContainer.classList.toggle("image",this.image.assignedNodes().length>0)}}(0,i.gn)([s.Lj],r.prototype,"download",void 0),(0,i.gn)([o.LO],r.prototype,"href",void 0),(0,i.gn)([s.Lj],r.prototype,"hreflang",void 0),(0,i.gn)([s.Lj],r.prototype,"ping",void 0),(0,i.gn)([s.Lj],r.prototype,"referrerpolicy",void 0),(0,i.gn)([s.Lj],r.prototype,"rel",void 0),(0,i.gn)([s.Lj],r.prototype,"target",void 0),(0,i.gn)([s.Lj],r.prototype,"type",void 0),(0,i.gn)([s.Lj],r.prototype,"imagepartname",void 0),(0,i.gn)([o.LO],r.prototype,"anchorTelemetryTag",void 0),(0,i.gn)([s.Lj],r.prototype,"passTwoLine",void 0),(0,c.e)(r,d.hW);var l=a(8994),b=a(70783),f=a(76298);const p=f.i`
+    .start {
+        left: var(--top-site-margin, 9px);
+    }
+
+    .end {
+        right: var(--top-site-margin, 9px);
+    }
+`,h=f.i`
+    .start {
+        right: var(--top-site-margin, 9px);
+    }
+
+    .end {
+        left: var(--top-site-margin, 9px);
+    }
+`,u=f.i`
+    :host {
+        background-color: transparent;
+        border-radius: 4px;
+        box-shadow: none;
+        display: flex;
+        height: var(--top-site-height, 84px);
+        justify-content: center;
+        width: var(--top-site-width, 108px);
+        position: relative;
+        border: calc(${l.Han} * 1px) solid transparent;
+    }
+
+    :host(:hover) {
+        background: var(--top-site-fill-hover, ${l.XiB});
+    }
+
+    :host(:focus) {
+        outline: none;
+        border-color: ${l.yGg};
+    }
+
+    .control:focus {
+        outline: none;
+        border: none;
+    }
+
+    .control-two-line:focus {
+        outline: none;
+        border: none;
+    }
+
+    .start,
+    .end {
+        position: absolute;
+        top: var(--top-site-margin, 9px);
+        z-index: 2;
+        opacity: 0;
+    }
+
+    :host(:active) .start,
+    :host(:active) .end,
+    :host(:focus) .start,
+    :host(:focus) .end,
+    :host(:hover) .start,
+    :host(:hover) .end,
+    :host(:hover) fluent-button,
+    .start:active,
+    .end:active,
+    .start:focus-within,
+    .end:focus-within {
+        background: transparent;
+        opacity: 1;
+        outline: none;
+    }
+
+    .content-container {
+        transition: all 0.2s ease-in-out;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        height: 100%;
+        padding: 10px 12px;
+        border-radius: 4px;
+    }
+
+    .content-container-two-line {
+        transition: all 0.2s ease-in-out;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        height: 100%;
+        padding: 10px 12px;
+        border-radius: 4px;
+    }
+
+    .image {
+        align-items: center;
+        box-sizing: border-box;
+        width: var(--top-site-black-plate-width, 44px);
+        height: var(--top-site-black-plate-height, 44px);
+        justify-content: center;
+        display: flex;
+    }
+
+    .image ::slotted(img) {
+        margin: 0 auto;
+        max-width: 24px;
+        height: 24px;
+    }
+
+    .title-container {
+        display: flex;
+        justify-content: center;
+        margin: 4px 0 0 0;
+        width: 100%;
+    }
+
+    .title-container-two-line {
+        display: flex;
+        justify-content: center;
+        margin: 4px 0 0 0;
+        width: 100%;
+        max-height: 36px;
+        text-align: center;
+    }
+
+    .control {
+        box-sizing: content-box;
+        color: var(--top-site-color, ${l.CHi});
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        max-height: 18px;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 0;
+        text-overflow: ellipsis;
+        text-decoration: none;
+    }
+
+    .control-two-line {
+        box-sizing: content-box;
+        color: var(--top-site-color, ${l.CHi});
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        max-height: 36px;
+        max-width: 100%;
+        overflow: hidden;
+        padding: 0;
+        text-overflow: ellipsis;
+        text-decoration: none;
+    }
+
+    .control:after {
+        bottom: 0;
+        content: "";
+        height: 100%;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .control-two-line:after {
+        bottom: 0;
+        content: "";
+        height: 100%;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    ::slotted([slot="start"]),
+    ::slotted([slot="end"]) {
+        display: grid;
+        gap: 5px;
+        align-items: center;
+        grid-auto-flow: column;
+    }
+`.withBehaviors(new b.O(p,h));var g=a(90563),m=a(91106),w=a(70188);const v=g.d`
+    <template>
+        ${d.hX}
+        <div class="${e=>"1"===e.passTwoLine?"content-container-two-line":"content-container"}">
+            <div class="image-container">
+                <div part="${e=>{var t;return null!==(t=e.imagepartname)&&void 0!==t?t:"image"}}" ${(0,m.i)("imageContainer")}>
+                    <slot
+                        name="image"
+                        ${(0,m.i)("image")}
+                        @slotchange=${e=>e.handleImageContentChange()}
+                    >
+                    </slot>
+                </div>
+            </div>
+            <div class="${e=>"1"===e.passTwoLine?"title-container-two-line":"title-container"}">
+                <a
+                    class="${e=>"1"===e.passTwoLine?"control-two-line":"control"}"
+                    part="${e=>"1"===e.passTwoLine?"control-two-line":"control"}"
+                    download="${e=>e.download}"
+                    href="${e=>e.href}"
+                    hreflang="${e=>e.hreflang}"
+                    ping="${e=>e.ping}"
+                    referrerpolicy="${e=>e.referrerpolicy}"
+                    rel="${e=>e.rel}"
+                    target="${e=>e.target}"
+                    type="${e=>e.type}"
+                    ${(0,w.X)((e=>e.anchorTelemetryTag))}
+                >
+                    <span class="content" part="content">
+                        <slot></slot>
+                    </span>
+                </a>
+            </div>
+        </div>
+        ${d.zq}
+    </template>
+`;let _=class extends r{};_=(0,i.gn)([(0,n.M)({name:"msft-top-site",template:v,styles:u,shadowOptions:{delegatesFocus:!0}})],_)},5193:function(e,t,a){var i=a(33940),n=a(53076),s=a(83227),o=a(8158);const{registerExperience:c}=o.n;c(n.z.TelemetryData,(()=>Promise.resolve().then(a.bind(a,72467)))),c(n.z.TelemetryDataEdgeChromium,(()=>Promise.resolve().then(a.bind(a,24827)))),c(n.z.IrisData,(()=>Promise.resolve().then(a.bind(a,59630)))),c(n.z.ExperienceTrackerEdgeNextData,(()=>Promise.resolve().then(a.bind(a,72358)))),c(n.z.ChromiumPageSettings,(()=>Promise.resolve().then(a.bind(a,41982)))),c(n.z.SmartListSharedData,(()=>Promise.resolve().then(a.bind(a,12360)))),c(n.z.MsccCookieBannerData,(()=>a.e("msccCookieBanner").then(a.bind(a,59241)))),c(n.z.OneTrustCookieConsentData,(()=>a.e("oneTrustCookieConsentData").then(a.bind(a,78038)))),c(n.z.TopicData,(()=>a.e("topicData").then(a.bind(a,96060)))),c(n.z.PoweredByData,(()=>a.e("poweredByData").then(a.bind(a,91156)))),c(n.z.CategoryData,(()=>a.e("category-data-connector").then(a.bind(a,51858)))),c(n.z.LayoutPreferenceData,(()=>a.e("layoutPreferenceData").then(a.bind(a,4504)))),c(n.z.WeatherData,(()=>a.e("weather-data-connector").then(a.bind(a,98867)))),c(n.z.CoachmarkData,(()=>a.e("CoachmarkData").then(a.bind(a,64623)))),c(n.z.RewardsData,(()=>a.e("RewardsData").then(a.bind(a,11839)))),c(n.z.ExperienceLoadedData,(()=>a.e("ExperienceLoadedData").then(a.bind(a,70299)))),c(n.z.DefaultBrowserReclaimData,(()=>a.e("DefaultBrowserReclaimData").then(a.bind(a,14342)))),c(s.x.edgeChromiumPageWC,(()=>Promise.resolve().then(a.bind(a,49273)))),c(s.x.searchBoxEdgeNextWC,(()=>Promise.resolve().then(a.bind(a,6117)))),c(s.x.topSitesEdgeNextWC,(()=>Promise.resolve().then(a.bind(a,47612)))),c(s.x.backgroundImageWC,(()=>Promise.resolve().then(a.bind(a,80675)))),c(n.z.AdminPortalData,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,80914)))),c(s.x.enterpriseFeedContainerWC,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,65772)))),c(s.x.enterpriseRightRail,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,25133)))),c(n.z.OfficeSharedData,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,64599)))),c(n.z.ShellNewTabData,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,19429)))),c(s.x.industryNewsCard,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,84116)))),c(s.x.nudgeSpotlightCard,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,48454)))),c(s.x.officeDocumentsTableWC,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,2423)))),c(s.x.todoCardWC,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,18859)))),c(s.x.recommendedCardFeed,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,40349)))),c(s.x.productivityHub,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,13551)))),c(s.x.denseCard,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,19283)))),c(s.x.summaryCardWC,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,18408)))),c(s.x.frequentSitesCardWC,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,97361)))),c(s.x.calendarCard,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,46241)))),c(s.x.articleTopComment,(()=>a.e("articleTopComment").then(a.bind(a,2318)))),c(s.x.autosMarketplaceCard,(()=>a.e("autosMarketplaceCard").then(a.bind(a,10176)))),c(s.x.bingHealth,(()=>a.e("bingHealth").then(a.bind(a,26221)))),c(s.x.bingHealthCard,(()=>a.e("bingHealthCard").then(a.bind(a,10268)))),c(s.x.bingHealthFitnessCard,(()=>a.e("bingHealthFitnessCard").then(a.bind(a,9803)))),c(s.x.healthFitnessCarousel,(()=>a.e("healthFitnessCarousel").then(a.bind(a,3391)))),c(s.x.bingVideoCarousel,(()=>a.e("bingVideoCarousel").then(a.bind(a,18602)))),c(s.x.breakingNewsWC,(()=>a.e("breakingNewsWC").then(a.bind(a,65562)))),c(s.x.cardActionWC,(()=>a.e("card-actions-wc").then(a.bind(a,65413)))),c(s.x.holidayEffects,(()=>a.e("holiday-effects").then(a.bind(a,42815)))),c(s.x.coachmarkWC,(()=>a.e("coachmark-wc").then(a.bind(a,59731)))),c(s.x.coldStartWC,(()=>a.e("cold-start-wc").then(a.bind(a,8944)))),c(s.x.conditionalBannerWC,(()=>a.e("conditionalBannerWC").then(a.bind(a,82377)))),c(s.x.contentGroupCard,(()=>Promise.all([a.e("weather-data-connector"),a.e("content-group-card")]).then(a.bind(a,87668)))),c(s.x.dailyBriefWC,(()=>a.e("daily-brief-wc").then(a.bind(a,74580)))),c(s.x.desktopFeedEdgeNextWC,(()=>Promise.all([a.e("libs_finance-service-library_dist_redux_FinanceData_connector_js"),a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("libs_card-action-service_dist_CardActionServiceClient_js-libs_feed-layout_dist_FeedLayoutCard-effb03"),a.e("libs_ad-service_dist_CookieSyncService_js-libs_ad-service_dist_NativeAdService_js-libs_experi-828718"),a.e("desktop-feed-edgenext-wc")]).then(a.bind(a,65459)))),c(s.x.xboxFeedWC,(()=>a.e("xbox-feed-wc").then(a.bind(a,51384)))),c(s.x.defaultBrowserReclaimBanner,(()=>a.e("default-browser-reclaim-banner").then(a.bind(a,99527)))),c(s.x.desktopFeedSingleColumnWC,(()=>Promise.all([a.e("libs_finance-service-library_dist_redux_FinanceData_connector_js"),a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("libs_card-action-service_dist_CardActionServiceClient_js-libs_feed-layout_dist_FeedLayoutCard-effb03"),a.e("libs_ad-service_dist_CookieSyncService_js-libs_ad-service_dist_NativeAdService_js-libs_experi-828718"),a.e("desktop-feed-single-column-wc")]).then(a.bind(a,8965)))),c(s.x.devTools,(()=>a.e("dev-tools").then(a.bind(a,1879)))),c(s.x.esportsCard,(()=>a.e("esports-card").then(a.bind(a,40752)))),c(s.x.linkedInCard,(()=>a.e("linked-in-card").then(a.bind(a,44209)))),c(s.x.esportsStreamsCard,(()=>a.e("esports-streams-card").then(a.bind(a,11850)))),c(s.x.feedbackLinkWC,(()=>a.e("feedback").then(a.bind(a,81612)))),c(s.x.feedbackDialogWC,(()=>a.e("feedback-dialog").then(a.bind(a,7824)))),c(s.x.feedNavigationHeader,(()=>a.e("feed-navigation-header").then(a.bind(a,92206)))),c(s.x.healthTipWC,(()=>a.e("health-tip-wc").then(a.bind(a,79768)))),c(s.x.horizontalNav,(()=>a.e("horizontal-nav").then(a.bind(a,61920)))),c(s.x.feedToggleWC,(()=>a.e("feed-toggle-wc").then(a.bind(a,72098)))),c(s.x.gameCard,(()=>a.e("game-card").then(a.bind(a,33720)))),c(s.x.gamingCompeteCard,(()=>a.e("gaming-compete-card").then(a.bind(a,1785)))),c(s.x.gamingRecentlyPlayedCard,(()=>a.e("gaming-recentlyplayed-card").then(a.bind(a,21675)))),c(s.x.gamingRedditCard,(()=>a.e("gaming-reddit-card").then(a.bind(a,69878)))),c(s.x.gamingRewardsCard,(()=>a.e("gaming-rewards-card").then(a.bind(a,6585)))),c(s.x.gamingStreamCard,(()=>a.e("gaming-stream-card").then(a.bind(a,70286)))),c(s.x.gamingTournamentCard,(()=>a.e("gaming-tournament-card").then(a.bind(a,99239)))),c(s.x.gamingUpcomingCard,(()=>a.e("gaming-upcoming-card").then(a.bind(a,84018)))),c(s.x.gamingVideoCard,(()=>a.e("gaming-video-card").then(a.bind(a,11807)))),c(s.x.generalElections,(()=>a.e("general-elections").then(a.bind(a,40742)))),c(s.x.gridViewFeed,(()=>Promise.all([a.e("libs_finance-service-library_dist_redux_FinanceData_connector_js"),a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("libs_card-action-service_dist_CardActionServiceClient_js-libs_feed-layout_dist_FeedLayoutCard-effb03"),a.e("libs_ad-service_dist_CookieSyncService_js-libs_ad-service_dist_NativeAdService_js-libs_experi-828718"),a.e("grid-view-feed")]).then(a.bind(a,76729)))),c(s.x.groceryCouponSdCard,(()=>Promise.all([a.e("libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons-wc_icons_Settings_svg-web-component-a029aa"),a.e("grocery-coupon-sd-card")]).then(a.bind(a,31135)))),c(s.x.horoscopeAnswerCardWC,(()=>a.e("horoscope-answer-card-wc").then(a.bind(a,84659)))),c(s.x.imageSearchWC,(()=>a.e("image-search-wc").then(a.bind(a,90686)))),c(s.x.interestsWC,(()=>Promise.all([a.e("experiences_interests-wc_dist_InterestsWC_js-libs_config-schemas_dist_HybridConfigReference_js"),a.e("interests-wc")]).then(a.bind(a,84120)))),c(s.x.layoutToggle,(()=>a.e("layout-toggle").then(a.bind(a,5124)))),c(s.x.linearViewFeed,(()=>Promise.all([a.e("libs_finance-service-library_dist_redux_FinanceData_connector_js"),a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("libs_card-action-service_dist_CardActionServiceClient_js-libs_feed-layout_dist_FeedLayoutCard-effb03"),a.e("libs_ad-service_dist_CookieSyncService_js-libs_ad-service_dist_NativeAdService_js-libs_experi-828718"),a.e("linear-view-feed")]).then(a.bind(a,89719)))),c(s.x.lottery,(()=>a.e("lottery-card").then(a.bind(a,82835)))),c(s.x.marketplaceCardWC,(()=>a.e("marketplace-card-wc").then(a.bind(a,90660)))),c(s.x.microsoftFeedCard,(()=>Promise.all([a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("office-feed")]).then(a.bind(a,5118)))),c(s.x.moneyInfoCardWC,(()=>a.e("money-info-card-wc").then(a.bind(a,12519)))),c(s.x.msRewardsWC,(()=>a.e("ms-rewards-wc").then(a.bind(a,69651)))),c(s.x.nativeAdWC,(()=>a.e("native-ad-wc").then(a.bind(a,52408)))),c(s.x.newsbarToggle,(()=>a.e("newsbar-toggle").then(a.bind(a,81071)))),c(s.x.newsSegmentCarousel,(()=>a.e("news-segment-carousel").then(a.bind(a,81878)))),c(s.x.notificationBellWC,(()=>Promise.all([a.e("experiences_interests-wc_dist_InterestsWC_js-libs_config-schemas_dist_HybridConfigReference_js"),a.e("notification-bell-wc")]).then(a.bind(a,42852)))),c(s.x.officeLeftRail,(()=>a.e("office-leftrail").then(a.bind(a,88925)))),c(s.x.outlookEmailPreview,(()=>a.e("outlook-email-preview-wc").then(a.bind(a,39383)))),c(s.x.onThisDayCardWC,(()=>a.e("on-this-day-card-wc").then(a.bind(a,70346)))),c(s.x.onThisDayCardSmall,(()=>a.e("on-this-day-card-small").then(a.bind(a,39344)))),c(s.x.overlayWC,(()=>a.e("overlay-wc").then(a.bind(a,87247)))),c(s.x.personalizeNavButton,(()=>a.e("personalize-nav-button").then(a.bind(a,27276)))),c(s.x.pivotsNavEdgeNext,(()=>a.e("pivots-nav-edgenext").then(a.bind(a,20039)))),c(s.x.pivotContentWC,(()=>a.e("pivot-content-wc").then(a.bind(a,78296)))),c(s.x.pollsCardWC,(()=>a.e("polls-card-wc").then(a.bind(a,27704)))),c(s.x.poweredByLegendWC,(()=>a.e("poweredby-legend-wc").then(a.bind(a,16945)))),c(s.x.prismSdCard,(()=>a.e("prism-sd-card").then(a.bind(a,7600)))),c(s.x.publisherCarousel,(()=>a.e("publisher-carousel").then(a.bind(a,94760)))),c(s.x.qna,(()=>a.e("qna-card").then(a.bind(a,24095)))),c(s.x.quizCard,(()=>a.e("quiz-card").then(a.bind(a,41780)))),c(s.x.reactionBreakdownDialog,(()=>a.e("reaction-breakdown-dialog").then(a.bind(a,62285)))),c(s.x.recipesSdCard,(()=>a.e("recipes-sd-card").then(a.bind(a,85698)))),c(s.x.recommendedSearchCarouselWC,(()=>a.e("recommended-search-carousel-wc").then(a.bind(a,38535)))),c(s.x.recommendedSitesWC,(()=>a.e("recommendedSites-wc").then(a.bind(a,30493)))),c(s.x.rewardsCardWC,(()=>a.e("rewards-card-wc").then(a.bind(a,981)))),c(s.x.rightRailCards,(()=>Promise.all([a.e("libs_finance-service-library_dist_redux_FinanceData_connector_js"),a.e("libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632"),a.e("libs_card-action-service_dist_CardActionServiceClient_js-libs_feed-layout_dist_FeedLayoutCard-effb03"),a.e("right-rail-cards")]).then(a.bind(a,18027)))),c(s.x.sdCardMaskWC,(()=>a.e("sd-card-mask-wc").then(a.bind(a,25147)))),c(s.x.searchHistoryEdgeNextWC,(()=>a.e("search-history-edgenext-wc").then(a.bind(a,83334)))),c(s.x.selectCarousel,(()=>a.e("select-carousel").then(a.bind(a,75686)))),c(s.x.settingsDialogEdgeNextWC,(()=>a.e("settings-dialog-edgenext-wc").then(a.bind(a,90330)))),c(s.x.sharepointNewsCard,(()=>a.e("sharepoint-news-card").then(a.bind(a,58965)))),c(s.x.shoppingCardWC,(()=>Promise.all([a.e("libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons-wc_icons_Settings_svg-web-component-a029aa"),a.e("shopping-card-wce")]).then(a.bind(a,93555)))),c(s.x.shoppingSmartListWC,(()=>a.e("shopping-smart-list").then(a.bind(a,3807)))),c(s.x.sideBar,(()=>a.e("side-bar").then(a.bind(a,96437)))),c(s.x.socialAvatar,(()=>a.e("social-avatar").then(a.bind(a,49397)))),c(s.x.socialBarWC,(()=>a.e("social-bar-wc").then(a.bind(a,11027)))),c(s.x.profilePromoCard,(()=>a.e("profile-promo-card").then(a.bind(a,32508)))),c(s.x.premiumProfilePromoCard,(()=>a.e("premium-profile-promo-card").then(a.bind(a,58240)))),c(s.x.sportsCardWC,(()=>a.e("sports-card-wc").then(a.bind(a,70948)))),c(s.x.sportsOlympicCardWC,(()=>a.e("sports-olympic-card-wc").then(a.bind(a,50241)))),c(s.x.toastWC,(()=>a.e("toast-wc").then(a.bind(a,49538)))),c(s.x.pillWC,(()=>a.e("pill-wc").then(a.bind(a,74531)))),c(s.x.signInBannerWC,(()=>a.e("sign-in-banner-wc").then(a.bind(a,54187)))),c(s.x.signInControlWC,(()=>a.e("sign-in-control-wc").then(a.bind(a,8731)))),c(s.x.signInFlyoutWC,(()=>a.e("sign-in-flyout-wc").then(a.bind(a,81124)))),c(s.x.stickyPeek,(()=>a.e("sticky-peek").then(a.bind(a,10104)))),c(s.x.backToTopButton,(()=>a.e("back-to-top-button").then(a.bind(a,30303)))),c(s.x.themePickerWC,(()=>a.e("theme-picker-wc").then(a.bind(a,3563)))),c(s.x.trafficCardWC,(()=>Promise.all([a.e("weather-data-connector"),a.e("traffic-card-wc")]).then(a.bind(a,93821)))),c(s.x.travelDestination,(()=>a.e("travel-destination").then(a.bind(a,13009)))),c(s.x.trendingNowWC,(()=>a.e("trendingNowWC").then(a.bind(a,96586)))),c(s.x.trendingTopics,(()=>a.e("trendingTopics").then(a.bind(a,89266)))),c(s.x.verticalLeftNav,(()=>a.e("vertical-left-nav").then(a.bind(a,72081)))),c(s.x.videoCardWC,(()=>Promise.all([a.e("web-components_content-video-player_dist_index_js"),a.e("videoCard")]).then(a.bind(a,92565)))),c(s.x.voiceSearchWC,(()=>a.e("voice-search-wc").then(a.bind(a,13938)))),c(s.x.waffleWC,(()=>a.e("waffle-wc").then(a.bind(a,5565)))),c(s.x.weatherCardWC,(()=>Promise.all([a.e("weather-data-connector"),a.e("libs_icons-wc_icons_EditFluentButton_svg-libs_icons-wc_icons_Pollen02_svg-libs_icons-wc_icons-703cfa"),a.e("experiences_weather-card-wc_dist_index_js")]).then(a.bind(a,4705)))),c(s.x.welcomeGreetingWC,(()=>Promise.all([a.e("libs_icons-wc_icons_EditFluentButton_svg-libs_icons-wc_icons_Pollen02_svg-libs_icons-wc_icons-703cfa"),a.e("welcomeGreeting")]).then(a.bind(a,50307)))),c(s.x.xfeedWC,(()=>a.e("xfeed").then(a.bind(a,57570))));a(27868);var d=a(25777),r=a(67267),l=a(83490),b=a(49982),f=a(9332),p=a(75270),h=a(21952),u=a(12108),g=a(33799),m=a(83097),w=a(33954),v=a(20390),_=a(8665),x=a(54533),y=a(21050),C=a(22704),S=a(14752),P=a(26415),k=a(19388),A=a(68364),T=a(81171),D=a(69152),j=a(7009),F=a(24606),L=a(91844),R=a(21343),E=a(87538),M=a(9879),W=a(14165),$=a(14989),H=a(88828),I=a(20126),N=a(53899),V=a(72344),O=a(29815),B=a(71443),z=a(37299),G=a(36478),U=a(52144),q=a(9344),X=a(35357),K=a(65135),Z=a(75816),Q=a(22746),Y=a(26540),J=a(92082),ee=a(70009),te=a(98864),ae=a(75192),ie=a(66213),ne=a(44979),se=a(2278),oe=a(54804),ce=a(970),de=a(65337),re=a(94788),le=a(46336),be=a(48799),fe=a(53578),pe=a(56965),he=a(70694),ue=a(31293),ge=a(16078),me=a(40715),we=a(98358),ve=a(75367),_e=a(4734),xe=a(42420),ye=a(75244),Ce=a(79485),Se=a(37457),Pe=a(52572),ke=a(20147),Ae=a(31172),Te=a(77162),De=a(99347),je=a(62264),Fe=a(10495),Le=a(98533),Re=a(41751),Ee=a(60469),Me=a(8994),We=a(37271),$e=a(96292),He=a(82423),Ie=a(5053),Ne=a(10052),Ve=a(80329);const Oe=function(){(0,W.jU)(12);const e=[0,W.xs+32,W._3+32,W.Xn+32,W.xX+32,W.sc+32];return(0,W.lE)(),e}();var Be=a(8371),ze=a(58155),Ge=a(2312);class Ue{static getTelemetryProperties(e,t,a,i){const n=ie.jG.ActivityIdLowerCaseNoHypens;let s="unknown",o="unknown";const c=!("false"===ze.c.getQueryParameterByName("enableTrack",i)),d=new URLSearchParams(e.location.search);o=d.get("startpage"),s=d.get("firstlaunch");let r="0",l="False";if(oe.Al&&oe.Al.ClientSettings){const e=oe.Al.ClientSettings;"true"===e.static_page&&(l="True"),e.browser&&(r="true"===e.browser.ismobile?"1":"0")}const b=ie.jG&&ie.jG.CurrentRequestTargetScope&&ie.jG.CurrentRequestTargetScope.pageExperiments?ie.jG.CurrentRequestTargetScope.pageExperiments.join(","):void 0,f=Object.assign({activityId:n,autoRefresh:"0",canvas:"Browser",channel:"anaheim",dDgk:"unknown",department:"antp",dImd:r,domainId:"340",enable:c,environment:ie.jG.Environment,flightid:b,isStaticPage:l,isSignedIn:a?"True":"False",localeCode:ie.jG.CurrentMarket,msnocid:"1"===o?"msedgdhp":"msedgntp",pageConfiguration:null,pageName:"1"===s?"FRE":"default",pageProduct:"anaheim",pageTitle:e.document.title,pageType:"1"===o||"1"===s?"dhp":"ntp",pageUrl:e.document.URL,pageVersion:"15",serverImpressionGuid:n,storeocid:"anaheim_ntp",tmpl:"",vertical:"homepage",afd:"",waitForPageSettingsToUpdateTrack:!0},t);return function(e){if(!e)return;Xe=!1,document.addEventListener(Be.g.trackValuesUpdated,Ke)}(f.waitForPageSettingsToUpdateTrack),f}static getPageTelemetryContract(e,t,a,i,n,s){const o="0"!==(0,ce.L)().get("dsp");return{page:{name:e.pageName,config:e.pageConfiguration,product:e.pageProduct,type:e.pageType,canvas:e.canvas,has3PSearch:!o,isSearchAB:!1,isAdEnabled:!1,isAutoRefresh:!1,isJSEnabled:!0,isStatic:t,ocid:e.msnocid||e.storeocid,url:s,content:{author:"",brand:"",brandId:"",domainId:e.domainId,id:"",parentId:"",partnerName:"",source:"",subcategory:e.department,title:window.document.title,topic:"",vertical:e.vertical},viewType:(0,H.vi)()},feed:{id:""},flight:{id:ie.jG.CurrentRequestTargetScope&&ie.jG.CurrentRequestTargetScope.pageExperiments&&ie.jG.CurrentRequestTargetScope.pageExperiments.join(","),tmpl:[]},locale:{mkt:ie.jG.CurrentMarket},browser:{isMobile:a,deviceGroup:"unknown"},user:{isSignedIn:i,isSso:!1,aadState:n?g.mv.AadAccount:g.mv.NonAadAccount}}}}let qe=!1,Xe=!0;function Ke(){document.removeEventListener(Be.g.trackValuesUpdated,Ke),Xe=!0,qe&&K.M.flush()}oe.Al.IsPrerender&&"visible"!==document.visibilityState?(0,Ge.lr)().then((()=>{qe=!0,Xe&&K.M.flush()})):qe=!0;var Ze=a(38345),Qe=a(93450),Ye=a(30490),Je=a(39439),et=a(91470),tt=a(75970),at=a(70188),it=a(85663),nt=a(37209),st=a(33768),ot=a(32717),ct=a(1033);const dt=(0,tt._)(ie.jG.AppType,ie.jG.CurrentRequestTargetScope),rt=new ne.fH({spec:(e=>({ver:`edgenext.${Ne.j.ver}.1`,spec:Object.assign(Object.assign({},Ne.j.spec),{wpoData:{clientValue:()=>(0,de.$o)().getItem(e)},breakpoint:{clientValue:()=>(0,Ve.wk)(window.innerWidth,Oe)}})}))(dt)}),lt=(0,ne.Nd)(rt.data.locationHref,"locationHref");(0,w.E)(new v.M(lt)),(0,_.z)(lt,x.Im);const bt=(0,y.oA)("entryPoint","entryPoint"),ft=bt&&bt.startMeasure("init").endMeasure;function pt(e){K.M.sendAppErrorEvent(Object.assign(Object.assign({},P.nPk.ErrorFetchingAppAnonCookie),{message:"Error while fetching APP_ANON cookie.",pb:Object.assign(Object.assign({},P.nPk.ErrorFetchingAppAnonCookie.pb),{customMessage:`Error: ${e}`})}))}function ht(){return ie.jG.CurrentRequestTargetScope&&ie.jG.CurrentRequestTargetScope.audienceMode===u.F.Enterprise}function ut(){return(0,i.mG)(this,void 0,void 0,(function*(){const e=yield be.U.getConfig({experienceType:"ExperienceTrackerEdgeNextData",instanceSrc:"default"}),t=null==e?void 0:e.properties,{feedContentSourceMap:a}=t||{},i=a&&(0,et.f)(a);let n="default";return i===N.iz.Office365?n="entnewshp":i===N.iz.Gaming&&(n="gaming"),n}))}function gt(e){return(0,i.mG)(this,void 0,void 0,(function*(){if(e&&(e.includes("prg-wpo-nth")||e.includes("prg-wpo-nth2"))){const e="WpoInit";S.A.startMark(e),yield ct.S.initialize(ie.jG.CurrentRequestTargetScope,ie.jG.AppType,ie.jG.ActivityId,!1),S.A.endMark(e),(0,C.Ou)()[e]=Math.round(performance.now())}}))}(0,se.HB)(),(0,i.mG)(void 0,void 0,void 0,(function*(){var e,t,s,o,c,w,v;try{const _=Math.round(performance.now()),x=ie.jG.CurrentRequestTargetScope&&ie.jG.CurrentRequestTargetScope.pageExperiments,y=(0,Se.$)(oe.Al.ClientSettings.domain,ie.jG.Environment,ie.jG.IsChinaCompliance,oe.Al.IsBlendedEnterprise),A=x&&x.includes("prg-tel-refactor")||!1,se=x&&(x.includes("prg-tel-inhlist")||x.includes("prg-tel-trdom"))?["ext"]:void 0,Ne=x&&x.includes("prg-tel-trdom")||!1;(0,K.u)(new Pe.o({anonCookieName:"app_anon",trackingSystems:y,autoCaptureContentView:!1,useEventQueue:!0,inheritExt:A,inheritPropertyList:se,inheritByTraversingDOM:Ne}));const Ve=(0,ce.L)(),Oe=(0,de.$o)().getItem("ntpURL");let Be=null;Oe&&(Be=new URLSearchParams(Oe));let ze=!1;Ve.get("external")?Be&&(ze=!0,Be.forEach((function(e,t){Ve.has(t)&&(ze=!1)}))):(0,de.$o)().setItem("ntpURL",window.location.search),ze&&(Be.append("external",1),(0,E.Z)({newUrl:"?"+Be}));const Ge=Ve.get("startpage"),qe=Ve.get("firstlaunch"),Xe=oe.Al.ClientSettings&&"true"===oe.Al.ClientSettings.static_page?"True":"False",Ke=window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)");let Je=!1;Ke&&(Je=!!Ke.matches,Ke.addEventListener("change",(e=>{K.M.updatePageMetadata({page:{theme:e.matches?"dark":"light"}})}))),K.M.initPage({page:{name:"1"===qe?"FRE":"default",config:null,isStatic:Xe,product:oe.Al.IsBlendedEnterprise?"entnews":"anaheim",type:"1"===Ge||"1"===qe?"dhp":"ntp",url:lt,theme:Je?"dark":"light"},flight:{id:x&&x.join(","),tmpl:[]},locale:{mkt:ie.jG.CurrentMarket},browser:{deviceGroup:"unknown"}},ie.jG.ActivityIdLowerCaseNoHypens,ie.jG.BuildVersion),(0,at.j)();const et=(0,C.Ou)();!function(e){let t=0;const a=(0,Le.Gy)();a&&(t=Date.now()-Math.round(window.performance.now())-a),e.refreshDelay=t}(et);const tt=Ve.get("title");tt&&(document.title=tt),window&&window.NONCE_ID&&(a.nc=window.NONCE_ID),(0,re.rh)(K.M.sendAppErrorEvent.bind(K.M));const dt=Qe._.getInstance(),bt=dt.rootReducer,mt=dt.store,wt=(0,ne.Nd)(rt.data.wpoData,"wpoData",!1);ie.jG.WpoData=wt;const vt=(0,le.sF)(wt);vt&&vt.dddTmplHeaderValue&&K.M.addOrUpdateTmplString(vt.dddTmplHeaderValue),E.l.setHandlers({invalidatePageCacheHandler:()=>(0,i.mG)(void 0,void 0,void 0,(function*(){yield Promise.all([xe.U.purgeCacheAsync(xe.R.base),xe.U.purgeCacheAsync(xe.R.followedTopics),xe.U.purgeCacheAsync(xe.R.subscribedPublishers),xe.U.purgeCacheAsync(xe.R.publishersProfile)])}))}),be.U.setTargetScopeAndConfigServiceParams(),be.U.initialize(K.M.sendAppErrorEvent.bind(K.M));const _t={experienceType:"EdgeChromiumPageWC",instanceSrc:"default"},[xt]=yield Promise.all([be.U.getConfig(_t),gt(x)]),yt=xt&&xt.properties;ie.jG.UseOneServiceAuthEndpoints=!0,ie.jG.UseOneServiceAnonAuthEndpoints=!0,ie.jG.EnableFiveColLayout=!0,(null==x?void 0:x.includes("prg-wpo-sixcol"))&&(null===(e=null===ie.jG||void 0===ie.jG?void 0:ie.jG.CurrentRequestTargetScope)||void 0===e?void 0:e.audienceMode)===u.F.Adult&&(ie.jG.EnableSixColLayout=!0),yt.linearZoomRatio&&(0,M.SN)(yt.linearZoomRatio);let Ct=!1;(oe.Al.CurrentFlightSet.has("prg-newpc-lininfo")||oe.Al.CurrentFlightSet.has("prg-newpc-lininsp")||oe.Al.CurrentFlightSet.has("prg-newpc-ctrl"))&&(Ct=yield new Promise((e=>{const t=window&&window.chrome&&window.chrome.authPrivate;if(t&&t.getPrimaryAccountInfo)try{t.getPrimaryAccountInfo((t=>e(!!t[j.r2.accountId])))}catch(t){e(!1)}else e(!1)}))),yt.enableFeedLayoutPromotion?yield Promise.all([F.d.checkForSingleColumnPromotionNew(),te.N.loadPslFeedLayout(Ct)]):yield Promise.all([F.d.checkForSingleColumnPromotion(),te.N.loadPslFeedLayout(Ct)]),(0,G.Q)();const St=new J.A(n.z.SharedState,"",bt,new ee.P,mt,void 0,rt);if(new we.m(n.z.MilestoneData,"",bt,new ve.c,mt,void 0,rt),new T.i(n.z.BingImageData,"",dt.rootReducer,new D.w,dt.store,void 0,rt),new ke.L(n.z.TopSitesLayoutData,"",dt.rootReducer,new Ae.A,dt.store,void 0,rt),new L.y(n.z.CoachmarkData,"",dt.rootReducer,new R.W,dt.store,void 0,rt),new Q.D(n.z.ExperienceLoadedData,"",dt.rootReducer,new Y.d,dt.store,void 0,rt),new ye.m(n.z.SignInData,"",dt.rootReducer,new Ce.e,dt.store,void 0,rt),ht()){const e=()=>(0,i.mG)(void 0,void 0,void 0,(function*(){const e=yield null===ie.jG||void 0===ie.jG?void 0:ie.jG.AccountInfoPromise;return{client:{id:fe.I4,friendlyName:"Enterprise NTP App"},account:e}}));let a=new d.a(new r.W(e));(null===(t=yt.authManager)||void 0===t?void 0:t.useRetryDecorator)&&(a=(0,l.w)(a));const n=(null===(s=yt.authManager)||void 0===s?void 0:s.useInMemoryCache)?new b.y:new f.o;(0,p.BV)(new p.U(a,n,h.oc))}if(yt.enableVariableFont)pe.D.addSegoeUIVariableFont();else{const e=document.createElement("style");e.setAttribute("type","text/css"),e.innerHTML="\n                body {\n                    margin: 0;\n                    font-family: Segoe UI, Segoe UI Midlevel, Segoe WP, Arial, sans-serif;\n                }",document.head.appendChild(e)}(0,Re.z)().withShadowRootMode("closed").withElementDisambiguation((()=>Ze.h.ignoreDuplicate)).register((0,Ee.k)()),Me.UWU.withDefault(2),et.AppStartStart=Math.round(performance.now()),S.A.startMark("AppStart"),dt.start(),et.AppStartEnd=Math.round(performance.now()),S.A.endMark("AppStart");const Pt=St.getCurrentState().signedIn,kt=Pt===g.Hy.SignedIn,At=function(){if(ht()){const e=ie.jG.ResolvedAccountInfo;return e&&e.account_type&&e.account_type===g.Qm.AAD}return!1}(),Tt=U.A.get(U.U.CookieConsentStatus);let Dt;Tt!==V._.NotRequired&&(K.M.disableTrackingSystem(Z.G.CTag),K.M.disableTrackingSystem(Z.G.Comscore)),U.A.get(U.U.CookieConsentProvider)===O.i.OneTrustBanner&&window.addEventListener(B.C,(()=>{const e=K.M.getPageMetadata();e&&e.contract&&e.contract.page&&(e.contract.page.consentChanged="occ",K.M.enableTrackingSystem(Z.G.CTag),K.M.sendPageView(null,!0,null,Z.G.CTag))})),ie.jG.CurrentRequestTargetScope.audienceMode===u.F.Enterprise?Dt={msnocid:"entnewsntp",pageName:yield ut(),pageProduct:"entnews"}:ie.jG.CurrentRequestTargetScope.os===I.Q.Xbox&&(Dt={msnocid:"xboxntp",pageName:yield ut(),pageProduct:I.Q.Xbox});const jt=Ue.getTelemetryProperties(window,Dt,kt||At,lt);jt.enable||K.M.disableTrackingSystem(Z.G.All);let Ft=!1,Lt=!1;if(oe.Al&&oe.Al.ClientSettings){const e=oe.Al.ClientSettings;Lt="true"===e.static_page,e.browser&&(Ft="true"===e.browser.ismobile)}ie.jG.TrackInfo={sitePage:{page_product:"anaheim",page_type:oe.Al.ClientSettings.pagetype}},yield(0,He.Ki)({instanceId:null,configRef:{experienceType:"ChromiumPageSettings",instanceSrc:"default"}});const Rt=yield(0,He.oU)(n.z.ChromiumPageSettings),Et=null!==(o=yt.horizontalTabLayoutGap)&&void 0!==o?o:12,Mt=null!==(c=yt.bufferSizeOverride)&&void 0!==c?c:32,Wt=Rt.officeLeftRailEnabled()?100:0,$t=yield Rt.getLayoutStateAsync();(0,st.jt)(yt.enableWpoTopSitesConfigOverride,yt.topSitesCollapsibleControlConfig,yt.enableWpoRecommendSitesConfigMerge);const Ht=yt.edgeLiteFocusedModeEnabled;Ht&&(0,We.p5)()&&(0,Ie.RD)($t)?((0,Ie.kz)(Rt,$e.lv),(0,We.cs)($e.FX),yt.edgeLiteControl||(0,Ie.R1)(Rt,N.nP.focused),(0,We.Ll)()):Ht&&(0,We.PM)()&&(0,We.cs)($e.FX),!(null===(w=null===oe.Al||void 0===oe.Al?void 0:oe.Al.CurrentFlightSet)||void 0===w?void 0:w.has("prg-edgelitefm"))&&(0,We.PM)()&&((0,Ie.J1)($t)&&(0,Ie._W)(Rt,$e.lv),(0,We.Ne)(),(0,We.LV)()),$t.verticalTabsOpened&&yt.verticalLayoutGap?(0,W.jU)(yt.verticalLayoutGap):(0,W.jU)(Et);let It=[W.xs+Mt+Wt,W._3+Mt+Wt,W.Xn+Mt+Wt,W.xX+Mt+Wt,W.sc+Mt+Wt];const Nt=new Map([[$.K$.c1,W.xs+Mt+Wt],[$.K$.c2,W._3+Mt+Wt],[$.K$.c3,W.Xn+Mt+Wt],[$.K$.c4,W.xX+Mt+Wt],[$.K$.c5,W.sc+Mt+Wt]]);he.p.sixColSupported()&&(It.push(W.OE+Mt),Nt.set($.K$.c6,W.OE+Mt));const{zoomRatio:Vt}=yt||{};Vt&&Vt>0&&(It=It.map((e=>e*Vt)),Nt.forEach(((e,t)=>{Nt.set(t,e*Vt)}))),(0,H.Bn)().breakpoints=It,(0,$.q7)(Nt);const Ot=Ue.getPageTelemetryContract(jt,jt.isStaticPage,Ft,kt,At,lt);if(K.M.updatePageMetadata(Ot),ft&&ft(),ct.S.initialize(ie.jG.CurrentRequestTargetScope,ie.jG.AppType,ie.jG.ActivityId,!0),(0,He.oU)(n.z.ChromiumPageSettings).then((e=>(0,i.mG)(void 0,void 0,void 0,(function*(){yield(0,Te.FA)(pt,Pt);const t=yield e.getPrimaryAccountInfoAsync();window.chrome&&window.chrome.authPrivate?(window.chrome.authPrivate.onSignInStateChanged.addListener((()=>(0,i.mG)(void 0,void 0,void 0,(function*(){const a=yield e.getPrimaryAccountInfoAsync(!1),i=(0,q.ej)(De.Vu);if(a.accountType===j.l7.MSA&&a.accountId!==t.accountId&&(0,it.isNullOrUndefined)(i))return K.M.sendAppErrorEvent(Object.assign(Object.assign({},P.MCu.EstablishSignedInState),{message:"Sign In Refresh Required. New browser account found."})),void(0,E.Z)();(0,je.B)(a,null,!0)})))),yield(0,je.B)(t)):K.M.sendAppErrorEvent(Object.assign(Object.assign({},P.MCu.EdgeChromiumAuthPropertyNotAvailable),{message:"AuthPrivate property is not available"}));const n=(0,q.ej)(m.IR.AnonCookieExists);if(t.accountType===j.l7.MSA&&(0,it.isNullOrUndefined)(n)&&!ie.jG.IsChinaCompliance){const e=[(0,k.b1)()];oe.Al.IsPrerender&&e.push((0,ot.eC)()),Promise.all(e).then((()=>(0,i.mG)(void 0,void 0,void 0,(function*(){(0,Fe.vr)()}))))}e.setAccountFlag(Ct);const s=yield e.getLayoutStateAsync(),o=Ye.T.getPageConfiguration(s,t.accountType===j.l7.MSA);K.M&&(K.M.updatePageConfiguration(o),(0,ot.eC)().then((()=>{const e={feed:{layout:te.N.getPslFeedLayoutType===ae.sj.SingleColumn?"singlecol":"multicol"}};K.M.updatePageMetadata(e,!0);const t=(0,ue.$z)();t&&K.M.updatePageMetadata({feed:{id:t}}),K.M.sendPageView(null,!oe.Al.newRidNeeded,null)})),(0,_e.F_)().then((()=>(0,i.mG)(void 0,void 0,void 0,(function*(){(yield a.e("ocvFeedback").then(a.bind(a,22251))).setupOcvTelemetryData()}))))),(0,Le.cu)()})))),Promise.all([(0,ot.eC)(),(0,_e.F_)()]).then((()=>{var e;const t=!!document.getElementById("onetrust-consent-sdk");(0,X.hI)()&&!t&&K.M.sendAppErrorEvent(Object.assign(Object.assign({},P.bid),{pb:Object.assign(Object.assign({},P.bid.pb),{customMessage:`oneTrustBannerScript: ${null===(e=document.getElementById(z.e))||void 0===e?void 0:e.getAttribute("src")}`})}))})),et.RenderRootStart=Math.round(performance.now()),S.A.startMark("RenderRoot"),(0,nt.o)(yield be.U.getEntryPointConfigRef(),"fluent-design-system-provider"),et.RenderRootEnd=Math.round(performance.now()),S.A.endMark("RenderRoot"),null===(v=null===oe.Al||void 0===oe.Al?void 0:oe.Al.CurrentFlightSet)||void 0===v?void 0:v.has("prg-wpo-clarity")){const e=Tt!==V._.NotRequired;kt||At||e||(0,_e.F_)().then((()=>(0,i.mG)(void 0,void 0,void 0,(function*(){(yield a.e("clarity").then(a.bind(a,61938))).setupClarity(),ie.jG.ClarityEnabled=!0}))))}!function(){const e="HiddenTopics";(0,de.$o)().getItem(e)&&K.M.addOrUpdateTmplString(e)}(),et.ClientInit=Math.round(performance.now()-_)}catch(e){yield function(e,t){return(0,i.mG)(this,void 0,void 0,(function*(){const a="isNetworkFailure"in e&&e.isNetworkFailure,i="Encountered a critical app error.",n=a?P.nPk.EdgeNextPageRenderFailedDueToNetwork:P.nPk.EdgeNextErrorPage;(0,A.OO)(e,n,i);try{yield be.U.clearConfigCache()}finally{if(!t){const t=a?P.nPk.EdgeNextPageReloadedDueToNetwork:P.nPk.EdgeNextPageReloadedPageExceptionError,n=a?P.nPk.EdgeNextLocalNtpDueToNetwork:P.nPk.EdgeNextLocalNTPPageShownPageExceptionError;Je.F.tryReloadNtpPage(t,n,i,e)}}}))}(e)}finally{(0,ge.D)((()=>K.M.sendAppErrorEvent)),(0,me.g)((()=>K.M.sendAppErrorEvent))}}))},17692:function(e,t,a){function i(){return i=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var a=arguments[t];for(var i in a)Object.prototype.hasOwnProperty.call(a,i)&&(e[i]=a[i])}return e},i.apply(this,arguments)}a.d(t,{Z:function(){return i}})}},o={};function c(e){var t=o[e];if(void 0!==t)return t.exports;var a=o[e]={id:e,loaded:!1,exports:{}};return s[e].call(a.exports,a,a.exports,c),a.loaded=!0,a.exports}c.m=s,e=[],c.O=function(t,a,i,n){if(!a){var s=1/0;for(l=0;l<e.length;l++){a=e[l][0],i=e[l][1],n=e[l][2];for(var o=!0,d=0;d<a.length;d++)(!1&n||s>=n)&&Object.keys(c.O).every((function(e){return c.O[e](a[d])}))?a.splice(d--,1):(o=!1,n<s&&(s=n));if(o){e.splice(l--,1);var r=i();void 0!==r&&(t=r)}}return t}n=n||0;for(var l=e.length;l>0&&e[l-1][2]>n;l--)e[l]=e[l-1];e[l]=[a,i,n]},c.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return c.d(t,{a:t}),t},a=Object.getPrototypeOf?function(e){return Object.getPrototypeOf(e)}:function(e){return e.__proto__},c.t=function(e,i){if(1&i&&(e=this(e)),8&i)return e;if("object"==typeof e&&e){if(4&i&&e.__esModule)return e;if(16&i&&"function"==typeof e.then)return e}var n=Object.create(null);c.r(n);var s={};t=t||[null,a({}),a([]),a(a)];for(var o=2&i&&e;"object"==typeof o&&!~t.indexOf(o);o=a(o))Object.getOwnPropertyNames(o).forEach((function(t){s[t]=function(){return e[t]}}));return s.default=function(){return e},c.d(n,s),n},c.d=function(e,t){for(var a in t)c.o(t,a)&&!c.o(e,a)&&Object.defineProperty(e,a,{enumerable:!0,get:t[a]})},c.f={},c.e=function(e){return Promise.all(Object.keys(c.f).reduce((function(t,a){return c.f[a](e,t),t}),[]))},c.u=function(e){return e+"."+{ocvFeedback:"c56ac2ddc62b39cfc2f7",clarity:"331a191582d3bf1b93c2",msccCookieBanner:"33bd1baa253920774704",oneTrustCookieConsentData:"9e76f91797f1e6b4ae9d",topicData:"3225127f12a5b2ab3f20",poweredByData:"8d934c50f38e418267ab","category-data-connector":"a9753464e5b4dbdc406f",layoutPreferenceData:"31fc4154cdf13f310027","weather-data-connector":"9a2516fc8ccb6ee9040f",CoachmarkData:"7001963b81f55173307c",RewardsData:"10d96de32d5e1965fedc",ExperienceLoadedData:"503d466bcf252ff0962b",DefaultBrowserReclaimData:"24797fe1baefeb242fb2","libs_icons-wc_icons_ArrowRight_svg-libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons--eaf632":"6e8c3d0c9f266430e14f","office-feed":"a34c95041f991d44c57a",articleTopComment:"746de646f06d80aec651",autosMarketplaceCard:"ceb1c85480a7c2954f4b",bingHealth:"20ee9049dd7c31a48089",bingHealthCard:"fe301349819328bbbca0",bingHealthFitnessCard:"4351dcba7ef75e0b78d9",healthFitnessCarousel:"551d6132aa7a8c3fce96",bingVideoCarousel:"b03f06eac8663a8b645f",breakingNewsWC:"0e1f7070d3301349657a","card-actions-wc":"42d74c4e8c880e4fbc7b","holiday-effects":"a605d0754c0ab4f46cd1","coachmark-wc":"20e4bc5f1bccc26abb2f","cold-start-wc":"20e2a414acc17deb1e70",conditionalBannerWC:"e96239aa7310e2b900fb","content-group-card":"67cebcb9f75e4a97855b","daily-brief-wc":"00635d208401a7a57b2b","libs_finance-service-library_dist_redux_FinanceData_connector_js":"4fe3666d29fced989b22","libs_card-action-service_dist_CardActionServiceClient_js-libs_feed-layout_dist_FeedLayoutCard-effb03":"df102c2bf3d08d7c40f5","libs_ad-service_dist_CookieSyncService_js-libs_ad-service_dist_NativeAdService_js-libs_experi-828718":"7970bc599e87c937add0","desktop-feed-edgenext-wc":"b798271df1d4b935009d","xbox-feed-wc":"c581aa0bb0bbdfc74e81","default-browser-reclaim-banner":"8309fb95ddcab2d3f9e1","desktop-feed-single-column-wc":"788a9690f0510d795d0e","dev-tools":"d9d948e229d72d08f64f","esports-card":"09366144adbac98f0226","linked-in-card":"5c2eaffbd630ea407520","esports-streams-card":"f2f0d0b65107cb6ab975",feedback:"1039f7a5ac87cccb9449","feedback-dialog":"8ea741355dd2555d7786","feed-navigation-header":"f5d32b1c552b005e7bd3","health-tip-wc":"c61fc597e8b3ef3acf96","horizontal-nav":"3f89170b0e7e0c91ae85","feed-toggle-wc":"ec2b94a4f8c37004485d","game-card":"55328a9273081f0f8c60","gaming-compete-card":"7d81193e376094d00f5c","gaming-recentlyplayed-card":"d38fde3dae1216fa5d14","gaming-reddit-card":"a219c13edfbfe27011a4","gaming-rewards-card":"d50493b3b80f1141eb80","gaming-stream-card":"477306dbd5ca213579af","gaming-tournament-card":"2f89bc556abacddfe75a","gaming-upcoming-card":"fbd258ef516b5a1fa3c8","gaming-video-card":"4c21c36f95a148d77814","general-elections":"02c6047b5f32dee205b5","grid-view-feed":"c3bd0615bdc275d1760a","libs_icons-wc_icons_CardActionFluentButton_svg-libs_icons-wc_icons_Settings_svg-web-component-a029aa":"91ced6f55b139c85bb12","grocery-coupon-sd-card":"9eefdff6cb8ce090e30c","horoscope-answer-card-wc":"5ab642a7fdec6eb4a9fd","image-search-wc":"3c03e86cd305d4275f11","experiences_interests-wc_dist_InterestsWC_js-libs_config-schemas_dist_HybridConfigReference_js":"f4d48dc7041a2a943b63","interests-wc":"aab4182b854f8fb819f6","layout-toggle":"79a64115556e38bf2824","linear-view-feed":"5e921b4816c8e03a6d26","lottery-card":"5f45981be47392f93c1f","marketplace-card-wc":"29d4630a95a07cde89d7","money-info-card-wc":"08d7256c3f61e588a331","ms-rewards-wc":"f6e70e41c260a406f99f","native-ad-wc":"5bac39a7be4ccd7aadbf","newsbar-toggle":"833c82bce6142b5aa026","news-segment-carousel":"aa33fa33033bea4c4e04","notification-bell-wc":"ea7da4a8b1ab924246b9","office-leftrail":"af2bedfd12f5e7d55196","outlook-email-preview-wc":"a8ac082b97c8b945f877","on-this-day-card-wc":"690b0f9ff7a31f4a1d18","on-this-day-card-small":"699f1fa092f6aa603863","overlay-wc":"fa201b7c5daa1d0f426d","personalize-nav-button":"9f492e89635a118d7c47","pivots-nav-edgenext":"a680e073a37886594b75","pivot-content-wc":"0419d7ff3b1f0fbb3cc9","polls-card-wc":"071c7d95029e04808c77","poweredby-legend-wc":"5440dfedf130df283b8f","prism-sd-card":"936d09c9316b80b19f85","publisher-carousel":"9e40f7a097b8f597abc9","qna-card":"07d5c4711d05eb6201b5","quiz-card":"5b8afaed73fcc05f36e1","reaction-breakdown-dialog":"8665fd3792e35bcf27fa","recipes-sd-card":"7f73176be190addc9ec6","recommended-search-carousel-wc":"20ff2a9e53561b9a4ed4","recommendedSites-wc":"136369e4ee67a49c9bc4","rewards-card-wc":"7c4b429ddb0b170ea866","right-rail-cards":"15f64bfc5c5ac84bfe23","sd-card-mask-wc":"56de6b027199187cfe9a","search-history-edgenext-wc":"24f777a3717677cb7e36","select-carousel":"30886b2780f1f90bbe64","settings-dialog-edgenext-wc":"74bdeebd682e7278b9e4","sharepoint-news-card":"d1258f7919cc32bbe409","shopping-card-wce":"ae0ea6f88cf236d01c00","shopping-smart-list":"4483f550a0b3058c8b9f","side-bar":"6fb8109baf7942876e5a","social-avatar":"650cd10e75b6b30e6635","social-bar-wc":"0c7e5b39b543820b0e7a","profile-promo-card":"1c22e7b17c6a4e386422","premium-profile-promo-card":"7273c48ddb91902d6dc1","sports-card-wc":"985dfea0b142736a5503","sports-olympic-card-wc":"e495e77a3c1ef407569b","toast-wc":"a934f08a3805a2ff25d7","pill-wc":"6c7250442d5e779d2c7a","sign-in-banner-wc":"8680c9c5c787bd081d1f","sign-in-control-wc":"6fbe4a5f8e8777dd2517","sign-in-flyout-wc":"7e90b85d68c6061d40aa","sticky-peek":"f3a2c10466fffd95210c","back-to-top-button":"64cf251020c4bbe10419","theme-picker-wc":"e23945cec581f7005a7c","traffic-card-wc":"ba0538119dd01d7b9e19","travel-destination":"f118d8e3861f424c86ce",trendingNowWC:"8585971db9ebbb386797",trendingTopics:"387dc610b004352fdff2","vertical-left-nav":"4767cf065004918c3b02","web-components_content-video-player_dist_index_js":"f094c9d69eb14e6fc7db",videoCard:"696ebeacdb6e801b3f65","voice-search-wc":"69a9769c5f3292020103","waffle-wc":"5cd9d9d8dba44dc37583","libs_icons-wc_icons_EditFluentButton_svg-libs_icons-wc_icons_Pollen02_svg-libs_icons-wc_icons-703cfa":"7115ad7b839b2e17025e","experiences_weather-card-wc_dist_index_js":"502b37b0e641ac7f4ae8",welcomeGreeting:"753c177338a772fd456b",xfeed:"e346fad4a403ce82ef50",node_modules_sortablejs_modular_sortable_esm_js:"883fee7723671fc5aa12","weather-data-lazy-services":"0a7cac162a9a0f17ae65","icon-assets-Accounts":"f758e940a2c3359a4de1","icon-assets-AdChoices":"d3fe9940c2c897cad652","icon-assets-AlertWhite":"7c3d963df987674403a8","icon-assets-AlertWhiteRound":"5e7932c066179f5dead2","icon-assets-AllDone":"0aa0205da018d5becfcc","icon-assets-ArrowDown":"206b5e9c44fe2df5929c","icon-assets-ArrowUp":"9147f6a0dc32d17de7b1","icon-assets-ArrowUpFill":"8a5e4f11171d4c6d1edf","icon-assets-AirQuality":"9158f84933ebaf04c67b","icon-assets-BingCardDefaultHotelImage":"3987cfccebd4718e1224","icon-assets-BingHotelSeePrice":"eb5b7da4771eab2e2686","icon-assets-BingLogo":"065c5d52cb6fa5962723","icon-assets-BingRatingDarkStar":"499501f79991d2ac1a56","icon-assets-BingRatingLightStar":"b1d36d80e3b4dd5c19b7","icon-assets-BingRatingDarkLightStar":"b9c0770f4dd5b421f91b","icon-assets-BlowingHail":"f68d163deaffc60c7da1","icon-assets-BlowingHailWhite":"e5f7926b61d4e13b321e","icon-assets-BlowingHailV2":"2a98dece1d64858bc8dc","icon-assets-BlowingSnow":"d1abb1bef78fa9bcf1c0","icon-assets-BlowingSnowWhite":"09dbef4ba1954bbdc952","icon-assets-BlowingSnowV2":"bc05127eac7bab70a841","icon-assets-CardActionButton":"9ed71af545f772db2eb4","icon-assets-CDCLogo":"5c9258e33fedcd98a207","icon-assets-ChatBubbleIcon":"1dca0d04660763ae7202","icon-assets-Check":"7abb1ac4d598b2a3c83b","icon-assets-CheckmarkOutline":"047c812e8ba333ab0803","icon-assets-Chevron":"1a287c83b9f08195553e","icon-assets-ChevronDown":"59a568241b7b496c884e","icon-assets-ChevronDownV3":"af78a910917e8c2f67c1","icon-assets-ChevronRight":"ec4f55eb11b4750a63aa","icon-assets-PHChevronLeft":"0ec222b84a8c76e6b95f","icon-assets-PHChevronRight":"d903428969374859a21b","icon-assets-ChevronWhite":"1bda18c2184734333a5a","icon-assets-CircleClose":"34c072b51123d54582b8","icon-assets-CircleCheckmark":"42d13d7bed0cf8bea2f9","icon-assets-CircleChevron":"1912c88e5e2d0147cbc3","icon-assets-ClearNight":"370ac7f79b689a5a14ed","icon-assets-ClearNightWhite":"4e37c54cd750e3b0f230","icon-assets-ClearNightV2":"94a2796c2eab63634674","icon-assets-ClearNightV3":"881c86747300a17abd7b","icon-assets-ClinicalTrialBot":"69da46e622c2f37d2fcc","icon-assets-Close":"e6120b6a10e429ed6460","icon-assets-CloseV2":"1b0d158c9ce85567082a","icon-assets-CloseThin":"542a36001fecfaed2d0b","icon-assets-Cloudy":"61c69451da0487def925","icon-assets-CloudyWhite":"0a17f9c1014fac7bc13b","icon-assets-CloudyV2":"153187b9077f3cbab81f","icon-assets-CloudyV3":"74c40a8f69779fff3216","icon-assets-Comment":"e3d27fc8ffafb3e1e1da","icon-assets-CommentFill":"386657b0c9d5aef66d2a","icon-assets-ConflictWarning":"10e6ed379a3599a74306","icon-assets-Copy":"5a22147e71100a380a79","icon-coronavirus-icon":"ab4ce850ff3c2fac35a1","icon-assets-DarkModeHotel":"00f3c9506f6e7170a97b","icon-assets-DataProvider":"2329619e041ee971cdea","icon-assets-DayTime":"764e6fb2c02ca4fd49df","icon-assets-Delete":"1b3ab57da6139fb6025f","icon-assets-DeleteTrashCan":"ff4569d9128c158416dc","icon-assets-Discover":"207a6cffd2061cc1090c","icon-assets-Dislike":"7b2e202b6ccbd8271c4b","icon-assets-DislikeText":"f40d8235db280320dd60","icon-assets-Disliked":"641059b518ead65b7b59","icon-assets-DislikedText":"0701386b2853b06ae226","icon-assets-DislikedLight":"ff1c2b7deb2f3a24b230","icon-assets-Docx":"255ad185996838dbb7db","icon-assets-DoubleTap":"dca70f101e4599db2b22","icon-assets-Download":"1a0b05a1a8c99cdfb4fc","icon-assets-DownloadNoFill":"3b3360971393d80db0e2","icon-assets-DownArrow":"8d21c7e3427d0817ccf2","icon-assets-Edit":"da39861187b507240ba9","icon-assets-EditNoFill":"5df58fc61c84b0d51d41","icon-assets-Edited":"0a16daa1c83d5cff2b1b","icon-assets-EditedNoFill":"7a0b14e9aab2acce8c50","icon-assets-Ellipses":"ce952c8a24cf9cf325ae","icon-assets-EllipsesLight":"82484df012d2065d6620","icon-assets-EllipsesV2":"a6ef177a2f69905af627","icon-assets-Emoji":"83b7f4acce55d7dfcabd","icon-assets-EmojiAngry":"f8e7c9c16d780a3034f5","icon-assets-EmojiHeart":"c2a2628b5fe00a937b3f","icon-assets-EmojiLike":"8b14d629baa2fcfdd484","icon-assets-EmojiSad":"f552962f2878427f3b31","icon-assets-EmojiSurprised":"e5096320d6b19f7290a2","icon-assets-EmojiThinking":"103a3563423ad4c3ce2a","icon-assets-EmptyDiscoverDark":"09975d53688788c267cb","icon-assets-EmptyDiscoverLight":"c3cf03b0b7ab7363d16a","icon-assets-EmptyMruDark":"9c3e9d02bd9b5191c301","icon-assets-EmptyMruLight":"f87d01ea34724f3cc49d","icon-assets-EmptyPinnedDark":"fcea5c8e22c34ca61c37","icon-assets-EmptyPinnedLight":"b43ff47cfd07f8e3ce49","icon-assets-EmptySharedDark":"5eb70a5e455e8c0eef76","icon-assets-EmptySharedLight":"5ade476302e02097280d","icon-assets-ErrorRocketLight":"00848933bda610d1385c","icon-assets-ErrorRocketDark":"465e42fb3177ca68f549","icon-assets-Excel":"c89e25f14891df79404f","icon-assets-Facebook":"0e78a0117fd440717f77","icon-assets-FacebookCircle":"34e66951bd77c2185804","icon-assets-FacebookText":"f6c4c8f774fbff2ddf5c","icon-assets-FacebookTextBlack":"52d10af35770fb9b77db","node_modules_svgr_webpack_dist_index_js_-svgo_components_icon_icons_Feedback_svg":"35f151fad3783a12486c","icon-assets-Flag":"5e4e72c0e0dddd055dc3","icon-assets-FluentArrowTrending":"96d675bd13b433e50737","icon-assets-FluentAttach":"0330ffe1c75cbbdf8985","icon-assets-FluentCalendar":"9ef5bbfc89bc34293130","icon-assets-FluentComment":"1db8d8662306e13a3c59","icon-assets-FluentCompassNorthwest":"567e2ac6d4166f9039b0","icon-assets-FluentEdit":"231aa0d2d9172986cfa9","icon-assets-FluentFolderOpen":"aaa6c1d68a2f86c9885e","icon-assets-FluentMention":"98a94eda64beb74e1718","icon-assets-FluentNews":"051d70051d7ee8be5261","icon-assets-FluentPeople":"0163313362be396b13ff","icon-assets-FluentVideo":"f135351fa76192dff630","icon-assets-Fog":"5f465b2b8dd74a51c4d1","icon-assets-FogWhite":"b92f42de0013f45a10f8","icon-assets-FogV2":"fab351109e0712a86826","icon-assets-Form":"2c06d26db50d9d636548","icon-assets-Folder":"73d7225e03a4c0ac87cb","icon-assets-FolderNoFill":"436cca77f05b608ca4f3","icon-assets-FolderOpen":"be961e72936fa85bb494","icon-assets-Forward":"2e701fe2e4aeb5d20054","icon-assets-FreezingRain":"a3ef799cd8d76c8cfa59","icon-assets-FreezingRainWhite":"2bfa4c5f214368b88722","icon-assets-FreezingRainV2":"1e7faaf8c0e66c59a8fa","icon-assets-FrequentSitesEmpty":"ad802c2f517a7a107519","icon-assets-FrequentSitesError":"79ec63934f0bda63edab","icon-assets-Fullscreen":"967d13577f77daa23f51","icon-assets-GalleryFullscreen":"2a3c61a0e166b118ea49","icon-assets-GalleryMediaIcon":"eec75f496963da7ec606","icon-assets-GalleryPhotosIcon":"45a0de03ad9512ec25ea","icon-assets-GeneralErrorDark":"d274146dcfa447ffccff","icon-assets-GeneralErrorLight":"5918cdf33c0284b82588","icon-assets-GenericFile":"a2d6cd8e8d4cf5191999","icon-assets-Glimmer":"20c577550738bccac089","icon-assets-GoBackArrow":"54acdcd4b78abdebe2e3","icon-assets-GridView":"b03f012aa925ae50f4ad","icon-assets-HailDay":"e6d02d1a250112a880c3","icon-assets-HailDayWhite":"2c7fba8350cc00cfe4fa","icon-assets-HailDayV2":"83db42c32619cfe33c48","icon-assets-HailNight":"0a04a54262cbe25f8f25","icon-assets-HailNightWhite":"2aab019867ef446fd3fe","icon-assets-HailNightV2":"9b1773fdbfd44b07117b","icon-assets-HazeSmoke":"d9f34e0c3d96f5ce3f1f","icon-assets-HazeSmokeNightV2_106":"0ca7d8855ebabc81fd8a","icon-assets-HazeSmokeWhite":"07176cad125816189fb1","icon-assets-HazySmokeV2":"992a525e9e1809187ffc","icon-assets-HeavySnow":"1c71286dc5862325b180","icon-assets-HeavySnowWhite":"8196b8de04b7900f6ba0","icon-assets-HeavySnowV2":"fb8220b74110b348d77e","icon-assets-Hide":"3971198342d28b9b31a5","icon-assets-HideV2":"f06c4e0d75f306e0ef01","icon-assets-HideStory":"c77c68c22020328d154f","icon-assets-HideStoryV2":"cb58aeee5e6a2e49ca73","icon-assets-Home":"86c22b5adfc9bff07dba","icon-assets-HomeOutline":"78688b5f19bce305f558","icon-assets-Hotel":"38da451680923b799369","icon-assets-HurricaneFull":"6684687fc71e77a8af26","icon-assets-Hurricane":"3e164524e44b7fc163ce","icon-assets-Hurricane1":"6b5593bbe36cd6a35837","icon-assets-Hurricane2":"6b7adafd1fede0f77274","icon-assets-Hurricane3":"5e1e31d8b22419730387","icon-assets-Hurricane4":"63082ae513e9ce70cd5a","icon-assets-Hurricane5":"3ce7a8644b1ab1f0a353","icon-assets-HurricaneTC":"37660dc5e9fa69e98a75","icon-assets-HurricaneTD":"f1ffa9586ce19051616e","icon-assets-HurricaneTS":"92ba8da0699af0fc9de3","icon-assets-Information":"891a68889f8d303e6642","icon-assets-IndustryBriefcase":"9a3e8c966ccbb86cef8f","icon-assets-IndustryBriefcaseOutline":"cfe5ab834bd2f882f056","icon-assets-InteractionRequiredDark":"915695404af7b6eb6a41","icon-assets-InteractionRequiredLight":"c69565f51551de9db287","icon-assets-Interested":"c2f5e90d6bc40185a71b","icon-assets-LanguageAndContent":"7d49a6401ed231cd63a0","icon-assets-LightBulb":"52ca7392c4643f5a2117","icon-assets-Layout":"73c8b8d30dad2af73f55","icon-assets-ListMenu":"07e85e06a6057250952c","icon-assets-LightRain":"cf9dd9b483dfad1004e0","icon-assets-LightRainWhite":"85ebda4e09ccde2501a2","icon-assets-LightRainV2":"6a32aac00487f206f693","icon-assets-LightRainShowerDay":"cd6c12ce28f30c9e7f8d","icon-assets-LightRainShowerNight":"e32be8d6fd831d96c3f1","icon-assets-LightSnow":"e93c1e6fbf32d2c89229","icon-assets-LightSnowWhite":"5a3515800342153e2f4d","icon-assets-LightSnowV2":"d64956fb3f6b58f10ed2","icon-assets-Like":"52192b936488d8389e78","icon-assets-LikeText":"bd456865660c03b4d7b2","icon-assets-Liked":"ae24008a0526d621c062","icon-assets-LikedText":"ebcca8a7ac56230e13e2","icon-assets-Line":"5b68e6dfc331c8c87273","icon-assets-Link":"927cc3f168b83c92d909","icon-assets-LinkedIn":"d8a632cf255d6a87e66d","icon-assets-LinkedInBlack":"88f6384eabd3a0de4d80","icon-assets-LinkedInText":"f8da01f8bcc343ced994","icon-assets-LocaleLanguage":"5e7834e58404eed07d76",LocaleLanguageV2:"940779fb8b97d4aec790","icon-assets-Locate":"b6725957fd897b262b9a","icon-assets-LocateWhite":"e7ca2f01ed3a31294aa1","icon-assets-LocationDetect":"675e7c6b746460b59d72","icon-assets-LocationDetectV2":"e42c900baa0f7cb7364f","icon-assets-Lock":"e748f9096ced79480cbf","icon-assets-Mail":"47189223d6c766a6faec","icon-assets-MailBlack":"a257cc00ad88e5b81f01","icon-assets-MailNoFill":"256a36fa48e8aef89ff5","icon-assets-MailRoundedCorners":"0ce232d5d766bee77866","icon-assets-ManagedBriefcase":"b7c67c9c0025f3ae60a4","icon-assets-ManagedBriefcaseNoFill":"b1b5e776d21f89453a95","icon-assets-MapEnterFullScreenMode":"862e292ba55297f63c2c","icon-assets-MapExitFullScreenMode":"6652953b7c347f8e7f71","icon-assets-MapZoomIn":"90a8072603429091e9c5","icon-assets-MapZoomOut":"2c4987979fd258432ffe","icon-assets-MediaIconSlideshow":"651767f26aead71670e4","icon-assets-MediaIconVideo":"776e0df1e7a1444afa7f","icon-assets-Message":"95150f50ba365f004537","icon-assets-MessageNoFill":"daf6d5cb77411fd71d0b","icon-assets-Messages":"783987f968be29cbd5cf","icon-assets-MsnLogo":"57d980d490f30326793a","icon-assets-MicrosoftFullLogo":"ccd798549d6646481cf7","icon-assets-MicrosoftLogo":"e30a1c1de0a698613561","icon-assets-MicrosoftNews":"67fd540e9ac5a844b42b","icon-assets-MicrosoftNews_FR":"2fcd174cb3b0dad8d93d","icon-assets-MicrosoftNews_ZH":"21f98735ee381c80f899","icon-assets-ModerateRain":"4f2a25a21b7f63a90530","icon-assets-ModerateRainWhite":"89e89af4a1eac4399a95","icon-assets-ModerateRainV2":"121589db41f7cf7d0f98","icon-assets-More":"086dde48011df0518138","icon-assets-MoreV2":"d3ec856124a7c3490773","icon-assets-Movie":"5312ffb2fea6d6661ba9","icon-assets-NewsArticle":"441c35425c19686d2c2f","icon-assets-NightTime":"9b2bb1b5894dd1d15a08","icon-assets-Notification-Five-Plus-Sign":"36a44efc490b6962e536","icon-assets-OfferTimer":"08c95a45f234f13047f2","icon-assets-Office":"1806c611061280039400","icon-assets-OfficeFormsLogo":"6744ad9f5410065ff268","icon-assets-OneDrive":"8f1e4d945dcdacd2040d","icon-assets-OneNote":"84db19054559971ff535","icon-assets-Onetoc":"42fa7d3418a6d44551f8","icon-assets-Open":"1af89719a2047375decb","icon-assets-OpenSquared":"acc21fd0ffa8d3936b61","icon-assets-Outlook":"fd74806b7902ede99b37","icon-assets-PartlyCloudyDay":"d070a47503102c0e4531","icon-assets-PartlyCloudyDayWhite":"ebbfdf49dd3b01cd3408","icon-assets-PartlyCloudyDayV2":"8f2c600ffbd5332787e8","icon-assets-PartlyCloudyDayV3":"d13e814201a82d5dbbe0","icon-assets-PartlyCloudyNight":"6e2c0ce47d4df6f44a41","icon-assets-PartlyCloudyNightWhite":"820f750e8fc1f3b0dc13","icon-assets-PartlyCloudyNightV2":"9068e796457fd658608a","icon-assets-Pdf":"a9cd53694481ac02519f","icon-assets-People":"8ece1fc89e1c4ec505ea","icon-assets-Pencil":"02b51aaf3d8c9ddb9a6f","icon-assets-PHAdd":"6fc435d7e0a43620f983","icon-assets-PHAlert":"0b3753f3da76022102b4","icon-assets-PHArrowRight":"dcafdb7dcf2067a3ab02","icon-assets-PHCalendar":"641420edcbdb773f0912","icon-assets-PHEllipsis":"815c71471acecf52a87c","icon-assets-PHEmptyTasks":"7ce5d9d599b542eba0e9","icon-assets-PHTodoEmptyTasks":"4d025d683f9430ab1560","icon-assets-PHFavorite":"b5f65e6538338ad29d76","icon-assets-PHFavoriteFilled":"a0f77c5a4cf1c0f508eb","icon-assets-PHNoTask":"e9670885ab047b50a992","icon-assets-PHToDo":"7285cc76d6b2cd7fecfa","icon-assets-PHExcel":"34b963a304fc0011155d","icon-assets-PHExcelFile":"e7c28c955851f266a764","icon-assets-PHFluidFile":"e2ad7147f1de10a247c4","icon-assets-PHFormFile":"f5106f91d36eebfae0cd","icon-assets-PHGenericFile":"a985db4ee7de5ad7cb97","icon-assets-PHOneDrive":"c69512106e392d16c3bb","icon-assets-PHOneNote":"6866483e58bdbf5719b7","icon-assets-PHOneNoteFile":"e6a0dde9985115077f28","icon-assets-PHOutlook":"39c44a66f7d132d51f1d","icon-assets-PHPDFFile":"bf4376e45406e4cd00a3","icon-assets-PHPowerBIFile":"05028fcfd6c3b461a107","icon-assets-PHPowerPoint":"5b377c2d96882b3faed5","icon-assets-PHPowerPointFile":"c289a694e2e76f7ad3d8","icon-assets-PHProjectFile":"1df69cf9d031a593c185","icon-assets-PHSharepoint":"5444d695d5942e8e5e60","icon-assets-PHSharePointFile":"013d83de8d0c1d15d127","icon-assets-PHSharePointNewsFile":"5b068711de2126985bda","icon-assets-PHStream":"daff20bd475e26572ba1","icon-assets-PHStreamFile":"8da512e85b8349b0ddaf","icon-assets-PHSwayFile":"323331247dfc1a2c7f46","icon-assets-PHVideoFile":"068406361e9412f1ffa8","icon-assets-PHVisioFile":"c96623285240ae86234c","icon-assets-PHWord":"08eb764ef651d8ad4afb","icon-assets-PHWordFile":"cbff4c0a8e55f8b94b77","icon-assets-Pin":"e29873b088f16af4efa1","icon-assets-Plus":"ef469fb539938ec6f10a","icon-assets-PopoverArrow":"fdc65af0b7b1661ef242","icon-assets-PowerBI":"63ff12974d97bd07c365","icon-assets-PowerPoint":"82cb072843ceb019a092","icon-poll-results":"1084d65f33a9131e8ffc","icon-assets-Pptx":"8fdfd3835e70835c2bdd","icon-assets-PresenceAvailable":"321b6a6ae9de86c787fe","icon-assets-PresenceAway":"3151fafd9b4d38b58a5e","icon-assets-PresenceBusy":"63c7014890992287e264","icon-assets-PresenceOof":"b71a38413f2e2ffc6cb7","icon-assets-PresenceOofAvailable":"e32676f3fb5914b3260d","icon-assets-PresenceOofBusy":"a963b39dc6cbe35815ce","icon-assets-PresenceUnknown":"4d4e2bb0d49efa46fa69","icon-assets-PriceDrop":"5ab1da175f9a11bec1fa","icon-assets-PriceDropBlue":"899f6e7642baa42f5749","icon-assets-Project":"f01f3b58e7b2ec8cc6a3","icon-assets-Radar":"71f58f44bcfab86f1cb1","icon-assets-RainShowersDay":"0b57883d253c61124e73","icon-assets-RainShowersDayWhite":"8a427e9941d71287958d","icon-assets-RainShowersDayV2":"aa9e7ca7daf02ca158ca","icon-assets-RainShowersNight":"81d58c95561d7b8cefae","icon-assets-RainShowersNightWhite":"b5d7dd5b89d5066f8775","icon-assets-RainShowersNightV2":"fe5c7c412b080e8416cb","icon-assets-RainSnow":"d17f484c6434b59f9b5c","icon-assets-RainSnowWhite":"2ee941593b1d202b18ba","icon-assets-RainSnowV2":"1bf8a9f5f372c3566ea3","icon-assets-RainSnowShowersDay":"5e000666ee3702780473","icon-assets-RainSnowShowersDayWhite":"fd23485fca68e10e2763","icon-assets-RainSnowShowersNight":"27516e00fd051c89b0c1","icon-assets-RainSnowShowersNightWhite":"54b71c16843c8eb91144","icon-assets-RainSnowShowersNightV2":"7c2dbf17640abc3eaeca","icon-assets-Rating":"35aa6576af469728c5c2","icon-assets-RatingEmpty":"8d26d7eb2a7cd97de674","icon-assets-RatingEmptyDark":"ddac36f33f231ca5d878","icon-assets-RatingPartial":"ac5733b86c348a45e58f","icon-assets-RatingPartialDark":"1c7f3c7272dfcb49660f","icon-assets-RecommendedEmpty":"eb8dfa652d4736c2b51d","icon-assets-RecommendedError":"379147c77c1838f8b6b7","icon-assets-Refresh":"1948f4ea4b5a34d7e101","icon-assets-RefreshV2":"9d07f9efd5d631db15c2","icon-assets-Remove":"772410a6818b598f5f90","icon-assets-VideoMediaIcon":"7ad3ba2ea87b45ac1df8","icon-assets-VideoMediaIconV2":"dcca5b9684aaaf336ef0","icon-assets-VideoPlay":"1963cba8df0529a56b56","icon-assets-Save":"99b99c7dcb1bcbeadd51","icon-assets-Saved":"38c1d9e1b32e5f869605","icon-assets-SavedV2":"416fcaab31e3c00ee6b7","icon-assets-SaveV2":"68ab61a0dbcd80ee5045","icon-assets-SaveV2Fill":"3ba48e9a752e3175f031","icon-assets-SaveV3":"3055b08db98d8bb2a5f9","icon-assets-SaveV3Fill":"677391a71fd5a75270d3","icon-assets-SavedV4":"b6d56078aa0102b5ade6","icon-assets-SaveV4":"ffa086012a2da01817fc","icon-assets-ScrollToTopArrow":"519499d2fa8377709d99","icon-assets-SetHome":"6d48ed8598c184474768","icon-assets-SevereWeather":"a695914e396b07042f1f","icon-assets-Search":"b6a412115e848c441b0e","icon-assets-SearchV2":"fdeebbd7ab37192e1e5e","icon-assets-Settings":"706b5c1abb1e63c112cc","icon-assets-Share":"88d30f5bfe2905adedf2","icon-assets-ShareV2":"57c5b96c356c569fedc4","icon-assets-ShareLight":"9a59610e2877fcb2c4ff","icon-assets-ShareNoFill":"ea412c8031702f9d947f","icon-assets-ShareRoundedCorners":"32fe44552bb561826c18","icon-assets-Sharepoint":"ff2c52dc5ecfedc036b5","icon-assets-Shopping":"547ec62d7972571ddc16","icon-assets-ShoppingDealsDark":"9357f19133dc924ce5b5","icon-assets-ShoppingDealsLight":"a9178992ed2497499822","icon-assets-SportsIcon":"b7a97ff3f65dd005d4d6","icon-assets-Skype":"bf46c764c5738acb99bf","icon-assets-SkypeOffice":"6d58b18a84375c26eea9","icon-assets-SlugInfo":"1ea34ba9ba74c8d5feb6","icon-assets-SlugInfoDark":"44e87fa458f92163c0aa","icon-assets-SnowShowersDay":"c895b02bc8b0feb27f71","icon-assets-SnowShowersDayWhite":"272907ae0009a3a2f785","icon-assets-SnowShowersDayV2":"e17447b9a95ce81beea4","icon-assets-SnowShowersNight":"a18e928f12087b52200b","icon-assets-SnowShowersNightWhite":"2ab98d351fc0814980f3","icon-assets-SnowShowersNightV2":"6f6c185340f1c8ce0b3c","icon-assets-Star":"f9ef9a9b0dfd0f0ae565","icon-assets-StarFill":"615d3235932e18114a33","icon-assets-StarFollow":"4875aa5bcb4f09aa8c10","icon-assets-StarFollowBlue":"780099c7d126fcd26676","icon-assets-StarGear":"6740f48e9aaaa0e0bfd7","icon-assets-StarOutline":"8e6c115a9840c1fd08fb","icon-assets-Stars":"7b0f986fa6bc4734e171","icon-assets-SunnyDay":"7c458cc483e2e139725f","icon-assets-SunnyDayOutline":"a4c3d1748ee5ba251e41","icon-assets-SunnyDayWhite":"95d9c32bd3f4ab612773","icon-assets-SunnyDayV2":"b918aa13e24ae6cda244","icon-assets-SunnyDayV3":"66961dc01ce2f2ef2333","icon-assets-MostlySunnyDay":"5afc8afabd939fc36da5","icon-assets-MostlyClearNight":"73e7803df796885fadaf","icon-assets-MostlyCloudyDay":"41d271b3f7b2e8f3d22c","icon-assets-MostlyCloudyNight":"331a67b8f4e208500c3b","icon-assets-LightRainV3":"97dbb73a08914bec10da","icon-assets-MostlyCloudy":"0ca9994427039b13e155","icon-assets-Personalize":"a101328182243ef7d8e1","icon-assets-MostlyCloudyDayV2":"bab0aa520b0448daf5a9","icon-assets-MostlyCloudyNightV2":"4a840b7c620bad185504","icon-assets-Sway":"13dd42546b90e7d6ca52","icon-assets-SwayApp":"ecf7e610df19ed66a520","icon-assets-Teams":"383e3d92c8a671f4234d","icon-assets-TextExpand":"bcf5e735fed38e04449d","icon-assets-ThumbnailView":"932ae6346bd35e026ec9","icon-assets-ThumbDown":"1e2b354267695027e18c","icon-assets-ThumbDownBlue":"9b350dbf61488aeac418","icon-assets-ThumbUp":"a9e467ce05c791575f1a","icon-assets-ThumbUp3Fill":"df4793dd7f000330be8c","icon-assets-ThumbUpBlue":"b554dd4e2593c1cf4d3d","icon-assets-ThumbUpFill":"fc3b5749b4651b2a7097","icon-assets-ThumbUpFill2":"ba9cab49ff0e3811c889","icon-assets-ThumbsUpAndDown":"cf9c330bc1b0006c74f3","icon-assets-Thunderstorms":"456b548de03b707be7a8","icon-assets-ThunderstormsWhite":"9444878559c29c4145de","icon-assets-ThunderstormsV2":"38b10948e75acd9391d7","icon-assets-TodaysEventsEmpty":"34c48ef8316bd16161eb","icon-assets-TodaysEventsError":"3bb14f9fd11c29331263","icon-assets-Traffic":"8c265a079d73eb077c0d","icon-assets-TrafficCamera":"c6f5a884872fc8d96820","icon-assets-TrafficIncident":"11c39d054d9b5bcc9763","icon-assets-TrafficSwitchDirections":"1f042368129affaeb89e","icon-assets-Trending":"fb3b55e661af64e379de","icon-assets-Twitter":"2118e369431a20266840","icon-assets-TwitterBlack":"8c2473822c152161b84f","icon-assets-TwitterNoFill":"3729da319fddbb2d7486","icon-assets-TwitterText":"11cc33f4b0cf5b0716b5","icon-assets-Unpin":"9a4a208211d7b9d78936","icon-assets-VerticalSeparator":"a302d80f1c9a0692f5c2","icon-assets-Video":"fbb4a736eb284fe3dc77","icon-assets-VideoAD":"99579eaebd88be7d61c7","icon-assets-VideoCC":"4cfcf53d054f79195e94","icon-assets-VideoCircle":"4310bef1cb92e10ac4ec","icon-assets-VideoCircleOutline":"9407af525748603a4f1e","icon-assets-VideoFacebook":"d49eae0b8980357e6930","icon-assets-VideoFallback":"7afe449280c16d570eeb","icon-assets-VideoFullScreen":"77b9678ea691350a530b","icon-assets-VideoGoogle":"975fa5d07a2fba8dc688","icon-assets-VideoHD":"df421984300efc90c3f8","icon-assets-VideoHeadphone":"5a7b97bb24424392b620","icon-assets-VideoInnerCircle":"ada0fe26117818645ae7","icon-assets-VideoLinkedIn":"af9a6291aac3bf00002f","icon-assets-VideoList":"a8f2677832b48c7ba8ef","icon-assets-VideoMute":"ee278861e1331a47f7c6","icon-assets-VideoNext":"4a091786fe21aa83d619","icon-assets-VideoOriginalScreen":"7f98ccc9f96c9253b956","icon-assets-VideoPause":"0d6332fdf860d03888f3","icon-assets-VideoPinterest":"006f5063f6bf67053e3e","icon-assets-VideoPIP":"4a3776c3fe422ebf2948","icon-assets-VideoPlayBig":"c53bb21c9cefb8785de0","icon-assets-VideoPlayCircle":"12b9792496ad7d6d6f80","icon-assets-VideoPlaySmall":"5f162b2fb40c68705b10","icon-assets-VideoPrev":"f5c57f5ae74b1462d3b7","icon-assets-VideoReplay":"e5f9e308624892356f47","icon-assets-VideoSetting":"01f9b82339cd54ae251b","icon-assets-VideoShare":"88c315c36a5f27d1242a","icon-assets-VideoSpinner":"da92dbf2dfb920c6772e","icon-assets-VideoSquare":"ddcb9958eaa00bd3813f","icon-assets-VideoStop":"621ec491cdee5c1fc4f3","icon-assets-VideoSubtitle":"787e01d20d9f32a24bd2","icon-assets-VideoTumblr":"5c1d3a2e5698cbf0e1e2","icon-assets-VideoTwitter":"815be4ee1e2b6e208948","icon-assets-VideoUnmute":"122169e5a4e9507f7675","icon-assets-VideoVolume0":"77c29f576a07da2c6376","icon-assets-VideoVolume1":"5b13a19aecd805adeb22","icon-assets-Visio":"2f861a1aafac1c66474e","icon-assets-Vkcom":"2b887d48a358990511c2","icon-assets-Vsdx":"44b5423e0d828e679711","icon-assets-WaterDrop":"552b8b908dc94fe5df35","icon-assets-WaterDropL2":"465ebf4ca61844da9782","icon-assets-WeatherAlert":"63ac56b6e979df9b8fbe","icon-assets-WeatherAQI":"e2c459aa8e9519cec4cb","icon-assets-WeatherBarometer":"495f2915c4ffd558ebe5","icon-assets-WeatherCloud":"9c9181c0fe4a9b43f2a2","icon-assets-WeatherDaylight":"46216981b565d3239e80","icon-assets-WeatherNightlight":"f9722a8b282e490b375b","icon-assets-WeatherNoRain":"87fbf8d04d28b572f60b","icon-assets-WeatherDewpoint":"f787aa7d36ba69acca94","icon-assets-WeatherExpand":"7859ed49cd618ece3272","icon-assets-WeatherHumidity":"c128a3f98f5147e6e126","icon-assets-WeatherIcon":"8316873fbaf246792edd","icon-assets-WeatherMapPause":"ba1fea535ef1cf280e13","icon-assets-WeatherMapPlay":"70b6e483301c3ad4b21b","icon-assets-WeatherMapLoading":"62f223fa06215f58e3ba","icon-assets-WeatherPrecipitation":"b7c06c3d685cfa03767b","icon-assets-WeatherSatellite":"848e607ab47c92568f44","icon-assets-WeatherSunrise":"caedcf852af46ad2ed2b","icon-assets-WeatherSunset":"867124cd6244c852d966","icon-assets-WeatherSunrise2":"ebad413fb8617a47a759","icon-assets-WeatherSunset2":"0876f5572e4fb669f624","icon-assets-WeatherMoonrise":"d64196eeb327fe00f7ac","icon-assets-WeatherMoonset":"604f8eb819b3d368cd46","icon-assets-WeatherLightRain":"87354c4cbc48c781e9f8","icon-assets-WeatherMiddleRain":"809dbe3cf7faabb38bc2","icon-assets-WeatherHeavyRain":"fb06af2785ab476a1720","icon-assets-WeatherLightSnow":"44bd63489e77034e5b35","icon-assets-WeatherMiddleSnow":"c57231fe2550c190c5a0","icon-assets-WeatherHeavySnow":"7446cb37e19cf7a59874","icon-assets-WeatherLightMix":"141ed50050058c5057a0","icon-assets-WeatherMiddleMix":"4f86799033c7df062d31","icon-assets-WeatherHeavyMix":"a727431a46c8d1659a68","icon-assets-WeatherRainGrey":"fd9e09d3fa5f4209a392","icon-assets-WeatherSnowGrey":"e26f5a2492ade119bc55","icon-assets-WeatherTemp":"d591d38b7ca31a76ba14","icon-assets-WeatherTemperature":"325cdcf66e29f1ce9b98","icon-assets-WeatherUv":"34158a108ec782939dc3","icon-assets-WeatherVisiblity":"16da028a8f4e3018596a","icon-assets-WeatherWind":"3b7fc850ba0875de99ec","icon-assets-WeatherWildfire":"2ca18d8931dbc52e6050","icon-assets-WeatherWindDir":"d98048844e512469da15","icon-assets-WebContent":"076edf4c9d1bac892da7","icon-assets-WeeklyAdsDark":"85fba8556982ab768f6a","icon-assets-WeeklyAdsLight":"96dc27ac9d4fc99569a7","icon-assets-WhatsApp":"4a1f0bf768c683621d76","icon-assets-WhatsAppBlack":"48855924289be48a0a9c","icon-assets-Windy":"52e64e1c3bb71ff336dd","icon-assets-WindyWhite":"6b363f16791c5053f8fc","icon-assets-WindyV2":"f9626165178d9f7b94c9","icon-assets-Winterstorm":"346c5b2128f31abe4632","icon-assets-Word":"d7456c7738ec4db0c995","icon-assets-World":"c130e43c3296b69a5d9b","icon-assets-Xlsx":"e71f4fbcb4d5ccca0041","icon-assets-Yammer":"e9e5ea466ecad615c30d","icon-assets-AdsVideoReplay":"99ebb7af8571705ed8f8","icon-assets-ArrowLeft":"451557e4a51533ac033d","icon-assets-ArrowRight":"68cf3ff39dd93c6a400b","icon-assets-ArrowRightWhite":"2e14d3f778eddbcb256e","icon-assets-ArrowLeftWhite":"969b8645a01ef6021f1d","icon-assets-ExclamMark":"830c5575d7e643279402","icon-assets-SunRiseLightDynamicV1":"85c91a550fb46d7cdbd1","icon-assets-MoonRiseLightDynamicV1":"785c16299c0950e3ffeb","icon-assets-MoonRiseLightDynamicRevertV1":"a5da9acdde619b08379b","icon-assets-NarrowDown":"b6c39a09f04ee329d116","node_modules_intersection-observer_intersection-observer_js":"7ed8a4e215d160c64db4","cold-start-gif":"05ea6cc30c2f0977775a",nativeadsdecorations:"aae0bc614d64f1969af4",nativeadstemplates:"d507e83e27edaa729b58","web-components_native-ad-video_dist_index_js":"284691cde495e35dd090","web-components_stock-chart_dist_index_js":"ef923100d94b810e88c7","libs_service-worker-window_dist_index_js":"5673927bc5f7dfefa48c","libs_finance-service-library_dist_index_js-_abd80":"30dde3dee81efcab536f","libs_oneservice-card-provider_dist_index_js":"cd6135d0d2b06eb70cdb","components_finance-component_src_FinanceSparkLineHelper_ts":"a19fbdcd730e90900b2c","experiences_sports-card-wc_dist_components_sports-match-video_index_js":"4dee55c85fd089eb6735","experiences_sports-card-wc_dist_components_sports-match_index_js":"cf19a34e189d7cc16728","experiences_sports-card-wc_dist_components_sports-superbowl_index_js":"311ee75a8928abdd04cd","experiences_sports-card-wc_dist_components_sports-marchmadness_index_js":"bd0b559f505c93776a6d","experiences_sports-card-wc_dist_components_sports-search_index_js":"433c6ba2ffa974685992","experiences_sports-card-wc_dist_components_sports-hidepopup_index_js":"c76a86303f4a61a4442c","experiences_sports-card-wc_dist_components_sports-hidereminder_index_js":"4924dc61ade1ea19f37a","experiences_sports-card-wc_dist_components_sports-feedback_index_js":"6fe3629b2c9788b8018d","experiences_sports-card-wc_dist_components_sports-coldstart_index_js":"83cff14e45091ae07423","experiences_weather-card-wc_dist_components_weather-hide-dialog_index_js":"49a683082a4330135c07","experiences_weather-card-wc_dist_components_weather-hide-remind_index_js":"67c4d7701e9ee88e0b35","experiences_weather-card-wc_dist_components_weather-report-issue_index_js":"7d4f7fb310f07da59158","libs_finance-service-library_dist_index_js-_abd81":"ea104a2776e19c7af023"}[e]+".js"},c.g=function(){if("object"==typeof globalThis)return globalThis;try{return this||new Function("return this")()}catch(e){if("object"==typeof window)return window}}(),c.hmd=function(e){return(e=Object.create(e)).children||(e.children=[]),Object.defineProperty(e,"exports",{enumerable:!0,set:function(){throw new Error("ES Modules may not assign module.exports or exports.*, Use ESM export syntax, instead: "+e.id)}}),e},c.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},i={},n="@msnews/msnews-experiences:",c.l=function(e,t,a,s){if(i[e])i[e].push(t);else{var o,d;if(void 0!==a)for(var r=document.getElementsByTagName("script"),l=0;l<r.length;l++){var b=r[l];if(b.getAttribute("src")==e||b.getAttribute("data-webpack")==n+a){o=b;break}}o||(d=!0,(o=document.createElement("script")).charset="utf-8",o.timeout=120,c.nc&&o.setAttribute("nonce",c.nc),o.setAttribute("data-webpack",n+a),o.src=e,0!==o.src.indexOf(window.location.origin+"/")&&(o.crossOrigin="anonymous")),i[e]=[t];var f=function(t,a){o.onerror=o.onload=null,clearTimeout(p);var n=i[e];if(delete i[e],o.parentNode&&o.parentNode.removeChild(o),n&&n.forEach((function(e){return e(a)})),t)return t(a)},p=setTimeout(f.bind(null,void 0,{type:"timeout",target:o}),12e4);o.onerror=f.bind(null,o.onerror),o.onload=f.bind(null,o.onload),d&&document.head.appendChild(o)}},c.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},c.nmd=function(e){return e.paths=[],e.children||(e.children=[]),e},c.p="/bundles/v1/edgeChromium/buildNumber/",function(){var e={experience:0};c.f.j=function(t,a){var i=c.o(e,t)?e[t]:void 0;if(0!==i)if(i)a.push(i[2]);else{var n=new Promise((function(a,n){i=e[t]=[a,n]}));a.push(i[2]=n);var s=c.p+c.u(t),o=new Error;c.l(s,(function(a){if(c.o(e,t)&&(0!==(i=e[t])&&(e[t]=void 0),i)){var n=a&&("load"===a.type?"missing":a.type),s=a&&a.target&&a.target.src;o.message="Loading chunk "+t+" failed.\n("+n+": "+s+")",o.name="ChunkLoadError",o.type=n,o.request=s,i[1](o)}}),"chunk-"+t,t)}},c.O.j=function(t){return 0===e[t]};var t=function(t,a){var i,n,s=a[0],o=a[1],d=a[2],r=0;if(s.some((function(t){return 0!==e[t]}))){for(i in o)c.o(o,i)&&(c.m[i]=o[i]);if(d)var l=d(c)}for(t&&t(a);r<s.length;r++)n=s[r],c.o(e,n)&&e[n]&&e[n][0](),e[n]=0;return c.O(l)},a=self.webpackChunk_msnews_msnews_experiences=self.webpackChunk_msnews_msnews_experiences||[];a.forEach(t.bind(null,0)),a.push=t.bind(null,a.push.bind(a))}();var d=c.O(void 0,["common","vendors","microsoft"],(function(){return c(5193)}));d=c.O(d)}();
