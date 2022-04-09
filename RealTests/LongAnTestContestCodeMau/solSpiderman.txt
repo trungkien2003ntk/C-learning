@@ -1,0 +1,13 @@
+Thuật quay lui (50% số điểm)
+Độ phức tạp: O(2n). Ta dùng đệ quy quay lui, thử hết tất cả các cách leo hợp lệ, sao đó chọn ra cách leo có độ cao tối đa nhỏ nhất.
+
+Thuật toán quy hoạch động (100% số điểm)
+Độ phức tạp: O(n⋅D) với D=d1+d2+⋯+dn.
+
+Ta gọi dp[i][s] là độ cao tối đa bé nhất để khi ở lần leo thứ i, người nhện ở độ cao s. Khi đó ta có công thức quy hoạch động như sau:
+
+⎧⎩⎨⎪⎪dp[0][0]=0dp[i][s]=min{max(s,dp[i−1][s−di])dp[i−1][s+di]∀1≤i≤n
+Nếu tồn tại dp[n][0], ta truy vết đáp án từ dp[n][0]. Ngược lại, ta in ra IMPOSSIBLE.
+
+Thuật nhánh cận
+Bài này còn có thể giải bằng cách dùng đệ quy kết hợp nhánh cận để tìm phương án hợp lệ nhưng không tối ưu một cách nhanh chóng với n≤50
