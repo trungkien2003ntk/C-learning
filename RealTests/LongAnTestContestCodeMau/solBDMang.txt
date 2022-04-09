@@ -1,0 +1,26 @@
+Trường hợp n≤5.102 và q≤5.103.
+Với mỗi phép biến đổi có dạng (u, v, k), duyệt từ u -> v để tăng k đơn vị.
+
+Với mỗi câu hỏi có dạng (x), duyệt qua n phần tử đếm xem có bao nhiêu số có giá trị là x.
+
+Độ phức tạp: O(m.n+n.q).
+
+Trường hợp n≤106 và q≤5.
+Ta thấy m.n≤1010 quá lớn. Để tối ưu phần biến đổi, ta sử dụng kĩ thuật mảng cộng dồn.
+
+Gọi bi là độ thay đổi của phần tử thứ i sau m phép biến đổi.
+Với mỗi phép biến đổi có dạng (u, v, k), thực hiện +k vào bu và −k vào bv+1.
+Duyệt từ 1 --> n và thực hiện cộng dồn mảng bi.
+Phần tử thứ i có giá trị sau m phép biến đổi là ai+bi.
+
+Độ phức tạp: O(m+n+n.q)
+Trường hợp n≤106 và q≤106.
+Việc duyệt qua mảng a cho mỗi truy vấn là không khả thi.
+
+Gọi cntx là số lần xuất hiện của x trong mảng. Với mỗi i, +1 vào cntai+bi.
+
+Tới đây có thể sử dụng nhiều CTDL như mảng, vector, unorderedmap,...
+
+Chú ý: các phần tử có thể âm.
+
+Độ phức tạp: O(m+n+q) hoặc O(m+nlogn+q).
