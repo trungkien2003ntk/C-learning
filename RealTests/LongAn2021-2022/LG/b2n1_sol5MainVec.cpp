@@ -3,7 +3,6 @@
 #include <algorithm>
 using namespace std;
 
-vector<int> price;
 int N;
 long long K;
 vector<pair<int,int>> datIn;
