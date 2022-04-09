@@ -1,0 +1,13 @@
+huật toán
+Đáp án = số thành phần liên thông −1.
+
+Tính chất cơ bản của đồ thị: Số cạnh vô hướng ít nhất để một đồ thị n đỉnh liên thông sẽ là n−1 cạnh. Hay nói cách khác, đó chính là số cạnh của một cây khung của đồ thị.
+
+Trong bài này đồ thị có n đỉnh và m cạnh. Vì các đỉnh thuộc cùng một thành phần liên thông thì có thể đi lại được với nhau, nên ta chỉ cần thêm cạnh nối 2 đỉnh thuộc 2 thành phần liên thông khác nhau để tạo ra 1 thành phần liên thông mới. Như vậy ta sẽ cần k−1 cạnh như vậy (với k là số thành phần liên thông của đồ thị) để đưa đồ thị về còn 1 thành phần liên thông duy nhất. Hay nói cách khác, ta có thể xem đồ thị G′ mới có k đỉnh với mỗi đỉnh đại diện cho 1 thành phần liên thông của đồ thị G ban đầu, và từ đó suy ra cần thêm ít nhất k−1 cạnh để chúng liên thông với nhau.
+
+Xét test ví dụ: đồ thị gồm 7 đỉnh và 5 cạnh
+
+
+
+Ta xác định được đồ thị gồm có 3 thành phần liên thông (1,2,3),(4,7),(5,6). Sau đó, ta có thể chọn 2 cạnh nối hai đỉnh thuộc 2 thành phần liên thông khác nhau. Chẳng hạn nối (2,6),(3,7) và có được đồ thị mới gồm 1 thành phần liên thông như sau:
+
