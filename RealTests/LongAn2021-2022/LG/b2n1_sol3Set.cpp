@@ -37,12 +37,13 @@ void nhapTho()
 void xuly()
 {
 	set<pair<long long,long long>>::iterator item=datIn.begin();
-	long long result = 0, people = 0;
-	while (result + item->first * item->second <= K)
+	long long result = 0, people = 0, tempt = item->first * item->second;
+	while (result + tempt <= K)
 	{
-		result += item->first * item->second;
+		result += tempt;
 		people += item->second;
 		item++;
+		tempt = item->first * item->second;
 	}
 	cout << people + (K-result)/(item->first);
 }
