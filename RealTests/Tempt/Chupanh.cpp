@@ -16,7 +16,7 @@ int main(){
 	// Base case
 	for (int j=0;j<N;j++){
 		vector<int> tempt;
-		tempt.push_back(a[j]);
+		tempt.push_back(a[j+1]);
 		SpT.push_back(tempt);
 	}
 	
@@ -24,7 +24,7 @@ int main(){
 	// (1<<i) là toán tử bit dịch 1 sang trái i bit tương đương với phép nhân cho 2^i
 	// toán tử A<<n là phép dịch chuyển A sang trái n bit tương đương với phép nhân cho 2 mũ n. 
 	for (int i=1;i<=h;i++)
-		for (int j=0;j+(1<<i)<=N;j++))
-	
+		for (int j=0;j+(1<<i)<=N;j++)
+			SpT[i][j] = min(SpT[i-1][j], SpT[i-1][j + (1<<(i-1))]);
 	return 0;
 }
