@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 #define ll long long
 using namespace std;
 
@@ -43,10 +44,10 @@ void xuly()
 
         if(sum==K)
         {
-            if(u[i].second==0&&u[i+1].second==1)
+            if(u[i].second==0 && u[i+1].second==1)
             res+=u[i+1].first-(u[i].first)+1;
             else
-                if((u[i].second==1&&u[i+1].second==0))
+                if((u[i].second==1 && u[i+1].second==0))
                   res+=u[i+1].first-(u[i].first+1);  
             else
             res+=u[i+1].first-u[i].first;
