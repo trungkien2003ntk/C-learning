@@ -13,6 +13,11 @@ void Nhap(){
 	f.close();
 }
 
+void NhapInline(){
+	cin >> M >> N >> K;
+	for (int i=1;i<=K;i++)
+		cin >> coor_x[i] >> coor_y[i] >> range_R[i] >> bandwidth_B[i];
+}
 void KhoiTao(){
 	MAX_X = coor_x[1];
 	MAX_Y = coor_y[1];
@@ -65,11 +70,15 @@ void Xuat(){
 	f.close();	
 }
 
+void XuatInline(){
+	cout << maxB << endl;
+	cout << countMaxB;
+}
 
 int main(){
-	Nhap();
+	NhapInline();
 	KhoiTao();
 	XuLy();
-	Xuat();
+	XuatInline();
 	return 0;
 }
