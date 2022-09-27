@@ -119,24 +119,7 @@ T cceil(const T &a, const P &b)
 // START PROGRAM
 //============================================================================
 
-// vector<int> vdat;
 int n, result = 0;
-
-void nhap()
-{
-//    freopen("datin.txt", "r", stdin);
-    cin >> n;
-//    fclose(stdin);
-}
-
-void xuat()
-{
-    // for (auto i: vdat){
-    //     cout << i << " ";
-    // }
-    // cout << endl;
-    cout << result;
-}
 
 void xuly(int x)
 {
@@ -149,9 +132,7 @@ void xuly(int x)
         int i = 1;
         while (x + i <= n && i <= 6)
         {
-            // vdat.push_back(i);
             xuly(x + i);
-            // vdat.pop_back();
             i++;
         }
     }
@@ -160,7 +141,7 @@ void xuly(int x)
 int main()
 {
     fast_io;
-    nhap();
+    cin >> n;
     xuly(0);
-    xuat();
+    cout << result;
 }
