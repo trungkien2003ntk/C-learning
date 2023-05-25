@@ -1,0 +1,1 @@
+{"name":"Local: bai2","url":"d:\\HSG\\C-learning\\RealTests\\LongAn_2023_V1\\Bai2\\bai2.cpp","tests":[{"id":1681750900916,"input":"8\n9 6 8 6 6 3 7 3","output":"60"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\HSG\\C-learning\\RealTests\\LongAn_2023_V1\\Bai2\\bai2.cpp","group":"local","local":true}

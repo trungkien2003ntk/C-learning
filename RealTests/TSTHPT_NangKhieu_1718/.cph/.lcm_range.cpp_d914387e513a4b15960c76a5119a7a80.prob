@@ -1,0 +1,1 @@
+{"name":"Local: lcm_range","url":"d:\\HSG\\C-learning\\RealTests\\TSTHPT_NangKhieu_1718\\lcm_range.cpp","tests":[{"id":1684975292177,"input":"10","output":"2520"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\HSG\\C-learning\\RealTests\\TSTHPT_NangKhieu_1718\\lcm_range.cpp","group":"local","local":true}

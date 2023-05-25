@@ -17,7 +17,7 @@ void nhapFile(){
 	f.close();
 }
 int main(){
-	nhap();
+	nhapFile();
 	// Sparse Table - Cay nhi phan
 	vector<vector<long long>> SpTm,SpTM;
 	

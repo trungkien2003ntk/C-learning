@@ -15,6 +15,12 @@ void Nhap(){
 	f.close();
 }
 
+void NhapInline(){
+	cin >> N >> M >> S;
+	for (int i=1;i<=M;i++)
+		cin >> A[i];
+}
+
 void KhoiTao(){
 	// Khoi tao vi tri bat dau xu ly
 	MAX = MIN = A[1];
@@ -65,6 +71,7 @@ void xuly(){
 
 int main(){
 	Nhap();
+	NhapInline();
 	KhoiTao();
 	xuly();
 }
