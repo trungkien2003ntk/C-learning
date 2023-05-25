@@ -181,7 +181,7 @@ int calcSum(int x)
             x /= needPrime[csMaxFactor], countFactors[csMaxFactor]++;
         else
             csMaxFactor++;
-    
+
     for (int i = 1; i <= csMaxFactor; i++)
         if (countFactors[i])
             kq *= (1 - pow(needPrime[i], countFactors[i] + 1)) / (1 - needPrime[i]);
@@ -197,6 +197,9 @@ int32_t main()
     m = n + 1;
     while (((calcSum(m) * n) != (calcSum(n) * m)) && (m < 10000))
         m++;
-    cout << m;
+    if (m < 10000)
+        cout << m;
+    else
+        cout << -1;
     // getch();
 }

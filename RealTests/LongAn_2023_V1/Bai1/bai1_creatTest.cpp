@@ -126,25 +126,83 @@ T cceil(const T &a, const P &b)
 //============================================================================
 // START PROGRAM
 //============================================================================
-int n, a[10008];
+
+const int N = 10080;
+int n, m, needPrime[1708], cs = 0, countFactors[1708], csMaxFactor = 0;
+bool prime[10080];
+
+// Sàn Eratosthenes bản cải tiến
+inline void initPrimes()
+{
+    memset(prime, 0, sizeof(prime));
+    prime[2] = prime[3] = 1;
+    // k=1668: 6k+1 = 10009; 6k-1 = 10007 đã vượt giới hạn tính
+    // 6k+1 và 6k-1 không chia hết cho 2;3 nên khỏi kiểm tra
+    for (int k = 1; k < 1669; k++)
+        prime[6 * k + 1] = prime[6 * k - 1] = 1;
+    int t1, t2;
+    for (int k = 1; k < 1669; k++)
+    {
+        t1 = 6 * k - 1, t2 = 6 * k + 1;
+        if (prime[t1])
+            for (int j = k + 1; j < 1669; j++)
+            {
+                if ((6 * j + 1) % t1 == 0)
+                    prime[6 * j + 1] = 0;
+                if ((6 * j - 1) % t1 == 0)
+                    prime[6 * j - 1] = 0;
+            }
+        if (prime[t2])
+            for (int j = k + 1; j < 1669; j++)
+            {
+                if ((6 * j + 1) % t2 == 0)
+                    prime[6 * j + 1] = 0;
+                if ((6 * j - 1) % t2 == 0)
+                    prime[6 * j - 1] = 0;
+            }
+    }
+    // Reload into needPrime array
+    for (int i = 1; i < 10008; i++)
+        if (prime[i])
+            needPrime[++cs] = i;
+
+    // Checker
+    // for (int i = 1;i<=cs;i++)
+    //     cout << needPrime[i] << " ";
+}
+
+int calcSum(int x)
+{
+    int kq = 1;
+    memset(countFactors, 0, sizeof(countFactors));
+    csMaxFactor = 1;
+    while (x > 1)
+        if (x % needPrime[csMaxFactor] == 0)
+            x /= needPrime[csMaxFactor], countFactors[csMaxFactor]++;
+        else
+            csMaxFactor++;
+
+    for (int i = 1; i <= csMaxFactor; i++)
+        if (countFactors[i])
+            kq *= (1 - pow(needPrime[i], countFactors[i] + 1)) / (1 - needPrime[i]);
+    return kq;
+}
 
 int32_t main()
 {
     fast_io;
-    cin >> n;
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
 
-    sort(a, a + n);
-    int s = 0;
-    for (int i = 0; i < n; i++)
-        s += a[i];
-    for (int i = 0; i < n / 2; i++)
-        s += a[n - i - 1] - a[i];
-
-    for (int i = 0; i < n; i++)
-        cout << a[i] << " ";
-    cout << endl;
-    cout << s << endl;
-    // getch();
+    initPrimes();
+    freopen("testcases.txt", "w", stdout);
+    for (int n = 1; n <= 10000; n++)
+    {
+        m = n + 1;
+        while (((calcSum(m) * n) != (calcSum(n) * m)) && (m < 10000))
+            m++;
+        if (m < 10000)
+            cout << n << " - " << m << " \n";
+    }
+    cout << "End Sols!!";
+    fclose(stdout);
+    getch();
 }

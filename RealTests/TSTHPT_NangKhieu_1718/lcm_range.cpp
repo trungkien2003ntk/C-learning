@@ -126,25 +126,40 @@ T cceil(const T &a, const P &b)
 //============================================================================
 // START PROGRAM
 //============================================================================
-int n, a[10008];
+const ll MAX_ARR = 1e6 + 3;
+const ll MAX_SEGMENT_TREE = 2 * MAX_ARR + 1;
+ll n, st[MAX_SEGMENT_TREE];
+
+ll gcd(ll a, ll b)
+{
+    if (a == 0)
+        return b;
+    return gcd(b % a, a);
+}
+
+ll lcm(ll a, ll b)
+{
+    ll kq = a * b / gcd(a, b);
+    while (kq > 1e9 + 7)
+        kq %= 1000000007;
+    return kq;
+}
+
+void buildST()
+{
+    for (ll i = n; i < 2 * n; i++)
+        st[i] = i - (n - 1);
+    for (ll i = n - 1; i > 0; i--)
+        st[i] = lcm(st[2 * i], st[2 * i + 1]);
+}
 
 int32_t main()
 {
     fast_io;
     cin >> n;
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
-
-    sort(a, a + n);
-    int s = 0;
-    for (int i = 0; i < n; i++)
-        s += a[i];
-    for (int i = 0; i < n / 2; i++)
-        s += a[n - i - 1] - a[i];
-
-    for (int i = 0; i < n; i++)
-        cout << a[i] << " ";
-    cout << endl;
-    cout << s << endl;
+    buildST();
+    cout << st[1];
+    // for (int i = 1; i <= 2 * n; i++)
+    //     cout << st[i] << " ";
     // getch();
 }

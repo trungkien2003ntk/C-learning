@@ -126,25 +126,59 @@ T cceil(const T &a, const P &b)
 //============================================================================
 // START PROGRAM
 //============================================================================
-int n, a[10008];
+int n, a[10008], weight[10008][10008], v[10008], vsave[10008];
+
+inline void savePermutation()
+{
+    for (int i = 1; i <= n; i++)
+        vsave[i] = a[v[i]];
+}
 
 int32_t main()
 {
     fast_io;
     cin >> n;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
         cin >> a[i];
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= n; j++)
+            weight[i][j] = max(a[j] - a[i], 0);
 
-    sort(a, a + n);
-    int s = 0;
-    for (int i = 0; i < n; i++)
+    int s = 0, sDifRes = -1, sDifTempt;
+
+    for (int i = 1; i <= n; i++)
         s += a[i];
-    for (int i = 0; i < n / 2; i++)
-        s += a[n - i - 1] - a[i];
 
-    for (int i = 0; i < n; i++)
-        cout << a[i] << " ";
-    cout << endl;
-    cout << s << endl;
+    for (int i = 1; i <= n; i++)
+        v[i] = i;
+
+    // for (int i = 1; i <= n; i++)
+    // {
+    // for (int j = 1; j <= n; j++)
+    //     cout << weight[i][j] << " ";
+    // cout << " \n";
+    // }
+
+    do
+    {
+        sDifTempt = 0;
+        for (int i = 1; i < n; i++)
+            sDifTempt += weight[v[i]][v[i + 1]];
+        if (sDifTempt > sDifRes)
+        {
+            sDifRes = sDifTempt;
+            savePermutation();
+        }
+
+        // for (int i = 1; i <= n; i++)
+        //     cout << v[i] << " ";
+        // cout << ": " << sDifTempt << " - " << sDifRes << endl;
+    } while (next_permutation(v + 1, v + n + 1));
+
+    for (int i = 1;i<=n;i++)
+        cout << vsave[i] << " ";
+    cout <<  " \n"; 
+    cout << s + sDifRes;
+
     // getch();
 }
