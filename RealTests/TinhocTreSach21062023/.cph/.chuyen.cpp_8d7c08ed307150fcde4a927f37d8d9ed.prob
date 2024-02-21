@@ -1,0 +1,1 @@
+{"name":"Local: chuyen","url":"d:\\HSG\\C-learning\\RealTests\\TinhocTreSach21062023\\chuyen.cpp","tests":[{"id":1687349555261,"input":"4\n.XX..XX.X. 2\n.XX..XX.X. 3\n.XX..XX.X. 4\n.XX..XX.X. 5","output":"0\n2\n4\n7"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\HSG\\C-learning\\RealTests\\TinhocTreSach21062023\\chuyen.cpp","group":"local","local":true}

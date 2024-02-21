@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <conio.h>
 #include <vector>
 // Policy-based data structures - Co the build indexed_set
 // #include <ext/pb_ds/assoc_container.hpp>
@@ -35,9 +34,6 @@ typedef pair<int, int> pi;
 // Graph transitions
 // vector<pair<int, int>> dir{{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
 // vector<pair<int, int>> dir{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-// vector<pair<int, int>> dir{{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
-// vector<char> dir_pos{'L','R','U','D'};
-// map<char,int> pos_dic{{'L',0},{'R',1},{'U',2},{'D',3}};
 // Return wherehter an array contains an element with value x
 #define FIND_X(vec, x) lower_bound(vec.begin(), vec.end(), x) - vec.begin();
 // Return wherehter an array contains an element with value x return upper bound of item x
@@ -66,10 +62,6 @@ typedef pair<int, int> pi;
     for (int i = 0; i < x.size(); i++) \
         cout << x[i] << " ";           \
     cout << endl;
-// Define readfiles
-#define dR(type, ...) \
-    type __VA_ARGS__; \
-    io.read(__VA_ARGS__)
 // Some common templates
 template <typename T>
 istream &operator>>(istream &is, vector<T> &v)
@@ -126,40 +118,66 @@ T cceil(const T &a, const P &b)
 //============================================================================
 // START PROGRAM
 //============================================================================
-const ll MAX_ARR = 100 + 3;
-const ll MAX_SEGMENT_TREE = 2 * MAX_ARR + 1;
-ll n, st[MAX_SEGMENT_TREE];
-
-ll gcd(ll a, ll b)
-{
-    if (a == 0)
-        return b;
-    return gcd(b % a, a);
-}
-
-ll lcm(ll a, ll b)
-{
-    ll kq = a * b / gcd(a, b);
-    while (kq > 1e9 + 7)
-        kq %= 1000000007;
-    return kq;
-}
-
-void buildST()
-{
-    for (ll i = n; i < 2 * n; i++)
-        st[i] = i - (n - 1);
-    for (ll i = n - 1; i > 0; i--)
-        st[i] = lcm(st[2 * i], st[2 * i + 1]);
-}
-
-int32_t main()
+long long n;
+string s;
+unordered_map<long long, set<long long>> umap;
+int main()
 {
     fast_io;
-    cin >> n;
-    buildST();
-    cout << st[1];
-    // for (int i = 1; i <= 2 * n; i++)
-    //     cout << st[i] << " ";
-    // getch();
+    cin >> n >> s;
+
+    for (long long i = 0; i < n; i++)
+        umap[s[i]].insert(i);
+
+    if (umap.size() < 6)
+        cout << 0;
+    else
+    {
+        long long res = 1;
+
+        // First round from beginning
+        long long item_first = 0;
+        long long item_last = s.size() - 1;
+        while (umap[s[item_first]].size() > 1)
+        {
+            umap[s[item_first]].erase(item_first);
+            item_first++;
+            res++;
+            // cout << res << " - " << item_first << " " << s[item_first] << " \n";
+            // cout << "While 0 -> RES: " << res << " -> " << item_first << " " << item_last << "\n";
+            // for (int i = item_first; i <= item_last; i++)
+            //     cout << s[i];
+            // cout << endl;
+        }
+        // Second round from ending
+
+        while (item_first > 0 || umap[s[item_last]].size() > 1)
+        {
+            while (umap[s[item_last]].size() == 1)
+            {
+                item_first--;
+                if (s[item_first] != s[item_last] || item_last != s.size()-1)
+                    res++;
+                umap[s[item_first]].insert(item_first);
+                // cout << "While 1 -> RES: " << res << " -> " << item_first << " " << item_last << "\n";
+                // for (int i = item_first; i <= item_last; i++)
+                //     cout << s[i];
+                // cout << endl;
+            }
+
+            while (umap[s[item_last]].size() > 1)
+            {
+                umap[s[item_last]].erase(item_last);
+                item_last--;
+                res++;
+                // cout << "While 2 -> RES: " << res << " -> " << item_first << " " << item_last << "\n";
+                // for (int i = item_first; i <= item_last; i++)
+                //     cout << s[i];
+                // cout << endl;
+            }
+        }
+        cout << res;
+    }
+
+    // getchar();
 }
