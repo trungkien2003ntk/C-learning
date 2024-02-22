@@ -1,0 +1,1 @@
+{"name":"Local: bai3_vernormal","url":"d:\\HSG\\C-learning\\THCS\\HSG LA 2023\\Huyen2023\\bai3_vernormal.cpp","tests":[{"id":1708509510217,"input":"15\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15","output":"2 3 5 9"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\HSG\\C-learning\\THCS\\HSG LA 2023\\Huyen2023\\bai3_vernormal.cpp","group":"local","local":true}
