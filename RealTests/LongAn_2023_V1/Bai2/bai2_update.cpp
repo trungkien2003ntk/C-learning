@@ -12,40 +12,22 @@ using namespace std;
 //============================================================================
 // START PROGRAM
 //============================================================================
-long long dat[1308], n, ini;
-bool sig = 0;
-string st;
-
-void roll(long long x)
-{
-    if (!dat[x])
-    {
-        st = to_string(x);
-        for (char ch : st)
-            dat[x] += dat[ch - '0'];
-        if (dat[x] == 1)
-            sig = 1;
-        else
-            roll(dat[x]);
-    }
-}
+long long n, a[100008], res = 0, i, mid;
 
 int main()
 {
     fast_io;
     cin >> n;
-    for (int i = 0; i < 10; i++)
-        dat[i] = i * i;
+    for (i = 0; i < n; i++)
+        cin >> a[i];
+    sort(a, a + n);
+    mid = (n & 1 ? (n >> 1) + 1 : n >> 1);
 
-    while (!sig)
-    {
-        ini = 0;
-        st = to_string(++n);
-        for (char ch : st)
-            ini += dat[ch - '0'];
-        roll(ini);
-    }
+    for (i = n - 1; i >= mid; i--)
+        res += 2 * a[i];
 
-    cout << n;
+    if (n & 1)
+        res += a[i];
+    cout << res;
     // getchar();
 }

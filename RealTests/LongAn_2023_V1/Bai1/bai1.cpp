@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <conio.h>
 #include <vector>
 // Policy-based data structures - Co the build indexed_set
 // #include <ext/pb_ds/assoc_container.hpp>
@@ -35,9 +34,6 @@ typedef pair<int, int> pi;
 // Graph transitions
 // vector<pair<int, int>> dir{{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
 // vector<pair<int, int>> dir{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-// vector<pair<int, int>> dir{{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
-// vector<char> dir_pos{'L','R','U','D'};
-// map<char,int> pos_dic{{'L',0},{'R',1},{'U',2},{'D',3}};
 // Return wherehter an array contains an element with value x
 #define FIND_X(vec, x) lower_bound(vec.begin(), vec.end(), x) - vec.begin();
 // Return wherehter an array contains an element with value x return upper bound of item x
@@ -66,10 +62,6 @@ typedef pair<int, int> pi;
     for (int i = 0; i < x.size(); i++) \
         cout << x[i] << " ";           \
     cout << endl;
-// Define readfiles
-#define dR(type, ...) \
-    type __VA_ARGS__; \
-    io.read(__VA_ARGS__)
 // Some common templates
 template <typename T>
 istream &operator>>(istream &is, vector<T> &v)
@@ -123,13 +115,35 @@ T cceil(const T &a, const P &b)
     ll x = a, y = b;
     return (x + y - 1) / y;
 }
+// Calculate lcm and gcd
+int gcd(int a, int b)
+{
+    if (!a || !b)
+        return a | b;
+    unsigned shift = __builtin_ctz(a | b);
+    a >>= __builtin_ctz(a);
+    do
+    {
+        b >>= __builtin_ctz(b);
+        if (a > b)
+            swap(a, b);
+        b -= a;
+    } while (b);
+    return a << shift;
+}
+int lcm(int a, int b)
+{
+    return a / gcd(a, b) * b;
+}
 //============================================================================
 // START PROGRAM
 //============================================================================
+int n, m, cs = 0, csMaxFactor = 0;
 
-const int N = 10080;
-int n, m, needPrime[1708], cs = 0, countFactors[1708], csMaxFactor = 0;
-bool prime[10080];
+const int N = 100008;
+const int kMax = ceil((N + 1) / 6);
+int countFactors[kMax + 1], needPrime[kMax + 1];
+bool prime[N];
 
 // Sàn Eratosthenes bản cải tiến
 inline void initPrimes()
@@ -138,14 +152,14 @@ inline void initPrimes()
     prime[2] = prime[3] = 1;
     // k=1668: 6k+1 = 10009; 6k-1 = 10007 đã vượt giới hạn tính
     // 6k+1 và 6k-1 không chia hết cho 2;3 nên khỏi kiểm tra
-    for (int k = 1; k < 1669; k++)
+    for (int k = 1; k <= kMax; k++)
         prime[6 * k + 1] = prime[6 * k - 1] = 1;
     int t1, t2;
-    for (int k = 1; k < 1669; k++)
+    for (int k = 1; k <= kMax; k++)
     {
         t1 = 6 * k - 1, t2 = 6 * k + 1;
         if (prime[t1])
-            for (int j = k + 1; j < 1669; j++)
+            for (int j = k + 1; j <= kMax; j++)
             {
                 if ((6 * j + 1) % t1 == 0)
                     prime[6 * j + 1] = 0;
@@ -153,7 +167,7 @@ inline void initPrimes()
                     prime[6 * j - 1] = 0;
             }
         if (prime[t2])
-            for (int j = k + 1; j < 1669; j++)
+            for (int j = k + 1; j < kMax; j++)
             {
                 if ((6 * j + 1) % t2 == 0)
                     prime[6 * j + 1] = 0;
@@ -162,7 +176,7 @@ inline void initPrimes()
             }
     }
     // Reload into needPrime array
-    for (int i = 1; i < 10008; i++)
+    for (int i = 1; i < N; i++)
         if (prime[i])
             needPrime[++cs] = i;
 
@@ -195,9 +209,9 @@ int32_t main()
     initPrimes();
     cin >> n;
     m = n + 1;
-    while (((calcSum(m) * n) != (calcSum(n) * m)) && (m < 10000))
+    while (((calcSum(m) * n) != (calcSum(n) * m)) && (m < 100000))
         m++;
-    if (m < 10000)
+    if (m <= 100000)
         cout << m;
     else
         cout << -1;
