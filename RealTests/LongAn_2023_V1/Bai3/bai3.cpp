@@ -12,7 +12,7 @@ using namespace std;
 //============================================================================
 // START PROGRAM
 //============================================================================
-long long dat[1308], n, ini;
+long long dat[1296], n, ini;
 bool sig = 0;
 string st;
 
@@ -23,6 +23,7 @@ void roll(long long x)
         st = to_string(x);
         for (char ch : st)
             dat[x] += dat[ch - '0'];
+
         if (dat[x] == 1)
             sig = 1;
         else
@@ -34,7 +35,7 @@ int main()
 {
     fast_io;
     cin >> n;
-    for (int i = 0; i < 10; i++)
+    for (int i = 1; i < 10; i++)
         dat[i] = i * i;
 
     while (!sig)
