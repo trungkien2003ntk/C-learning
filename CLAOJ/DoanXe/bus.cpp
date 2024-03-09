@@ -12,7 +12,7 @@ using namespace std;
 //============================================================================
 // START PROGRAM
 //============================================================================
-long long n, m, k, res = 1e16;
+long long n, m, k, res = 1e16, mid;
 vector<long long> a;
 
 int main()
@@ -26,19 +26,27 @@ int main()
         cin >> a[i];
     sort(a.begin(), a.end());
 
+    // Checkpoint
+    for (int i = 0; i < n; i++)
+        cout << a[i] << " \n"[i == n - 1];
+
     // If number of cars >= number of person then each person get on 1 car without waiting
     if (m >= n)
         cout << 0;
     else
     {
         // BST
-        int left = 0, right = max(a[n - 1] - a[n - k], a[k - 1] - a[0]);
-        while (left <= right)
-        {
-            mid = (left + right) >> 1;
-            // Vấn đề 1: Làm sao xác định được cái mid này có tồn tại hay không?
-            // Vấn đề 2: Cái mid này có phải là thời gian chờ tối đa của một trường hợp nào đó không?
-        }
+        int left = 0, right = max(a[n - 1] - a[m - 1], a[n - (m - 1)] - a[0]);
+        cout << left << " " << right << endl;
+
+        // while (left <= right)
+        // {
+        //     mid = (left + right) >> 1;
+        //     // Vấn đề 1: Làm sao xác định được cái mid này có tồn tại hay không?
+        //     // Vấn đề 2: Cái mid này có phải là thời gian chờ tối đa của một trường hợp nào đó không?
+        //     // Vấn đề 3: Làm sao để biết có cái trường hợp nào tốt hơn cái mid này không?
+        //     // Vấn đề 4: Theo sau vấn đề 3, khi nào sẽ không thể có trường hợp như thế được nữa?
+        // }
     }
 
     // getchar();
