@@ -2,9 +2,9 @@
 #include <vector>
 using namespace std;
 // SPEED UP
-// #pragma GCC optimize("O3") //how good is this? lol
-// #pragma GCC target("avx,avx2,sse,sse2,sse3,sse4,popcnt,fma")
-// #pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("O3") // how good is this? lol
+#pragma GCC target("avx,avx2,sse,sse2,sse3,sse4,popcnt,fma")
+#pragma GCC optimize("unroll-loops")
 #define fast_io                   \
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
@@ -12,13 +12,14 @@ using namespace std;
 //============================================================================
 // START PROGRAM
 //============================================================================
-int n, m, k, mid;
+int n, m, k, mid, low, high, mid1, mid2;
 vector<int> a;
 
 bool is_valid_separation(int kt, int distance_limit, int mt)
 {
     int subarray_start = 0;
     int subarray_count = 1; // Initialize with 1 subarray
+
     int i = 0;
     while (i < n && subarray_count <= mt)
     {
@@ -32,26 +33,6 @@ bool is_valid_separation(int kt, int distance_limit, int mt)
     return subarray_count <= mt;
 }
 
-int find_min_distance(int kt, int mt)
-{
-    int low = 0;
-    int high = a[n - 1] - a[0]; // Maximum possible distance
-
-    while (low <= high)
-    {
-        int mid = (low + high) >> 1;
-
-        if (is_valid_separation(kt, mid, mt))
-            // P can be potentially lower, explore left side
-            high = mid - 1;
-        else
-            // P needs to be higher to satisfy separation with at most m subarrays, explore right side
-            low = mid + 1;
-    }
-
-    return low;
-}
-
 int main()
 {
     fast_io;
@@ -62,6 +43,25 @@ int main()
         cin >> a[i];
     sort(a.begin(), a.end());
 
-    cout << find_min_distance(k, m);
+    // BST to find minimum distance ternary search
+    low = 0;
+    high = a[n - 1] - a[0]; // Maximum possible distance
+
+    while (low <= high)
+    {
+        mid1 = low + (high - low) / 3;
+        mid2 = high - (high - low) / 3;
+
+        if (is_valid_separation(k, mid1, m))
+            // P can be potentially lower, explore left side
+            high = mid1 - 1;
+        else if (is_valid_separation(k, mid2, m))
+            // P needs to be higher to satisfy separation with at most m subarrays, explore right side
+            low = mid1 + 1, high = mid2 - 1;
+        else
+            low = mid2 + 1;
+    }
+
+    cout << low;
     // getchar();
 }
