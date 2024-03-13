@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 // SPEED UP
-// #pragma GCC optimize("O3") //how good is this? lol
+// #pragma GCC optimize("O3") // how good is this? lol
 // #pragma GCC target("avx,avx2,sse,sse2,sse3,sse4,popcnt,fma")
 // #pragma GCC optimize("unroll-loops")
 #define fast_io                   \
@@ -12,9 +12,8 @@ using namespace std;
 //============================================================================
 // START PROGRAM
 //============================================================================
-int n, k, tempt, cs, lf, rg, mid, target;
+int n, k, tempt, lf, rg, mid, target, cs = 0;
 vector<pair<int, int>> a;
-bool sig = false;
 
 int main()
 {
@@ -29,21 +28,16 @@ int main()
 
     sort(a.begin(), a.end());
 
-    // Check Point
-    // for (auto it : a)
-    //     cout << it.first << " " << it.second << endl;
-
-    for (int cs = 0; cs < n; cs++)
+    for (; cs < n && target != a[mid].first; cs++)
     {
         target = 2 * k - a[cs].first;
         // Binary Search
         lf = cs + 1, rg = n - 1;
-        while (!sig && lf <= rg)
+        while (lf <= rg)
         {
             mid = (lf + rg) / 2;
             if (target == a[mid].first)
             {
-                sig = true;
                 cout << a[cs].second << " " << a[mid].second << endl;
                 break;
             }
@@ -55,7 +49,7 @@ int main()
         }
     }
 
-    if (!sig)
+    if (cs == n)
         cout << "0 0";
 
     // getchar();
