@@ -1,0 +1,1 @@
+{"name":"Local: bai3","url":"d:\\HSG\\C-learning\\VNOI\\HSG_HaiPhong2021_Bai3\\bai3.cpp","tests":[{"id":1710342529394,"input":"6 4\n1 3 2 5 8 6","output":"2 4"},{"id":1710342545290,"input":"3 5\n1 3 2","output":"0 0"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\HSG\\C-learning\\VNOI\\HSG_HaiPhong2021_Bai3\\bai3.cpp","group":"local","local":true}
