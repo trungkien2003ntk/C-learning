@@ -37,17 +37,20 @@ int main()
 
 	while (cin >> s)
 	{
-		sig = 10;
-		for (int i = 0; i < 5; i++)
-			typeMark[i] = false;
-		for (auto it : s)
+		if (s.size() >= 8)
 		{
-			if (!typeMark[ch[it]])
-				typeMark[ch[it]] = true, sig -= ch[it];
-			if (!sig)
+			sig = 10;
+			for (int i = 0; i < 5; i++)
+				typeMark[i] = false;
+			for (auto it : s)
 			{
-				res++;
-				break;
+				if (!typeMark[ch[it]])
+					typeMark[ch[it]] = true, sig -= ch[it];
+				if (!sig)
+				{
+					res++;
+					break;
+				}
 			}
 		}
 	}
