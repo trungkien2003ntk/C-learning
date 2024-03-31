@@ -215,5 +215,5 @@ int32_t main()
         cout << m;
     else
         cout << -1;
-    // getch();
+    getch();
 }
