@@ -20,12 +20,9 @@ vector<pair<long long, pair<long long, int>>> res;
 
 bool compare(pair<long long, pair<long long, int>> x, pair<long long, pair<long long, int>> y)
 {
-    if (x.first > y.first)
+    if ((x.first > y.first) || (x.first == y.first && x.second.first < y.second.first))
         return true;
-    else if (x.first == y.first && x.second.first < y.second.first)
-        return true;
-    else
-        return false;
+    return false;
 }
 
 int main()
