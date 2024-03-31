@@ -17,31 +17,23 @@ vector<char> pr;
 vector<string> res, initST;
 string tempt;
 
-// Segment Sieve of eratostenes
-
-vector<char> segmentedSieve(long long L, long long R)
+bool isPrime(long long x)
 {
-    // generate all primes up to sqrt(R)
-    long long lim = sqrt(R);
-    vector<char> mark(lim + 1, false);
-    vector<long long> primes;
-    for (long long i = 2; i <= lim; ++i)
+    if (x == 2 || x == 3)
+        return true;
+    else if (x < 2 || x % 2 == 0 || x % 3 == 0)
+        return false;
+    else
     {
-        if (!mark[i])
-        {
-            primes.emplace_back(i);
-            for (long long j = i * i; j <= lim; j += i)
-                mark[j] = true;
-        }
+        bool kq = true;
+        for (long long i = 1; i <= (sqrt(x) + 1) / 6; i++)
+            if ((x % (6 * i + 1) == 0) || (x % (6 * i - 1) == 0))
+            {
+                kq = false;
+                break;
+            }
+        return kq;
     }
-
-    vector<char> isPrime(R - L + 1, true);
-    for (long long i : primes)
-        for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
-            isPrime[j - L] = false;
-    if (L == 1)
-        isPrime[0] = false;
-    return isPrime;
 }
 
 void buildST()
@@ -61,17 +53,15 @@ int main()
 {
     fast_io;
     cin >> k;
-    lf = pow(10, 2 * k), rg = lf * 10 - 1;
-    pr = segmentedSieve(lf, rg);
+
     buildST();
 
     // for (auto it : initST)
     //     cout << it << " ";
 
-    for (int i = 0; i < initST.size(); i++)
-        if (pr[stoi(initST[i]) - lf])
+    for (long long i = 0; i < initST.size(); i++)
+        if (isPrime(stoll(initST[i])))
             res.push_back(initST[i]);
-
     cout << res.size() << "\n";
     for (auto it : res)
         cout << it << " ";
