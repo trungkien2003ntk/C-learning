@@ -13,12 +13,12 @@ using namespace std;
 // START PROGRAM
 //============================================================================
 int n;
-long long tempt;
+string tempt;
 
-map<long long, vector<int>> ipStu;
-vector<pair<long long, pair<long long, int>>> res;
+map<string, vector<int>> ipStu;
+vector<pair<int, pair<int, string>>> res;
 
-bool compare(pair<long long, pair<long long, int>> x, pair<long long, pair<long long, int>> y)
+bool compare(pair<int, pair<int, string>> x, pair<int, pair<int, string>> y)
 {
     if ((x.first > y.first) || (x.first == y.first && x.second.first < y.second.first))
         return true;
