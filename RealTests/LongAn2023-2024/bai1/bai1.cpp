@@ -12,7 +12,7 @@ using namespace std;
 //============================================================================
 // START PROGRAM
 //============================================================================
-long long k, lf, rg;
+long long k;
 vector<char> pr;
 vector<string> res, initST;
 string tempt;
@@ -53,12 +53,7 @@ int main()
 {
     fast_io;
     cin >> k;
-
     buildST();
-
-    // for (auto it : initST)
-    //     cout << it << " ";
-
     for (long long i = 0; i < initST.size(); i++)
         if (isPrime(stoll(initST[i])))
             res.push_back(initST[i]);
