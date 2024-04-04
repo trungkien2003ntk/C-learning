@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <vector>
 using namespace std;
 // SPEED UP
 // #pragma GCC optimize("O3") //how good is this? lol
@@ -25,7 +24,6 @@ string strDiv2(string x)
     for (long long i = 1; i < x.length(); i++)
     {
         val = 10 * tempt + (x[i] - '0');
-        // cout << val << "\n";
         result += to_string(val / 2);
         tempt = val % 2;
     }
@@ -44,10 +42,7 @@ string strSum(string x, string y)
         result = (char)(tempt % 10 + '0') + result;
         tempt /= 10;
     }
-
-    if (x.size() == y.size() && tempt > 0)
-        result = (char)(tempt % 10 + '0') + result;
-    else if (x.size() != y.size())
+    if (x.size() != y.size())
     {
         (x.size() > y.size()) ? remaining = x : remaining = y;
         for (int i = remaining.size() - 1 - limit; i >= 0; i--)
@@ -64,17 +59,22 @@ string strSum(string x, string y)
 
 string support_MulWithADigit(string x, char digit)
 {
-    string result = "";
-    int tempt = 0;
-    for (long long i = x.size() - 1; i >= 0; i--)
+    if (digit == '0')
+        return "0";
+    else
     {
-        tempt = (x[i] - '0') * (digit - '0') + tempt;
-        result = (char)(tempt % 10 + '0') + result;
-        tempt /= 10;
+        string result = "";
+        int tempt = 0;
+        for (long long i = x.size() - 1; i >= 0; i--)
+        {
+            tempt = (x[i] - '0') * (digit - '0') + tempt;
+            result = (char)(tempt % 10 + '0') + result;
+            tempt /= 10;
+        }
+        if (tempt > 0)
+            result = (char)(tempt % 10 + '0') + result;
+        return result;
     }
-    if (tempt > 0)
-        result = (char)(tempt % 10 + '0') + result;
-    return result;
 }
 
 string strMul(string x, string y)
@@ -90,7 +90,6 @@ string strMul(string x, string y)
     {
         for (int i = y.size() - 1; i >= 0; i--)
         {
-            cout << i << " : RES: " << result << " ; ADD:  " << addZero << " ; Mul with y[i]: " << support_MulWithADigit(x, y[i]) << "\n";
             result = strSum(result, support_MulWithADigit(x, y[i]) + addZero);
             addZero += "0";
         }
@@ -124,7 +123,7 @@ string strMinus(string x, string y)
         for (int i = x.size() - 1 - limit; i >= 0; i--)
             if (x[i] - '0' - tempt < 0)
             {
-                result = (char)(10 + (x[i] - '0') - tempt) + result;
+                result = (to_string)(10 + (x[i] - '0') - tempt) + result;
                 tempt = 1;
             }
             else
@@ -148,39 +147,28 @@ string strPow(string base, string exponent)
     {
         if ((exponent[exponent.size() - 1] - '0') % 2 == 1)
         {
-            // cout << result << " " << exponent << " " << base << "\n";
             result = strMul(result, base);
             exponent = strMinus(exponent, "1");
-            // cout << result << " " << exponent << " " << base << "\n";
         }
         else
         {
-            // cout << result << " " << exponent << " " << base << "\n";
             base = strMul(base, base);
             exponent = strDiv2(exponent);
-            // cout << result << " " << exponent << " " << base << "\n";
         }
     }
     return result;
 }
 
 string s, res;
-long long n;
+int n;
 int main()
 {
     fast_io;
-
-    // cout << strPow("11", "29");
-    // cout << strMul("45949729863572161", "34522712143931");
-    cout << strSum("32722821253432372436704891", "91899459727144322000000000");
-    // cin >> s;
-    // n = s.size();
-    // res = "0";
-    // for (int i = 0; i < n; i++)
-    //     res = strSum(res, support_MulWithADigit(strMinus(strMul(strPow("2", to_string(i)), strPow("11", to_string(n - i - 1))), strPow("10", to_string(n - i - 1))), s[i]));
-    // cout << res;
+    cin >> s;
+    n = s.size();
+    res = "0";
+    for (int i = 0; i < n; i++)
+        res = strSum(res, support_MulWithADigit(strMinus(strMul(strPow("2", to_string(i)), strPow("11", to_string(n - i - 1))), strPow("10", to_string(n - i - 1))), s[i]));
+    cout << res;
     // getchar();
 }
-// 1587309297171491574414436704891
-// 1586319297171491574414436704891
-// 1586309297171491574414436704891 Correct
