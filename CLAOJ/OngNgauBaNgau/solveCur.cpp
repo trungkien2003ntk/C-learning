@@ -14,21 +14,27 @@ using namespace std;
 //============================================================================
 
 vector<vector<pair<long long, long long>>> adj[100008];
-vector<long long> dis[100008];
+vector<long long> dis[100008], parent[100008];
 vector<bool> visited[100008];
 priority_queue<pair<long long, long long>, vector<pair<long long, long long>>, greater<pair<long long, long long>>> q;
 long long n, m, s, t;
 
-void dijikstra(long long steps)
+void dijkstra()
 {
-    auto curNode = q.top();
+    pair<long long, long long> curNode = q.top();
     q.top();
     for (auto it : adj[curNode.first])
     {
         if (it.first == t)
+        {
+            parent[t] = curNode.first;
             trackMeet();
+        }
         else
-            q.push()
+        {
+            parent[it] = curNode.first;
+            q.push({});
+        }
     }
 }
 
@@ -50,12 +56,12 @@ int main()
         it = LONG_LONG_MAX;
     dis[s] = 0;
     for (int i = 1; i <= n; i++)
-        visited[i] = false;
+        visited[i] = false, parent[i] = -1;
 
     // Solve
     q.push({s, 0});
     dis[s] = 0;
-    dijikstra(1);
+    dijkstra();
 
     // getchar();
 }
