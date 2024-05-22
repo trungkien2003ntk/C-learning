@@ -28,6 +28,10 @@ bool compare(pair<int, pair<int, string>> x, pair<int, pair<int, string>> y)
 int main()
 {
     fast_io;
+
+    freopen("TIMELINE.INP", "r", stdin);
+    freopen("TIMELINE.OUT", "w", stdout);
+
     cin >> n;
     for (int i = 0; i < n; i++)
     {

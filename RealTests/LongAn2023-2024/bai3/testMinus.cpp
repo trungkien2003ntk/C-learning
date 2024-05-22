@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <vector>
 using namespace std;
 // SPEED UP
 // #pragma GCC optimize("O3") //how good is this? lol
@@ -148,16 +149,11 @@ string strPow(string base, string exponent)
     return result;
 }
 // End Big Integer calculation
-string s, res;
-int n;
 int main()
 {
     fast_io;
-    cin >> s;
-    n = s.size();
-    res = "0";
-    for (int i = 0; i < n; i++)
-        res = strSum(res, support_MulWithADigit(strMinus(strMul(strPow("2", to_string(i)), strPow("11", to_string(n - i - 1))), strPow("10", to_string(n - i - 1))), s[i]));
-    cout << res;
+    cout << strPow("11", "29") << "\n";
+    cout << strPow("15", "38") << "\n";
+    cout << strMinus(strPow("11", "29"), strPow("15", "38")) << "\n";
     // getchar();
 }
