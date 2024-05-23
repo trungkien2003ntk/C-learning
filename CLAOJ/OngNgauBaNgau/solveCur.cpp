@@ -13,29 +13,51 @@ using namespace std;
 // START PROGRAM
 //============================================================================
 
-vector<vector<pair<long long, long long>>> adj[100008];
-vector<long long> dis[100008], parent[100008];
-vector<bool> visited[100008];
+vector<pair<long long, long long>> adj[100008];
+long long dis[100008], parent[100008];
+bool visited[100008];
+// Create a priority queue for storing the nodes and the distance from s to it
 priority_queue<pair<long long, long long>, vector<pair<long long, long long>>, greater<pair<long long, long long>>> q;
-long long n, m, s, t;
+long long n, m, s, t, res = LONG_LONG_MAX, resSize = LONG_LONG_MAX;
 
-void dijkstra()
+void showVisited()
 {
-    pair<long long, long long> curNode = q.top();
-    q.top();
-    for (auto it : adj[curNode.first])
+    cout << "Visited: ";
+    for (long long i = 1; i <= n; i++)
+        if (visited[i])
+            cout << i << " ";
+    cout << "\n";
+}
+
+void showParent()
+{
+    for (long long i = 1; i <= n; i++)
+        cout << "P[" << i << "] = " << parent[i] << " ";
+    cout << endl;
+}
+void trackBack()
+{
+    vector<long long> path;
+    long long curCity = t;
+    path.push_back(t);
+    while (curCity != s)
     {
-        if (it.first == t)
-        {
-            parent[t] = curNode.first;
-            trackMeet();
-        }
-        else
-        {
-            parent[it] = curNode.first;
-            q.push({});
-        }
+        curCity = parent[curCity];
+        path.push_back(curCity);
     }
+
+    if (path.size() == resSize)
+        res = min(res, path[resSize / 2]);
+    else if ((path.size() & 1) && (path.size() < resSize))
+    {
+        resSize = path.size();
+        res = path[resSize / 2];
+    }
+
+    // cout << "CURRENT TRACK PATH: \n";
+    // for (auto it : path)
+    //     cout << it << " ";
+    // cout << "\n";
 }
 
 int main()
@@ -44,24 +66,55 @@ int main()
     // Input data and init solution
     cin >> n >> m >> s >> t;
 
-    for (int i = 0; i < m; i++)
+    for (long long i = 0; i < m; i++)
     {
-        int x, y, z;
+        long long x, y, z;
         cin >> x >> y >> z;
 
         adj[x].push_back({y, z});
         adj[y].push_back({x, z});
     }
-    for (int i = 1; i <= n; i++)
-        it = LONG_LONG_MAX;
+    for (long long i = 1; i <= n; i++)
+        dis[i] = LONG_LONG_MAX;
     dis[s] = 0;
-    for (int i = 1; i <= n; i++)
-        visited[i] = false, parent[i] = -1;
+    for (long long i = 1; i <= n; i++)
+    {
+        visited[i] = false;
+        parent[i] = -1;
+    }
 
     // Solve
-    q.push({s, 0});
-    dis[s] = 0;
-    dijkstra();
 
+    q.push({dis[s], s});
+
+    while (!q.empty())
+    {
+        auto curNode = q.top();
+        q.pop();
+        // cout << curNode.first << " " << curNode.second << endl;
+        // showVisited();
+        // showParent();
+        // cout << "PUSH IN: " << "\n";
+        visited[curNode.second] = true;
+        for (auto it : adj[curNode.second])
+        { // Nếu node it chưa được thăm và dis[it.first] > dis[curNode.second] + it.second
+            if (!visited[it.first] && dis[it.first] >= dis[curNode.second] + it.second)
+            {
+                dis[it.first] = dis[curNode.second] + it.second;
+                parent[it.first] = curNode.second;
+
+                // cout << "(" << dis[it.first] << "; " << it.first << "); ";
+                q.push({dis[it.first], it.first});
+            }
+            if (it.first == t)
+                trackBack();
+        }
+        // cout << "\n*****************************\n";
+    }
+
+    if (res == LONG_LONG_MAX)
+        cout << "CRY";
+    else
+        cout << res;
     // getchar();
 }

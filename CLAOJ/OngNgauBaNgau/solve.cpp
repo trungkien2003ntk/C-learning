@@ -69,5 +69,8 @@ int main()
         }
     }
 
-    cout << ((tong != INT_MAX) ? tong : "CRY");
+    if (tong != INT_MAX)
+        cout << tong;
+    else
+        cout << "CRY";
 }
