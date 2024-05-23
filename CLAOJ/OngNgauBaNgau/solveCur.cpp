@@ -54,10 +54,10 @@ void trackBack()
         res = path[resSize / 2];
     }
 
-    // cout << "CURRENT TRACK PATH: \n";
-    // for (auto it : path)
-    //     cout << it << " ";
-    // cout << "\n";
+    cout << "CURRENT TRACK PATH: \n";
+    for (auto it : path)
+        cout << it << " ";
+    cout << "\n";
 }
 
 int main()
