@@ -2,7 +2,8 @@
 #include <vector>
 using namespace std;
 // SPEED UP
-// #pragma GCC optimize("O3") //how good is this? lol
+#pragma GCC optimize("O2")
+#pragma GCC optimize("-ftree-vectorize")
 // #pragma GCC target("avx,avx2,sse,sse2,sse3,sse4,popcnt,fma")
 // #pragma GCC optimize("unroll-loops")
 #define fast_io                   \
@@ -14,9 +15,10 @@ using namespace std;
 //============================================================================
 
 vector<pair<int, int>> a[1001];
-int disO[1001], disB[1001];
+pair<int, int> temp;
+int disO[1001], disB[1001], n, m, s, t, u, kc, v, w, x, y, z, res = INT_MAX, resTime = INT_MAX;
 
-void dijikstra(int x, int dis[])
+void dijkstra(int x, int dis[])
 {
     dis[x] = 0;
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
@@ -24,16 +26,14 @@ void dijikstra(int x, int dis[])
 
     while (!q.empty())
     {
-        pair<int, int> temp = q.top();
+        temp = q.top();
         q.pop();
-        int u = temp.second;
-        int kc = temp.first;
+        u = temp.second, kc = temp.first;
         if (kc > dis[u])
             continue;
         for (auto i : a[u])
         {
-            int v = i.first;
-            int w = i.second;
+            v = i.first, w = i.second;
             if (dis[v] > dis[u] + w)
             {
                 dis[v] = dis[u] + w;
@@ -46,12 +46,11 @@ void dijikstra(int x, int dis[])
 int main()
 {
     fast_io;
-    int n, m, s, t;
+
     cin >> n >> m >> s >> t;
 
     for (int i = 0; i < m; i++)
     {
-        int x, y, z;
         cin >> x >> y >> z;
 
         a[x].push_back({y, z});
@@ -61,10 +60,8 @@ int main()
         disO[y] = disB[x] = 1e9;
     }
 
-    dijikstra(s, disO);
-    dijikstra(t, disB);
-
-    int res = INT_MAX, resTime = INT_MAX;
+    dijkstra(s, disO);
+    dijkstra(t, disB);
 
     for (int i = 1; i <= n; i++)
         if (disO[i] == disB[i] && disO[i] > 0 && (resTime > disO[i] || (resTime == disO[i] && res > i)))
