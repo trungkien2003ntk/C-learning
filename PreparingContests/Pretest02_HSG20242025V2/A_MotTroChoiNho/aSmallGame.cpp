@@ -30,7 +30,7 @@ int solve(int n, int k)
             return 2 * k;
     }
 
-    int c = solve(n >> 1, k - (n + 1) / 2);
+    int c = solve(n / 2, k - (n + 1) / 2);
     if (n & 1)
         return 2 * c + 1;
     else
